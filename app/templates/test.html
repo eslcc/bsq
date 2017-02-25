@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket Test</title>
+</head>
+<body>
+<pre id="messages">
+    {% for message in messages %}
+    <span>{{ message }}</span>
+    {% end %}
+</pre>
+
+<input type="text" id="message">
+<button onclick="send()">Send</button>
+<small>Running on server {{ server }}</small>
+
+<script type="text/javascript" charset="utf-8">
+    var socket = new WebSocket('ws://' + window.location.host + '/socket');
+    socket.onmessage = function (msg) {
+        console.dir(msg);
+        var el = document.createElement('span');
+        el.innerText = msg.data;
+        document.getElementById('messages').appendChild(el);
+    };
+    function send() {
+        var textBox = document.getElementById('message');
+        var text = textBox.value;
+        socket.send(text);
+        textBox.value = '';
+    }
+</script>
+</body>
+</html>

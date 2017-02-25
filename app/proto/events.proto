@@ -1,0 +1,17 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+option java_package = "club.eslcc.bigsciencequiz";
+
+import "question.proto";
+import "gamestate.proto";
+
+message GameStateChangeEvent {
+    GameState newState = 1;
+}
+
+message GameEvent {
+    oneof event {
+        GameStateChangeEvent gameStateChangeEvent = 1;
+    }
+}
