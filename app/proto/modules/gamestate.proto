@@ -1,7 +1,7 @@
 syntax = "proto3";
 package bigsciencequiz;
 
-import "question.proto";
+import "modules/question.proto";
 
 option java_package = "club.eslcc.bigsciencequiz";
 
