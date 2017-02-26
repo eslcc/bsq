@@ -26,6 +26,11 @@ else:
                 super().write_error(status_code, **kwargs)
 
 
+class NocacheStaticFileHandler(tornado.web.StaticFileHandler):
+    def set_extra_headers(self, path):
+        # Disable cache
+        self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+
 class MainHandler(BaseHandler):
     def get(self):
         self.write("Hello world! I am server {}".format(socket.gethostname()))
@@ -34,7 +39,7 @@ class MainHandler(BaseHandler):
 class TestHandler(BaseHandler):
     def get(self):
         template_path = path.join(path.dirname(__file__), 'templates', 'test.html')
-        self.render(template_path, messages=redis_client.lrange('messages', 1, -1), server=socket.gethostname())
+        self.render(template_path, server=socket.gethostname())
 
 
 class FuckupHandler(BaseHandler):
@@ -56,7 +61,7 @@ def make_app():
         (r"/test", TestHandler),
         (r"/socket", SocketHandler),
         (r"/fuckup", FuckupHandler),
-        (r"/proto/(.*)", tornado.web.StaticFileHandler, {'path': path.join(path.dirname(__file__), 'proto')})
+        (r"/proto/(.*)", NocacheStaticFileHandler, {'path': path.join(path.dirname(__file__), 'proto')})
     ])
     if env.SENTRY_DSN:
         app.sentry_client = AsyncSentryClient(

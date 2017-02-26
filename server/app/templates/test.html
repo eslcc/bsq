@@ -9,29 +9,47 @@
 </head>
 <body>
 <pre id="messages">
-    {% for message in messages %}
-    <span>{{ message }}</span>
-    {% end %}
 </pre>
 
 <input type="text" id="message">
 <button onclick="send()">Send</button>
 <small>Running on server {{ server }}</small>
+<div id="status"></div>
 
+<script src="https://unpkg.com/protobufjs@6.6.3/dist/protobuf.js"></script>
 <script type="text/javascript" charset="utf-8">
-    var socket = new WebSocket('ws://' + window.location.host + '/socket');
-    socket.onmessage = function (msg) {
-        console.dir(msg);
-        var el = document.createElement('span');
-        el.innerText = msg.data;
-        document.getElementById('messages').appendChild(el);
-    };
-    function send() {
-        var textBox = document.getElementById('message');
-        var text = textBox.value;
-        socket.send(text);
-        textBox.value = '';
+    function setStatus(status) {
+        const el = document.createElement('small');
+        el.innerText = status;
+        const statusEl = document.getElementById('status');
+        statusEl.appendChild(el);
+        statusEl.appendChild(document.createElement('br'));
     }
+
+    setStatus('Loading protobufs...');
+
+    const root = new protobuf.Root();
+
+    const promises = [
+        "/proto/models/rpc.proto",
+    ].map(file => protobuf.load(file, root));
+
+    Promise.all(promises).then(() => {
+        setStatus('Protobuf load complete.');
+        const socket = new WebSocket('ws://' + window.location.host + '/socket');
+        socket.onmessage = function (msg) {
+            console.dir(msg);
+            var el = document.createElement('span');
+            el.innerText = msg.data;
+            document.getElementById('messages').appendChild(el);
+        };
+        function send() {
+            var textBox = document.getElementById('message');
+            var text = textBox.value;
+            socket.send(text);
+            textBox.value = '';
+        }
+    })
 </script>
 </body>
 </html>

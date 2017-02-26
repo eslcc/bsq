@@ -5,7 +5,6 @@ from .models import rpc_pb2
 
 
 class RpcHandler(SentryMixin, tornado.websocket.WebSocketHandler):
-    def post(self):
-        request = rpc_pb2.RpcRequest()
-        request.FromString(self.request.body)
-        self.write(type(request))
+    def on_message(self, message):
+        request = rpc_pb2.RpcRequest().FromString(message)
+        self.write_message(f"Bytes {message} request {request} field {request.WhichOneof('request')}", False)
