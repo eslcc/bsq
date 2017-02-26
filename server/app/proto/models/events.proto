@@ -3,8 +3,8 @@ package bigsciencequiz;
 
 option java_package = "club.eslcc.bigsciencequiz";
 
-import "models/question.proto";
-import "models/gamestate.proto";
+import "question.proto";
+import "gamestate.proto";
 
 message GameStateChangeEvent {
     GameState newState = 1;

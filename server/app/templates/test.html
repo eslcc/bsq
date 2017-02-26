@@ -11,7 +11,8 @@
 <pre id="messages">
 </pre>
 
-<input type="text" id="message">
+<button onclick="sendProto('test')">Send Test Proto</button>
+
 <button onclick="send()">Send</button>
 <small>Running on server {{ server }}</small>
 <div id="status"></div>
@@ -34,20 +35,35 @@
         "/proto/models/rpc.proto",
     ].map(file => protobuf.load(file, root));
 
+    const types = {
+        RpcRequest: 'bigsciencequiz.RpcRequest',
+        IdentifyUserRequest: 'bigsciencequiz.IdentifyUserRequest',
+    };
+
     Promise.all(promises).then(() => {
+        setStatus('Loaded proto files, loading types...');
+        Object.keys(types).forEach(name => {
+            window[name] = root.lookup(types[name]);
+        });
         setStatus('Protobuf load complete.');
-        const socket = new WebSocket('ws://' + window.location.host + '/socket');
+        const socket = new WebSocket(`ws://${window.location.host}/socket`);
+        socket.binaryType = 'arraybuffer';
         socket.onmessage = function (msg) {
-            console.dir(msg);
-            var el = document.createElement('span');
-            el.innerText = msg.data;
-            document.getElementById('messages').appendChild(el);
+            setStatus(`Received message ${msg.data}`);
         };
-        function send() {
-            var textBox = document.getElementById('message');
-            var text = textBox.value;
-            socket.send(text);
-            textBox.value = '';
+        window.sendProto = (which) => {
+            switch (which) {
+                case 'test':
+                    const message = RpcRequest.create();
+                    message.identifyUserRequest = IdentifyUserRequest.create();
+                    message.identifyUserRequest.deviceId = "123456789abcdef";
+                    const data = RpcRequest.encode(message).finish();
+                    socket.send(data);
+                    setStatus(`sent ${which}`);
+                    break;
+                default:
+                    setStatus(`WTF: no proto ${which}`);
+            }
         }
     })
 </script>

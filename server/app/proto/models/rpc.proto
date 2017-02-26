@@ -1,10 +1,10 @@
 syntax = "proto3";
 package bigsciencequiz;
 
-import "models/question.proto";
-import "models/gamestate.proto";
-import "models/user.proto";
-import "models/events.proto";
+import "question.proto";
+import "gamestate.proto";
+import "user.proto";
+import "events.proto";
 
 option java_package = "club.eslcc.bigsciencequiz";
 
