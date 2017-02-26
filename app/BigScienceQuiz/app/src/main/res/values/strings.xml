@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BigScienceQuiz</string>
+    <string name="exit_intent">bsq_exit</string>
+    <string name="exit">Exit</string>
+</resources>
