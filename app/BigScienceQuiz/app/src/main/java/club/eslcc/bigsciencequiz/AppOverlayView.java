@@ -32,15 +32,15 @@ class AppOverlayView extends RelativeLayout
 
     public void setup()
     {
-        mExitButton = (Button) findViewById(R.id.exit_button);
-
-        mExitButton.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-            }
-        });
+//        mExitButton = (Button) findViewById(R.id.exit_button);
+//
+//        mExitButton.setOnClickListener(new OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+//            }
+//        });
     }
 }
