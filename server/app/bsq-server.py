@@ -5,8 +5,11 @@ import socket
 from os import path
 from raven.contrib.tornado import AsyncSentryClient, SentryMixin
 
-from modules import EventHandler, RpcHandler, redis_client, env
+from modules import EventHandler, RpcHandler, redis_client, env, participantNameLoader
 
+STARTUP_CALLBACKS = [
+    participantNameLoader
+]
 
 if env.SENTRY_DSN:
     class BaseHandler(SentryMixin, tornado.web.RequestHandler):
@@ -73,6 +76,10 @@ def make_app():
 if __name__ == '__main__':
     app = make_app()
     port = 5000
+
+    for callback in STARTUP_CALLBACKS:
+        callback()
+
     app.listen(port)
     print(f"App listening at port {port}")
     tornado.ioloop.IOLoop.current().start()

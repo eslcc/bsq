@@ -25,7 +25,8 @@ class EventHandler(SentryMixin, tornado.websocket.WebSocketHandler):
         to_write = None
         if message.kind == 'message':
             if message.channel == 'game_events':
-                pass
+                if message.body == 'game_state_change':
+                    to_write = events_pb2.GameStateChangeEvent()
         elif message.kind == 'disconnect':
             to_write = events_pb2.ErrorEvent()
             to_write.description = 'Subscription disconnected from Redis'
