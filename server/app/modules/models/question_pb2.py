@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='question.proto',
   package='bigsciencequiz',
   syntax='proto3',
-  serialized_pb=_b('\n\x0equestion.proto\x12\x0e\x62igsciencequiz\"\xb1\x01\n\x08Question\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\x12\x10\n\x08question\x18\x03 \x01(\t\x12\x0e\n\x06scored\x18\x04 \x01(\x08\x12\x30\n\x07\x61nswers\x18\x05 \x03(\x0b\x32\x1f.bigsciencequiz.Question.Answer\x1a\x33\n\x06\x41nswer\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x0f\n\x07\x63orrect\x18\x03 \x01(\x08\x42\x1b\n\x19\x63lub.eslcc.bigsciencequizb\x06proto3')
+  serialized_pb=_b('\n\x0equestion.proto\x12\x0e\x62igsciencequiz\"\xb1\x01\n\x08Question\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\x12\x10\n\x08question\x18\x03 \x01(\t\x12\x0e\n\x06scored\x18\x04 \x01(\x08\x12\x30\n\x07\x61nswers\x18\x05 \x03(\x0b\x32\x1f.bigsciencequiz.Question.Answer\x1a\x33\n\x06\x41nswer\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x0f\n\x07\x63orrect\x18\x03 \x01(\x08\x42!\n\x1f\x63lub.eslcc.bigsciencequiz.protob\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -149,5 +149,5 @@ _sym_db.RegisterMessage(Question.Answer)
 
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\031club.eslcc.bigsciencequiz'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\037club.eslcc.bigsciencequiz.proto'))
 # @@protoc_insertion_point(module_scope)

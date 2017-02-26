@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='user.proto',
   package='bigsciencequiz',
   syntax='proto3',
-  serialized_pb=_b('\n\nuser.proto\x12\x0e\x62igsciencequiz\"H\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0bmemberNames\x18\x02 \x03(\t\x12\x10\n\x08teamName\x18\x03 \x01(\t\x12\r\n\x05score\x18\x04 \x01(\x05\x42\x1b\n\x19\x63lub.eslcc.bigsciencequizb\x06proto3')
+  serialized_pb=_b('\n\nuser.proto\x12\x0e\x62igsciencequiz\"H\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0bmemberNames\x18\x02 \x03(\t\x12\x10\n\x08teamName\x18\x03 \x01(\t\x12\r\n\x05score\x18\x04 \x01(\x05\x42!\n\x1f\x63lub.eslcc.bigsciencequiz.protob\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -88,5 +88,5 @@ _sym_db.RegisterMessage(User)
 
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\031club.eslcc.bigsciencequiz'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\037club.eslcc.bigsciencequiz.proto'))
 # @@protoc_insertion_point(module_scope)

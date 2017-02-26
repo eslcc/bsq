@@ -1,7 +1,7 @@
 syntax = "proto3";
 package bigsciencequiz;
 
-option java_package = "club.eslcc.bigsciencequiz";
+option java_package = "club.eslcc.bigsciencequiz.proto";
 
 message User {
     int32 id = 1;

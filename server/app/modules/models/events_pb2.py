@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='events.proto',
   package='bigsciencequiz',
   syntax='proto3',
-  serialized_pb=_b('\n\x0c\x65vents.proto\x12\x0e\x62igsciencequiz\x1a\x0equestion.proto\x1a\x0fgamestate.proto\"C\n\x14GameStateChangeEvent\x12+\n\x08newState\x18\x01 \x01(\x0b\x32\x19.bigsciencequiz.GameState\"!\n\nErrorEvent\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\x8c\x01\n\tGameEvent\x12\x44\n\x14gameStateChangeEvent\x18\x01 \x01(\x0b\x32$.bigsciencequiz.GameStateChangeEventH\x00\x12\x30\n\nerrorEvent\x18\x02 \x01(\x0b\x32\x1a.bigsciencequiz.ErrorEventH\x00\x42\x07\n\x05\x65ventB\x1b\n\x19\x63lub.eslcc.bigsciencequizb\x06proto3')
+  serialized_pb=_b('\n\x0c\x65vents.proto\x12\x0e\x62igsciencequiz\x1a\x0equestion.proto\x1a\x0fgamestate.proto\"C\n\x14GameStateChangeEvent\x12+\n\x08newState\x18\x01 \x01(\x0b\x32\x19.bigsciencequiz.GameState\"!\n\nErrorEvent\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\x8c\x01\n\tGameEvent\x12\x44\n\x14gameStateChangeEvent\x18\x01 \x01(\x0b\x32$.bigsciencequiz.GameStateChangeEventH\x00\x12\x30\n\nerrorEvent\x18\x02 \x01(\x0b\x32\x1a.bigsciencequiz.ErrorEventH\x00\x42\x07\n\x05\x65ventB!\n\x1f\x63lub.eslcc.bigsciencequiz.protob\x06proto3')
   ,
   dependencies=[question__pb2.DESCRIPTOR,gamestate__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -167,5 +167,5 @@ _sym_db.RegisterMessage(GameEvent)
 
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\031club.eslcc.bigsciencequiz'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\037club.eslcc.bigsciencequiz.proto'))
 # @@protoc_insertion_point(module_scope)
