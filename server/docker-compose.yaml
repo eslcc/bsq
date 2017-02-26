@@ -11,13 +11,11 @@ services:
     image: redis
 
   lb:
-    image: nginx
+    build: ./nginx
     ports:
      - "8080:80"
     depends_on:
-     - app_blue
-    volumes:
-     - ./live/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+     - app
 
   postgres:
     image: postgres
@@ -58,6 +56,33 @@ services:
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: sentry_redis
       C_FORCE_ROOT: 1
+  
+  prometheus-server:
+    image: prom/prometheus
+    expose:
+      - "9090"
+    ports:
+      - 9090:9090
+    links:
+      - prometheus_redis_exporter
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      
+  prometheus_redis_exporter:
+    image: oliver006/redis_exporter
+    links:
+      - redis
+    environment:
+      REDIS_ADDR: redis:6379
+      
+  grafana-ui:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    links:
+      - prometheus-server:prometheus
 
   sentry_cron:
     image: sentry:latest
@@ -73,10 +98,19 @@ services:
       SENTRY_REDIS_HOST: sentry_redis
       C_FORCE_ROOT: 1
 
+  app:
+    build: ./app
+    depends_on:
+      - redis
+    environment:
+      SENTRY_DSN: "http://0a74bfd71a9f42dfa702ce980117733c:2dc376ac4da045f78cfa15b970500ca4@sentry:9000/2"
   app_blue:
     build: ./app
     depends_on:
       - redis
-
+    environment:
+      SENTRY_DSN: "http://0a74bfd71a9f42dfa702ce980117733c:2dc376ac4da045f78cfa15b970500ca4@sentry:9000/2"
+      
 volumes:
   postgres-db-volume:
+      

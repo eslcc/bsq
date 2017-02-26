@@ -1,0 +1,78 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+import "models/question.proto";
+import "models/gamestate.proto";
+import "models/user.proto";
+import "models/events.proto";
+
+option java_package = "club.eslcc.bigsciencequiz";
+
+message Empty {}
+
+message IdentifyUserRequest {
+    string deviceId = 1;
+}
+
+message IdentifyUserResponse {
+    enum IdentifyFailedReason {
+        NOT_REGISTERED = 0;
+    }
+    oneof response {
+        GameState state = 1;
+        IdentifyFailedReason failureReason = 2;
+    }
+}
+
+message RegisterUserRequest {
+    string deviceId = 1;
+    string teamName = 2;
+    string memberNames = 3;
+}
+
+message RegisterUserResponse {
+    enum RegisterFailedReason {
+        ALREADY_REGISTERED = 0;
+        TEAM_NAME_TAKEN = 1;
+        MEMBERS_ALREADY_REGISTERED = 2;
+        MEMBER_RESTRICTIONS_VIOLATED = 3;
+    }
+    oneof response {
+        User user = 1;
+        RegisterFailedReason failureReason = 2;
+    }
+}
+
+message GetGameStateRequest {
+
+}
+
+message GetGameStateResponse {
+    GameState state = 1;
+}
+
+message AutocompleteMemberNameRequest {
+    string partialName = 1;
+}
+
+message AutocompleteMemberNameResponse {
+    repeated string names = 1;
+}
+
+message RpcRequest {
+    oneof request {
+        IdentifyUserRequest identifyUserRequest = 1;
+        RegisterUserRequest registerUserRequest = 2;
+        GetGameStateRequest getGameStateRequest = 3;
+        AutocompleteMemberNameRequest autocompleteMemberNameRequest = 4;
+    }
+}
+
+message RpcResponse {
+    oneof response {
+        IdentifyUserResponse identifyUserResponse = 1;
+        RegisterUserResponse registerUserResponse = 2;
+        GetGameStateResponse getGameStateResponse = 3;
+        AutocompleteMemberNameResponse autocompleteMemberNameResponse = 4;
+    }
+}

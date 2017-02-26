@@ -1,0 +1,26 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./live/redis-data/:/data
+
+  lb:
+    build: ./nginx
+    ports:
+     - "8080:80"
+    depends_on:
+     - app
+
+  app:
+    build: ./app
+    volumes:
+     - ./app:/app
+    depends_on:
+      - redis
+    environment:
+      DEV: 1
+
+      

@@ -1,0 +1,20 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+option java_package = "club.eslcc.bigsciencequiz";
+
+message Question {
+    int32 id = 1;
+    string category = 2;
+    string question = 3;
+    bool scored = 4;
+
+    message Answer {
+        int32 id = 1;
+        string text = 2;
+        bool correct = 3;
+    }
+
+    repeated Answer answers = 5;
+}
+
