@@ -35,6 +35,7 @@
 
     const promises = [
         "/proto/models/rpc.proto",
+        "/proto/models/events.proto",
     ].map(file => protobuf.load(file, root));
 
     const types = {
@@ -42,7 +43,8 @@
         RpcResponse: 'bigsciencequiz.RpcResponse',
         IdentifyUserRequest: 'bigsciencequiz.IdentifyUserRequest',
         AutocompleteMemberNameRequest: 'bigsciencequiz.AutocompleteMemberNameRequest',
-        AutocompleteMemberNameResponse: 'bigsciencequiz.AutocompleteMemberNameResponse'
+        AutocompleteMemberNameResponse: 'bigsciencequiz.AutocompleteMemberNameResponse',
+        GameEvent: 'bigsciencequiz.GameEvent'
     };
 
     Promise.all(promises).then(() => {
@@ -58,6 +60,7 @@
                 setStatus('received wat!');
             } else {
                 const response = RpcResponse.decode(new Uint8Array(msg.data));
+                const fuckup = GameEvent.decode(new Uint8Array(msg.data));
                 setStatus(`received ${JSON.stringify(response.toJSON())}`);
             }
         };

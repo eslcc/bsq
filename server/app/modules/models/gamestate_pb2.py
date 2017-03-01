@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='gamestate.proto',
   package='bigsciencequiz',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fgamestate.proto\x12\x0e\x62igsciencequiz\x1a\x0equestion.proto\"\xc2\x02\n\tGameState\x12.\n\x05state\x18\x01 \x01(\x0e\x32\x1f.bigsciencequiz.GameState.State\x12\x31\n\x0f\x63urrentQuestion\x18\x02 \x01(\x0b\x32\x18.bigsciencequiz.Question\x12\x1f\n\x17\x63urrentQuestionAnswered\x18\x03 \x01(\x08\"\xb0\x01\n\x05State\x12\x0c\n\x08NOTREADY\x10\x00\x12\t\n\x05INTRO\x10\x01\x12\t\n\x05READY\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x16\n\x12QUESTION_ANSWERING\x10\x04\x12\x18\n\x14QUESTION_LIVEANSWERS\x10\x05\x12\x13\n\x0fQUESTION_CLOSED\x10\x06\x12\x1d\n\x19QUESTION_ANSWERS_REVEALED\x10\x07\x12\x0f\n\x0bLEADERBOARD\x10\x08\x42!\n\x1f\x63lub.eslcc.bigsciencequiz.protob\x06proto3')
+  serialized_pb=_b('\n\x0fgamestate.proto\x12\x0e\x62igsciencequiz\x1a\x0equestion.proto\"\xc2\x02\n\tGameState\x12.\n\x05state\x18\x01 \x01(\x0e\x32\x1f.bigsciencequiz.GameState.State\x12\x31\n\x0f\x63urrentQuestion\x18\x02 \x01(\x0b\x32\x18.bigsciencequiz.Question\x12\x1f\n\x17myCurrentQuestionAnswer\x18\x03 \x01(\x05\"\xb0\x01\n\x05State\x12\x0c\n\x08NOTREADY\x10\x00\x12\t\n\x05INTRO\x10\x01\x12\t\n\x05READY\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x16\n\x12QUESTION_ANSWERING\x10\x04\x12\x18\n\x14QUESTION_LIVEANSWERS\x10\x05\x12\x13\n\x0fQUESTION_CLOSED\x10\x06\x12\x1d\n\x19QUESTION_ANSWERS_REVEALED\x10\x07\x12\x0f\n\x0bLEADERBOARD\x10\x08\x42!\n\x1f\x63lub.eslcc.bigsciencequiz.protob\x06proto3')
   ,
   dependencies=[question__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -100,9 +100,9 @@ _GAMESTATE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='currentQuestionAnswered', full_name='bigsciencequiz.GameState.currentQuestionAnswered', index=2,
-      number=3, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='myCurrentQuestionAnswer', full_name='bigsciencequiz.GameState.myCurrentQuestionAnswer', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

@@ -5,10 +5,11 @@ import socket
 from os import path
 from raven.contrib.tornado import AsyncSentryClient, SentryMixin
 
-from modules import EventHandler, RpcHandler, redis_client, env, participantNameLoader
+from modules import EventHandler, RpcHandler, redis_client, env, question_loader, state_initialize
 
 STARTUP_CALLBACKS = [
-    participantNameLoader
+    question_loader,
+    state_initialize
 ]
 
 if env.SENTRY_DSN:
@@ -50,6 +51,11 @@ class FuckupHandler(BaseHandler):
         self.write("1 divided by 0 is {}".format(1/0))
 
 
+class AdminHandler(BaseHandler):
+    def get(self):
+        template_path = path.join(path.dirname(__file__), 'templates', 'admin.html')
+        self.render(template_path)
+
 class SocketHandler(EventHandler, RpcHandler):
     def __init__(self, application, request, **kwargs):
         super().__init__(application, request, **kwargs)
@@ -64,7 +70,9 @@ def make_app():
         (r"/test", TestHandler),
         (r"/socket", SocketHandler),
         (r"/fuckup", FuckupHandler),
-        (r"/proto/(.*)", NocacheStaticFileHandler, {'path': path.join(path.dirname(__file__), 'proto')})
+        (r"/proto/(.*)", NocacheStaticFileHandler, {'path': path.join(path.dirname(__file__), 'proto')}),
+        (r"/js/(.*)", NocacheStaticFileHandler, {'path': path.join(path.dirname(__file__), 'js')}),
+        (r"/admin", AdminHandler)
     ])
     if env.SENTRY_DSN:
         app.sentry_client = AsyncSentryClient(

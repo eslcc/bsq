@@ -16,5 +16,6 @@ message Question {
     }
 
     repeated Answer answers = 5;
+    bool alreadyPlayed = 6;
 }
 

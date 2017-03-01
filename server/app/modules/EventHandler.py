@@ -4,6 +4,7 @@ import tornadoredis
 from raven.contrib.tornado import SentryMixin
 
 from .models import events_pb2
+from . import helpers
 
 
 class EventHandler(SentryMixin, tornado.websocket.WebSocketHandler):
@@ -27,6 +28,7 @@ class EventHandler(SentryMixin, tornado.websocket.WebSocketHandler):
             if message.channel == 'game_events':
                 if message.body == 'game_state_change':
                     to_write = events_pb2.GameStateChangeEvent()
+                    to_write.newState = helpers.redis_state_to_message(self)
         elif message.kind == 'disconnect':
             to_write = events_pb2.ErrorEvent()
             to_write.description = 'Subscription disconnected from Redis'

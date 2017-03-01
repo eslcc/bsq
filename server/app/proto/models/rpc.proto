@@ -5,6 +5,7 @@ import "question.proto";
 import "gamestate.proto";
 import "user.proto";
 import "events.proto";
+import "admin_rpc.proto";
 
 option java_package = "club.eslcc.bigsciencequiz.proto";
 
@@ -59,12 +60,37 @@ message AutocompleteMemberNameResponse {
     repeated string names = 1;
 }
 
+message AnswerQuestionRequest {
+    int32 answerId = 1;
+}
+
+message AnswerQuestionResponse {
+    enum AnswerQuestionFailedReason {
+        NOT_IDENTIFIED = 0;
+        OUT_OF_RANGE = 1;
+        INVALID_STATE = 2;
+        ALREADY_ANSWERED = 3;
+    }
+    AnswerQuestionFailedReason failureReason = 1;
+}
+
+message UnknownRequestResponse {
+    string request = 1;
+}
+
+message UnauthorisedRequestResponse {
+    string reason = 1;
+}
+
 message RpcRequest {
     oneof request {
         IdentifyUserRequest identifyUserRequest = 1;
         RegisterUserRequest registerUserRequest = 2;
         GetGameStateRequest getGameStateRequest = 3;
         AutocompleteMemberNameRequest autocompleteMemberNameRequest = 4;
+        AnswerQuestionRequest answerQuestionRequest = 5;
+        bigsciencequiz.admin.AdminGetQuestionsRequest adminGetQuestionsRequest = 101;
+        bigsciencequiz.admin.AdminSetActiveQuestionRequest adminSetActiveQuestionRequest = 102;
     }
 }
 
@@ -74,5 +100,10 @@ message RpcResponse {
         RegisterUserResponse registerUserResponse = 2;
         GetGameStateResponse getGameStateResponse = 3;
         AutocompleteMemberNameResponse autocompleteMemberNameResponse = 4;
+        AnswerQuestionRequest answerQuestionRequest = 5;
+        bigsciencequiz.admin.AdminGetQuestionsResponse adminGetQuestionsResponse = 101;
+        bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
+        UnauthorisedRequestResponse unauthorisedRequestResponse = 998;
+        UnknownRequestResponse unknownRequestResponse = 999;
     }
 }

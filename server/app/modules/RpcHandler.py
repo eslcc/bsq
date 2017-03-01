@@ -1,26 +1,32 @@
 import tornado.websocket
 from raven.contrib.tornado import SentryMixin
-import unicodedata
 from .models import rpc_pb2
-from .redis import redis_client
 
+from . import rpc_handlers
 
-def normalize_caseless(text):
-    return unicodedata.normalize("NFKD", text.casefold())
+HANDLERS = {
+    'identifyUserRequest': rpc_handlers.identify_user,
+    'autocompleteMemberNameRequest': rpc_handlers.autocomplete_member_name,
+    'adminGetQuestionsRequest': rpc_handlers.get_questions,
+    'adminSetActiveQuestionRequest': rpc_handlers.set_active_question
+}
 
 
 class RpcHandler(SentryMixin, tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         request = rpc_pb2.RpcRequest().FromString(message)
         field = request.WhichOneof('request')
-
-        if field == 'autocompleteMemberNameRequest':
-            filter_str = normalize_caseless(request.autocompleteMemberNameRequest.partialName)
-            participants = redis_client.lrange('participant_names', 0, -1)
-            matching = [x for x in participants if filter_str in normalize_caseless(x.decode('utf-8'))]
-
-            response = rpc_pb2.RpcResponse()
-            response.autocompleteMemberNameResponse.names.extend(matching)
-            self.write_message(response.SerializeToString(), True)
+        if field in HANDLERS:
+            response = HANDLERS[field](self, request)
         else:
-            self.write_message('wat')
+            response = rpc_pb2.RpcResponse()
+            response.unknownRequestResponse.request = f"request {field}"
+        self.write_message(response.SerializeToString(), True)
+
+
+    def select_subprotocol(self, subprotocols):
+        if 'admin' in subprotocols:
+            self.current_user = 'ADMIN'
+            return 'admin'
+        else:
+            return None

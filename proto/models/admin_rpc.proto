@@ -1,0 +1,21 @@
+syntax = "proto3";
+package bigsciencequiz.admin;
+
+import "gamestate.proto";
+import "question.proto";
+
+message AdminGetQuestionsRequest {
+
+}
+
+message AdminGetQuestionsResponse {
+    repeated bigsciencequiz.Question questions = 1;
+}
+
+message AdminSetActiveQuestionRequest {
+    int32 questionId = 1;
+}
+
+message AdminSetActiveQuestionResponse {
+    GameState newState = 1;
+}
