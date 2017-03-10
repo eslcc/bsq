@@ -1,0 +1,16 @@
+[ver:1,total:3059]
+server/app/modules/EventHandler.py:1139,1489168800:739,1489172400:400,d
+server/app/bsq-server.py:880,1489168800:280,1489172400:600,d
+server/app/js/admin-socket.jsx:240,1489168800:120,1489172400:120,d
+server/nginx/nginx.conf:150,1489168800:150,d
+server/app/Dockerfile:140,1489168800:140,d
+server/app/modules/rpc_handlers/admin.py:90,1489168800:60,1489172400:30,d
+server/docker-compose-dev.yaml:90,1489168800:90,d
+server/app/templates/admin.html:80,1489168800:60,1489172400:20,d
+server/dev-run.bat:80,1489168800:80,d
+server/run.bat:60,1489168800:60,d
+server/app/modules/rpc_handlers/gamestate.py:30,1489172400:30,d
+server/src/main/java/club/eslcc/bigsciencequiz/server/RedisHelpers.java:30,1489183200:30,m
+server/app/js/admin-proto-loader.jsx:20,1489172400:20,d
+server/src/main/resources/test.html:15,1489183200:15,m
+server/src/main/java/club/eslcc/bigsciencequiz/server/Server.java:15,1489183200:15,m
