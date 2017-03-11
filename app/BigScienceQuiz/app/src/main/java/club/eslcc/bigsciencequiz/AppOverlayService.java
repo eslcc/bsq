@@ -10,10 +10,19 @@ import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.neovisionaries.ws.client.WebSocket;
+import com.neovisionaries.ws.client.WebSocketAdapter;
+import com.neovisionaries.ws.client.WebSocketException;
+import com.neovisionaries.ws.client.WebSocketFactory;
+import com.neovisionaries.ws.client.WebSocketFrame;
+
+import java.io.IOException;
+
 public class AppOverlayService extends Service
 {
     private WindowManager mWindowManager;
     private AppOverlayView mOverlayView;
+    private WebSocket mWebSocket;
 
     @Override
     public IBinder onBind(Intent intent)
@@ -59,6 +68,29 @@ public class AppOverlayService extends Service
         mOverlayView.setup();
         mWindowManager.addView(mOverlayView, windowParams);
 
+        WebSocketFactory factory = new WebSocketFactory();
+        factory.setConnectionTimeout(10000);
+
+        try
+        {
+            mWebSocket = factory.createSocket("ws://localhost/socket");
+            mWebSocket.connect();
+        } catch (IOException | WebSocketException e)
+        {
+            e.printStackTrace();
+        }
+
+        mWebSocket.addListener(new WebSocketAdapter()
+        {
+            @Override
+            public void onBinaryFrame(WebSocket websocket, WebSocketFrame frame) throws Exception
+            {
+                super.onBinaryFrame(websocket, frame);
+
+                System.out.println(frame.getPayloadText());
+            }
+        });
+
         return super.onStartCommand(intent, flags, startID);
     }
 
@@ -69,5 +101,8 @@ public class AppOverlayService extends Service
 
         if (mOverlayView != null)
             mWindowManager.removeView(mOverlayView);
+
+        if (mWebSocket != null)
+            mWebSocket.disconnect();
     }
 }

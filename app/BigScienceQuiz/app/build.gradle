@@ -26,6 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.neovisionaries:nv-websocket-client:1.31'
     compile project(':protobuf-java-3.2.0')
     compile project(':protobuf-java-util-3.2.0')
 }
