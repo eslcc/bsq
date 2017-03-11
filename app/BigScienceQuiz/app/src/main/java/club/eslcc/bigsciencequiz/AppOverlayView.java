@@ -163,7 +163,8 @@ class AppOverlayView extends RelativeLayout
         {
             try
             {
-                onReceivedGameEvent(Events.GameEvent.parseFrom(binary));
+                byte[] newBinary = Arrays.copyOfRange(binary, 4, binary.length);
+                onReceivedGameEvent(Events.GameEvent.parseFrom(newBinary));
             } catch (InvalidProtocolBufferException e)
             {
                 e.printStackTrace();
@@ -186,6 +187,10 @@ class AppOverlayView extends RelativeLayout
     {
         switch (event.getEventCase())
         {
+            case GAMESTATECHANGEEVENT:
+                System.out.println("Game supposed to start");
+                break;
+
             default:
                 System.out.println("Got GameEventThing of type " + event.getEventCase());
                 System.out.println("Content: " + event);
@@ -200,6 +205,10 @@ class AppOverlayView extends RelativeLayout
         {
             case IDENTIFYUSERRESPONSE:
                 handleIdentifyUserResponse(response.getIdentifyUserResponse());
+                break;
+
+            case TEAMREADYRESPONSE:
+                handleTeamReadyResponse(response.getTeamReadyResponse());
                 break;
 
             default:
@@ -230,44 +239,80 @@ class AppOverlayView extends RelativeLayout
 
         else
         {
-            final TextView teamNumber = (TextView) findViewById(R.id.team_number);
-            final ImageView bsqLogo = (ImageView) findViewById(R.id.bsq_logo);
-            final TextInputLayout textLayout = (TextInputLayout) findViewById(R.id.text_layout);
-            final Button startButton = (Button) findViewById(R.id.start_button);
-
-            textLayout.setVisibility(GONE);
-            startButton.setVisibility(GONE);
-            teamNumber.setText(response.getTeam().getNumber());
-
-            bsqLogo.setOnClickListener(new OnClickListener()
+            new Handler(Looper.getMainLooper()).post(new Runnable()
             {
                 @Override
-                public void onClick(View v)
+                public void run()
                 {
-                    final List<String> names = response.getTeam().getMemberNamesList();
-                    final ArrayList<String> namesArray = new ArrayList<>(names.size());
-                    namesArray.addAll(names);
+                    final TextView teamNumber = (TextView) findViewById(R.id.team_number);
+                    final ImageView bsqLogo = (ImageView) findViewById(R.id.bsq_logo);
+                    final TextInputLayout textLayout = (TextInputLayout) findViewById(R.id.text_layout);
+                    final Button startButton = (Button) findViewById(R.id.start_button);
 
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                            mContext, android.R.layout.simple_list_item_1, namesArray);
+                    textLayout.setVisibility(INVISIBLE);
+                    startButton.setVisibility(INVISIBLE);
+                    teamNumber.setText(response.getTeam().getNumber());
 
-                    Callback callback = new Callback()
+                    bsqLogo.setOnClickListener(new OnClickListener()
                     {
                         @Override
-                        public void action()
+                        public void onClick(View v)
                         {
-                            ListView teamMembers = (ListView) findViewById(R.id.team_members);
-                            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+                            final List<String> names = response.getTeam().getMemberNamesList();
+                            final ArrayList<String> namesArray = new ArrayList<>(names.size());
+                            namesArray.addAll(names);
 
-                            teamMembers.setAdapter(arrayAdapter);
-                            fab.setOnClickListener(mCloseOnClick);
+                            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                                    mContext, android.R.layout.simple_list_item_1, namesArray);
+
+                            Callback callback = new Callback()
+                            {
+                                @Override
+                                public void action()
+                                {
+                                    final ListView teamMembers = (ListView) findViewById(R.id.team_members);
+                                    final TextInputEditText teamName = (TextInputEditText) findViewById(R.id.team_name);
+                                    final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+
+                                    teamMembers.setAdapter(arrayAdapter);
+
+                                    fab.setOnClickListener(new OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(View v)
+                                        {
+                                            String name = teamName.getText().toString().trim();
+
+                                            if (name.isEmpty())
+                                            {
+                                                Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
+                                                return;
+                                            }
+
+                                            //TODO Filter names maybe
+
+                                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
+                                            Rpc.TeamReadyRequest.Builder builder = Rpc.TeamReadyRequest.newBuilder();
+                                            builder.setTeamName(name);
+                                            wrapperBuilder.setTeamReadyRequest(builder);
+                                            byte[] data = wrapperBuilder.build().toByteArray();
+                                            mWebSocket.sendBinary(data);
+                                        }
+                                    });
+                                }
+                            };
+
+                            swapLayout(R.layout.team_select, callback);
                         }
-                    };
-
-                    swapLayout(R.layout.team_select, callback);
+                    });
                 }
             });
         }
+    }
+
+    private void handleTeamReadyResponse(Rpc.TeamReadyResponse response)
+    {
+        swapLayout(R.layout.wait_for_start, null);
     }
 
     private void swapLayout(final int layoutId, final Callback callback)
@@ -287,7 +332,8 @@ class AppOverlayView extends RelativeLayout
                 newLayout.setId(R.id.current_layout);
                 addView(newLayout);
 
-                callback.action();
+                if (callback != null)
+                    callback.action();
             }
         });
     }
