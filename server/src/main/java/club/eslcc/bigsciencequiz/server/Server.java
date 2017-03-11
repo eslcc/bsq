@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server;
 
 import club.eslcc.bigsciencequiz.server.callbacks.InitializeStateCallback;
+import club.eslcc.bigsciencequiz.server.callbacks.LoadTeamsCallback;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,10 @@ import static spark.Spark.*;
  */
 public class Server {
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
-    private static List<IStartupCallback> callbacks = Arrays.asList(new InitializeStateCallback());
+    private static List<IStartupCallback> callbacks = Arrays.asList(
+            new InitializeStateCallback(),
+            new LoadTeamsCallback()
+    );
 
     private static void runCallbacks() {
         for (IStartupCallback callback : callbacks) {
