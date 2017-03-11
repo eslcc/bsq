@@ -55,8 +55,9 @@ public class SocketHandler {
                                     gsceB.setNewState(RedisHelpers.getGameState(users.get(session)));
                                     builder.setGameStateChangeEvent(gsceB);
                                     GameEvent event = builder.build();
+                                    byte[] data = EventHelpers.addEventFlag(event.toByteArray());
                                     try {
-                                        session.getRemote().sendBytes(event.toByteString().asReadOnlyByteBuffer());
+                                        session.getRemote().sendBytes(ByteBuffer.wrap(data));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
