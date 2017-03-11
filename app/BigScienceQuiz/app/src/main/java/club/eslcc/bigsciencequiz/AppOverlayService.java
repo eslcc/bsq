@@ -10,23 +10,10 @@ import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-import com.neovisionaries.ws.client.WebSocket;
-import com.neovisionaries.ws.client.WebSocketAdapter;
-import com.neovisionaries.ws.client.WebSocketException;
-import com.neovisionaries.ws.client.WebSocketFactory;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import club.eslcc.bigsciencequiz.proto.Rpc;
-
 public class AppOverlayService extends Service
 {
     private WindowManager mWindowManager;
     private AppOverlayView mOverlayView;
-    private WebSocket mWebSocket;
 
     @Override
     public IBinder onBind(Intent intent)
@@ -72,49 +59,6 @@ public class AppOverlayService extends Service
         mOverlayView.setup();
         mWindowManager.addView(mOverlayView, windowParams);
 
-        WebSocketFactory factory = new WebSocketFactory();
-        factory.setConnectionTimeout(10000);
-
-        try
-        {
-            //TODO: replace with server IP
-            mWebSocket = factory.createSocket("ws://192.168.177.71:8080/socket");
-            mWebSocket.connectAsynchronously();
-
-            mWebSocket.addListener(new WebSocketAdapter()
-            {
-                @Override
-                public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
-                {
-                    super.onConnectError(websocket, exception);
-                    System.out.println("OH NOES :((((");
-                    exception.printStackTrace();
-                }
-
-                @Override
-                public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
-                {
-                    super.onConnected(websocket, headers);
-                    Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-                    Rpc.GetGameStateRequest ggsR = Rpc.GetGameStateRequest.newBuilder().build();
-                    builder.setGetGameStateRequest(ggsR);
-                    byte[] data = builder.build().toByteArray();
-
-                    mWebSocket.sendBinary(data);
-                }
-
-                @Override
-                public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
-                {
-                    super.onBinaryMessage(websocket, binary);
-                    System.out.println(Arrays.toString(binary));
-                }
-            });
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
         return super.onStartCommand(intent, flags, startID);
     }
 
@@ -125,8 +69,5 @@ public class AppOverlayService extends Service
 
         if (mOverlayView != null)
             mWindowManager.removeView(mOverlayView);
-
-        if (mWebSocket != null)
-            mWebSocket.disconnect();
     }
 }

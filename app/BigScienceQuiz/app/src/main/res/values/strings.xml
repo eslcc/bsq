@@ -2,4 +2,13 @@
     <string name="app_name">BigScienceQuiz</string>
     <string name="exit_intent">bsq_exit</string>
     <string name="exit">Exit</string>
+
+    <string name="display_name">BIG SCIENCE QUIZ</string>
+    <string name="logo_letter">Q</string>
+    <string name="server_ip_text">Enter server IP:PORT</string>
+    <string name="start">START</string>
+    <string name="bsq_logo">BSQ Logo</string>
+    <string name="default_server_ip">192.168.177.71:8080</string>
+    <string name="team_hint">Choose your team name</string>
+
 </resources>
