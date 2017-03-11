@@ -1,0 +1,13 @@
+[ver:1,total:1972]
+server/docker-compose.yaml:951,1489219200:250,1489222800:701,m
+server/Dockerfile:288,1489219200:285,1489222800:3,m
+server/pom.xml:201,1489219200:198,1489222800:3,m
+server/src/main/java/club/eslcc/bigsciencequiz/server/Redis.java:191,1489219200:20,1489222800:171,m
+server/.gitignore:120,1489219200:120,r
+server/src/main/java/club/eslcc/bigsciencequiz/server/RedisHelpers.java:120,1489219200:120,r
+server/nginx/Dockerfile:30,1489219200:30,d
+server/src/main/resources/teams.json:16,1489222800:16,r
+server/live/redis-data/appendonly.aof:15,1489222800:15,r
+server/server.iml:15,1489222800:15,m
+server/nginx/nginx.conf:15,1489219200:15,d
+server/run.cmd:10,1489222800:10,d
