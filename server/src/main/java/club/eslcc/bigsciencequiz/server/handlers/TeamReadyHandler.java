@@ -42,6 +42,7 @@ public class TeamReadyHandler implements IRpcHandler {
             teamBuilder.setNumber(teamNumber);
             teamBuilder.addAllMemberNames(members);
             teamBuilder.setTeamName(rq.getTeamName());
+            responseBuilder.setTeam(teamBuilder);
         }
         builder.setTeamReadyResponse(responseBuilder);
         return builder.build();
