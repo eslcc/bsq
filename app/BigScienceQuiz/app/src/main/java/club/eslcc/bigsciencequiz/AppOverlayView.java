@@ -21,6 +21,7 @@ import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -154,8 +155,6 @@ class AppOverlayView extends RelativeLayout
                 Rpc.RpcResponse response = Rpc.RpcResponse.parseFrom(binary);
                 onReceivedRpcResponse(response);
             }
-
-
         } catch (InvalidProtocolBufferException | NullPointerException e)
         {
             throw new RuntimeException(e);
@@ -164,20 +163,18 @@ class AppOverlayView extends RelativeLayout
 
     private void onReceivedGameEvent(Events.GameEvent event)
     {
-        System.out.println("Got GameEventThing of type " + event.getEventCase());
-
         switch (event.getEventCase())
         {
             default:
-                System.out.println("bish pls");
+                System.out.println("Got GameEventThing of type " + event.getEventCase());
+                System.out.println("Content: " + event);
+                System.out.println("Binary: " + Arrays.toString(event.toByteArray()));
                 break;
         }
     }
 
     private void onReceivedRpcResponse(Rpc.RpcResponse response)
     {
-        System.out.println("Got RPC Response Thing");
-
         switch (response.getResponseCase())
         {
             case IDENTIFYUSERRESPONSE:
@@ -203,7 +200,7 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             default:
-                System.out.println("bish pls");
+                System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
                 break;
         }
     }

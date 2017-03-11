@@ -99,6 +99,10 @@ public class SocketHandler {
         try {
             RpcRequest request = RpcRequest.parseFrom(buf);
             RpcRequest.RequestCase requestCase = request.getRequestCase();
+
+            System.out.println("Got request: " + requestCase);
+            System.out.println("Content: " + request);
+
             RpcResponse response;
             if (handlers.containsKey(requestCase)) {
                 response = handlers.get(requestCase).handle(users.get(session), request, session);
@@ -109,6 +113,10 @@ public class SocketHandler {
                 builder.setUnknownRequestResponse(responseBuilder.build());
                 response = builder.build();
             }
+
+            System.out.println("Sent response: " + response.getResponseCase());
+            System.out.println("Content: " + response);
+            System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
             session.getRemote().sendBytes(response.toByteString().asReadOnlyByteBuffer());
         } catch (Exception e) {
             e.printStackTrace();
