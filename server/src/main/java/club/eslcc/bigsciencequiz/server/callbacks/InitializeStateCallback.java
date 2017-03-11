@@ -23,6 +23,11 @@ public class InitializeStateCallback implements IStartupCallback {
     public void onStartup() {
         if (jedis.exists("state")) {
             log.log(Level.INFO, "[InitializeStateCallback] Skipping state initialization because state exists");
+
+            if (!Server.PROD) {
+                jedis.del("devices");
+                jedis.del("team_names");
+            }
             return;
         }
         jedis.hset("state", "state", GameState.State.NOTREADY.toString());
@@ -31,11 +36,6 @@ public class InitializeStateCallback implements IStartupCallback {
         } catch (UnsupportedEncodingException e) {
             // Can't happen
             throw new RuntimeException(e);
-        }
-
-        if (!Server.PROD) {
-            jedis.del("devices");
-            jedis.del("team_names");
         }
     }
 }
