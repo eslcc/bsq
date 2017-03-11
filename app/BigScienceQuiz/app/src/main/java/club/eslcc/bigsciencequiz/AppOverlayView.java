@@ -8,14 +8,17 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.neovisionaries.ws.client.WebSocket;
@@ -124,7 +127,8 @@ class AppOverlayView extends RelativeLayout
                 public void onError(WebSocket websocket, WebSocketException cause) throws Exception
                 {
                     super.onError(websocket, cause);
-                    throw new RuntimeException(cause);
+                    Toast.makeText(mContext, cause.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    cause.printStackTrace();
                 }
             });
         } catch (IOException e)
@@ -195,27 +199,52 @@ class AppOverlayView extends RelativeLayout
         switch (response.getResponseCase())
         {
             case IDENTIFYUSERRESPONSE:
-                if (!response.getIdentifyUserResponse().hasTeam())
+                handleIdentifyUserResponse(response.getIdentifyUserResponse());
+                break;
+
+            default:
+                System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
+                break;
+        }
+    }
+
+    private void handleIdentifyUserResponse(final Rpc.IdentifyUserResponse response)
+    {
+        if (!response.hasTeam())
+        {
+            Callback callback = new Callback()
+            {
+                @Override
+                public void action()
                 {
-                    Callback callback = new Callback()
-                    {
-                        @Override
-                        public void action()
-                        {
-                            TextView errorText = (TextView) findViewById(R.id.error_text);
-                            TextView sadFace = (TextView) findViewById(R.id.sad_face);
+                    TextView errorText = (TextView) findViewById(R.id.error_text);
+                    TextView sadFace = (TextView) findViewById(R.id.sad_face);
 
-                            errorText.setText(response.getIdentifyUserResponse().getFailureReason().toString());
-                            sadFace.setOnClickListener(mCloseOnClick);
-                        }
-                    };
-
-                    swapLayout(R.layout.error, callback);
+                    errorText.setText(response.getFailureReason().toString());
+                    sadFace.setOnClickListener(mCloseOnClick);
                 }
+            };
 
-                else
+            swapLayout(R.layout.error, callback);
+        }
+
+        else
+        {
+            final TextView teamNumber = (TextView) findViewById(R.id.team_number);
+            final ImageView bsqLogo = (ImageView) findViewById(R.id.bsq_logo);
+            final TextInputLayout textLayout = (TextInputLayout) findViewById(R.id.text_layout);
+            final Button startButton = (Button) findViewById(R.id.start_button);
+
+            textLayout.setVisibility(GONE);
+            startButton.setVisibility(GONE);
+            teamNumber.setText(response.getTeam().getNumber());
+
+            bsqLogo.setOnClickListener(new OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
                 {
-                    final List<String> names = response.getIdentifyUserResponse().getTeam().getMemberNamesList();
+                    final List<String> names = response.getTeam().getMemberNamesList();
                     final ArrayList<String> namesArray = new ArrayList<>(names.size());
                     namesArray.addAll(names);
 
@@ -237,11 +266,7 @@ class AppOverlayView extends RelativeLayout
 
                     swapLayout(R.layout.team_select, callback);
                 }
-                break;
-
-            default:
-                System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
-                break;
+            });
         }
     }
 
