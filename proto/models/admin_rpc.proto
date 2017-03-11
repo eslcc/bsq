@@ -21,3 +21,11 @@ message AdminSetActiveQuestionRequest {
 message AdminSetActiveQuestionResponse {
     GameState newState = 1;
 }
+
+message AdminResetStateRequest {
+
+}
+
+message AdminResetStateResponse {
+    GameState newState = 1;
+}

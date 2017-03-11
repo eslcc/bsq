@@ -22,4 +22,3 @@ services:
       - redis
     environment:
       DEV: 1
-

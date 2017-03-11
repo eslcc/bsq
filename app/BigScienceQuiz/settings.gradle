@@ -1,1 +1,1 @@
-include ':app', ':protobuf-java-3.2.0', ':protobuf-java-util-3.2.0'
+include ':app', ':protobuf-java-3.2.0', ':protobuf-java-util-3.2.0', ':server'

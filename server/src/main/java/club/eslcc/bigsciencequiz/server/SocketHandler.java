@@ -1,5 +1,6 @@
 package club.eslcc.bigsciencequiz.server;
 
+import club.eslcc.bigsciencequiz.server.handlers.AdminHandlers;
 import club.eslcc.bigsciencequiz.server.handlers.GetGameStateHandler;
 import club.eslcc.bigsciencequiz.server.handlers.IdentifyUserHandler;
 import org.eclipse.jetty.websocket.api.Session;
@@ -13,10 +14,7 @@ import redis.clients.jedis.JedisPubSub;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +27,46 @@ import static club.eslcc.bigsciencequiz.proto.Events.*;
  */
 @WebSocket
 public class SocketHandler {
-    static Map<Session, String> users = new HashMap<>();
+    static Map<Session, String> users = Collections.synchronizedMap(new HashMap<>());
     private static Jedis jedis = Redis.getJedis();
+    private static Jedis pubSubJedis = Redis.getNewJedis();
+    private static volatile boolean subscribed = false;
 
     private static Map<RpcRequest.RequestCase, IRpcHandler> handlers = new HashMap<>();
 
     static {
         handlers.put(RpcRequest.RequestCase.GETGAMESTATEREQUEST, new GetGameStateHandler());
         handlers.put(RpcRequest.RequestCase.IDENTIFYUSERREQUEST, new IdentifyUserHandler());
+        handlers.put(RpcRequest.RequestCase.ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
+    }
+
+    private static void subscribe() {
+        pubSubJedis.subscribe(new JedisPubSub() {
+            @Override
+            public void onMessage(String channel, String message) {
+                System.out.println("Got message " + message);
+                switch (channel) {
+                    case "game_events":
+                        switch (message) {
+                            case "game_state_change":
+                                users.keySet().stream().filter(Session::isOpen).forEach(session -> {
+                                    GameEvent.Builder builder = GameEvent.newBuilder();
+                                    GameStateChangeEvent.Builder gsceB = GameStateChangeEvent.newBuilder();
+                                    gsceB.setNewState(RedisHelpers.getGameState(users.get(session)));
+                                    builder.setGameStateChangeEvent(gsceB);
+                                    GameEvent event = builder.build();
+                                    try {
+                                        session.getRemote().sendBytes(event.toByteString().asReadOnlyByteBuffer());
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                });
+                                break;
+                        }
+                        break;
+                }
+            }
+        }, "game_events");
     }
 
     @OnWebSocketConnect
@@ -45,19 +75,18 @@ public class SocketHandler {
         logger.log(Level.FINE, "hello from connect");
         session.getUpgradeResponse().setHeader("X-Horsemeat", "Swedish");
 
-        if(session.getUpgradeRequest().getParameterMap().containsKey("admin")) {
+        if (session.getUpgradeRequest().getParameterMap().containsKey("admin")) {
             users.put(session, "ADMIN");
             logger.log(Level.INFO, "Admin connected!");
         } else {
             users.put(session, null);
         }
-//
-//        jedis.subscribe(new JedisPubSub() {
-//            @Override
-//            public void onMessage(String channel, String message) {
-//                System.out.println("Got message " + message);
-//            }
-//        }, "game_events");
+
+        if (!subscribed) {
+            Thread t = new Thread(SocketHandler::subscribe);
+            t.start();
+            subscribed = true;
+        }
     }
 
     @OnWebSocketClose

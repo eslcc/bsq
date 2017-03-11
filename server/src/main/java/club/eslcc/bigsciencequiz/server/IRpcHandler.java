@@ -3,6 +3,8 @@ package club.eslcc.bigsciencequiz.server;
 import club.eslcc.bigsciencequiz.proto.Rpc;
 import org.eclipse.jetty.websocket.api.Session;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by marks on 10/03/2017.
  */

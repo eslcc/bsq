@@ -17,6 +17,7 @@ export default class AdminInterface extends React.Component {
         protosLoaded.then(() => {
             this.setState({rootsLoaded: true});
             AdminSocket.open();
+            window.as = AdminSocket;
         });
     }
 

@@ -10,11 +10,12 @@ import java.util.logging.Logger;
  * Created by marks on 10/03/2017.
  */
 public class Redis {
-    private static Jedis jedis;
-    static {
+    private static Jedis jedis = getNewJedis();
+
+    public static Jedis getNewJedis() {
         String host = Optional.ofNullable(System.getenv("REDIS_HOST")).orElse("localhost");
         Logger.getGlobal().log(Level.INFO, "Connecting to Redis " + host);
-        jedis = new Jedis(host, 6379);
+        return new Jedis(host, 6379);
     }
 
     public static Jedis getJedis() {

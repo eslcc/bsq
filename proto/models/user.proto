@@ -3,8 +3,8 @@ package bigsciencequiz;
 
 option java_package = "club.eslcc.bigsciencequiz.proto";
 
-message User {
-    int32 id = 1;
+message Team {
+    string number = 1;
     repeated string memberNames = 2;
     string teamName = 3;
     int32 score = 4;
