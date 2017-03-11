@@ -10,15 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ed852-774f-4d37-baa6-fbc63b066900" name="Default" comment="Make it compile again">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/drawable/logo_circle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/gradle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/build.gradle" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayService.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/overlay_app.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/overlay_app.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Gamestate.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Gamestate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/QuestionOuterClass.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/QuestionOuterClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/team_select.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/team_select.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" />
     </list>
     <ignored path="$PROJECT_DIR$/server/.gradle/" />
     <ignored path="$PROJECT_DIR$/server/build/" />
@@ -62,11 +72,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SocketHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SocketHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="38" column="81" lean-forward="false" selection-start-line="38" selection-start-column="81" selection-end-line="38" selection-end-column="81" />
+              <folding>
+                <element signature="e#1795#3187#0" expanded="true" />
+                <element signature="e#3186#3187#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IdentifyUserHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -75,8 +98,8 @@
       <file leaf-file-name="Rpc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130033">
-              <caret line="7958" column="0" lean-forward="false" selection-start-line="7958" selection-start-column="0" selection-end-line="7958" selection-end-column="0" />
+            <state relative-caret-position="145469">
+              <caret line="8598" column="0" lean-forward="false" selection-start-line="8598" selection-start-column="0" selection-end-line="8598" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -97,7 +120,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
               <caret line="28" column="87" lean-forward="false" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,8 +140,8 @@
       <file leaf-file-name="LoadTeamsCallback.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="34" column="67" lean-forward="false" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
+            <state relative-caret-position="209">
+              <caret line="35" column="46" lean-forward="true" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,7 +164,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -504,7 +531,6 @@
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserCallback.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/IRpcHandler.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/GetGameStateHandler.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java" />
         <option value="$PROJECT_DIR$/server/src/main/resources/teams.json" />
         <option value="$PROJECT_DIR$/server/pom.xml" />
         <option value="$PROJECT_DIR$/server/nginx/nginx.conf" />
@@ -522,7 +548,6 @@
         <option value="$PROJECT_DIR$/admin/src/Questions.js" />
         <option value="$PROJECT_DIR$/admin/src/lib/helpers.js" />
         <option value="$PROJECT_DIR$/admin/src/lib/ProtoLoader.js" />
-        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java" />
         <option value="$PROJECT_DIR$/admin/src/lib/AdminSocket.js" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/RedisHelpers.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/InitializeStateCallback.java" />
@@ -532,6 +557,8 @@
         <option value="$PROJECT_DIR$/server/src/main/resources/teams.xml" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/Server.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java" />
       </list>
     </option>
   </component>
@@ -805,6 +832,136 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -819,6 +976,35 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -842,6 +1028,40 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="admin" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -862,6 +1082,12 @@
           </MavenRunnerParameters>
         </option>
       </MavenSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -890,6 +1116,22 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
     <configuration default="false" name="Package Server" type="MavenRunConfiguration" factoryName="Maven">
@@ -958,7 +1200,7 @@
       <workItem from="1489238964531" duration="5000" />
       <workItem from="1489239067447" duration="5086000" />
       <workItem from="1489246212337" duration="1277000" />
-      <workItem from="1489252784734" duration="607000" />
+      <workItem from="1489252784734" duration="1777000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1488040103435</created>
@@ -1097,7 +1339,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30147000" />
+    <option name="totallyTimeSpent" value="31317000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1238,13 +1480,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="761">
@@ -1266,8 +1501,8 @@
         <state relative-caret-position="240">
           <caret line="14" column="67" lean-forward="false" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="67" />
           <folding>
-            <element signature="e#528#529#0" expanded="false" />
-            <element signature="e#556#557#0" expanded="false" />
+            <element signature="e#571#572#0" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1345,7 +1580,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="28" column="87" lean-forward="false" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1363,7 +1600,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1375,20 +1614,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="34" column="67" lean-forward="false" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130033">
-          <caret line="7958" column="0" lean-forward="false" selection-start-line="7958" selection-start-column="0" selection-end-line="7958" selection-end-column="0" />
+        <state relative-caret-position="145469">
+          <caret line="8598" column="0" lean-forward="false" selection-start-line="8598" selection-start-column="0" selection-end-line="8598" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1417,10 +1646,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="35" column="46" lean-forward="true" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="38" column="81" lean-forward="false" selection-start-line="38" selection-start-column="81" selection-end-line="38" selection-end-column="81" />
+          <folding>
+            <element signature="e#1795#3187#0" expanded="true" />
+            <element signature="e#3186#3187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="83" />
           <folding />
         </state>
       </provider>
