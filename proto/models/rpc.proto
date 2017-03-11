@@ -17,6 +17,7 @@ message IdentifyUserRequest {
 
 message IdentifyUserResponse {
     Team team = 1;
+    GameState state = 2;
 }
 
 message TeamReadyRequest {
