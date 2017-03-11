@@ -17,7 +17,8 @@ message IdentifyUserRequest {
 
 message IdentifyUserResponse {
     enum FailureReason {
-        NO_FREE_TEAMS = 0;
+        DO_NOT_EVER_USE_ME = 0;
+        NO_FREE_TEAMS = 1;
     }
     FailureReason failureReason = 1;
     Team team = 2;
