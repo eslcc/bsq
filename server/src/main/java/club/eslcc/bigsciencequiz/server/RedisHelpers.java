@@ -25,8 +25,11 @@ public class RedisHelpers {
 
         try {
             // TODO: copyFrom will be called often, perhaps cache the ByteString?
-            Question question = Question.parseFrom(ByteString.copyFrom(state.get("currentQuestion"), "UTF-8"));
-            builder.setCurrentQuestion(question);
+            String currentQuestion = state.get("currentQuestion");
+            if (currentQuestion != null) {
+                Question question = Question.parseFrom(ByteString.copyFrom(currentQuestion, "UTF-8"));
+                builder.setCurrentQuestion(question);
+            }
 
             if (userId != null) {
                 builder.setMyCurrentQuestionAnswer(Integer.parseInt(jedis.hget("answers", userId)));

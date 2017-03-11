@@ -8,7 +8,7 @@ import club.eslcc.bigsciencequiz.server.RedisHelpers;
 /**
  * Created by marks on 10/03/2017.
  */
-public class GetGameStateHandler implements IRpcHandler<GetGameStateRequest> {
+public class GetGameStateHandler implements IRpcHandler {
     @Override
     public RpcResponse handle(String currentUserId, RpcRequest request) {
         RpcResponse.Builder builder = RpcResponse.newBuilder();
