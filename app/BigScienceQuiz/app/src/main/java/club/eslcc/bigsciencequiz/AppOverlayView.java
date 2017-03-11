@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.neovisionaries.ws.client.WebSocket;
@@ -42,6 +43,11 @@ class AppOverlayView extends RelativeLayout
             mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
         }
     };
+
+    interface Callback
+    {
+        void action();
+    }
 
     public AppOverlayView(Context context)
     {
@@ -143,21 +149,29 @@ class AppOverlayView extends RelativeLayout
 
     private void onReceivedMessage(WebSocket websocket, byte[] binary)
     {
-        try
+        if (binary[0] == (byte) 0xff
+                && binary[1] == (byte) 0xff
+                && binary[2] == (byte) 0xff
+                && binary[3] == (byte) 0xff)
         {
-            Events.GameEvent event = Events.GameEvent.parseFrom(binary);
-
-            if (event.getEventCase() != Events.GameEvent.EventCase.EVENT_NOT_SET)
-                onReceivedGameEvent(event);
-
-            else
+            try
             {
-                Rpc.RpcResponse response = Rpc.RpcResponse.parseFrom(binary);
-                onReceivedRpcResponse(response);
+                onReceivedGameEvent(Events.GameEvent.parseFrom(binary));
+            } catch (InvalidProtocolBufferException e)
+            {
+                e.printStackTrace();
             }
-        } catch (InvalidProtocolBufferException | NullPointerException e)
+        }
+
+        else
         {
-            throw new RuntimeException(e);
+            try
+            {
+                onReceivedRpcResponse(Rpc.RpcResponse.parseFrom(binary));
+            } catch (InvalidProtocolBufferException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -173,35 +187,70 @@ class AppOverlayView extends RelativeLayout
         }
     }
 
-    private void onReceivedRpcResponse(Rpc.RpcResponse response)
+    private void onReceivedRpcResponse(final Rpc.RpcResponse response)
     {
         switch (response.getResponseCase())
         {
             case IDENTIFYUSERRESPONSE:
-                final AppOverlayView ctx = this;
-
-                new Handler(Looper.getMainLooper()).post(new Runnable()
+                if (!response.getIdentifyUserResponse().hasTeam())
                 {
-                    @Override
-                    public void run()
+                    Callback callback = new Callback()
                     {
-                        removeView(findViewById(R.id.current_layout));
+                        @Override
+                        public void action()
+                        {
+                            TextView errorText = (TextView) findViewById(R.id.error_text);
+                            TextView sadFace = (TextView) findViewById(R.id.sad_face);
 
-                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-                        View newLayout = layoutInflater.inflate(R.layout.team_select, ctx, false);
+                            errorText.setText(response.getIdentifyUserResponse().getFailureReason().toString());
+                            sadFace.setOnClickListener(mCloseOnClick);
+                        }
+                    };
 
-                        newLayout.setId(R.id.current_layout);
-                        addView(newLayout);
+                    swapLayout(R.layout.error, callback);
+                }
 
-                        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
-                        fab.setOnClickListener(mCloseOnClick);
-                    }
-                });
+                else
+                {
+                    Callback callback = new Callback()
+                    {
+                        @Override
+                        public void action()
+                        {
+                            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+                            fab.setOnClickListener(mCloseOnClick);
+                        }
+                    };
+
+                    swapLayout(R.layout.team_select, callback);
+                }
                 break;
 
             default:
                 System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
                 break;
         }
+    }
+
+    private void swapLayout(final int layoutId, final Callback callback)
+    {
+        final AppOverlayView ctx = this;
+
+        new Handler(Looper.getMainLooper()).post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                removeView(findViewById(R.id.current_layout));
+
+                LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                View newLayout = layoutInflater.inflate(layoutId, ctx, false);
+
+                newLayout.setId(R.id.current_layout);
+                addView(newLayout);
+
+                callback.action();
+            }
+        });
     }
 }

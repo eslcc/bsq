@@ -10,25 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ed852-774f-4d37-baa6-fbc63b066900" name="Default" comment="Make it compile again">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/gradle.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/runConfigurations.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/error.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Gamestate.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Gamestate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/QuestionOuterClass.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/QuestionOuterClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/team_select.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/team_select.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" />
     </list>
     <ignored path="$PROJECT_DIR$/server/.gradle/" />
     <ignored path="$PROJECT_DIR$/server/build/" />
@@ -72,23 +56,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SocketHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SocketHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="38" column="81" lean-forward="false" selection-start-line="38" selection-start-column="81" selection-end-line="38" selection-end-column="81" />
-              <folding>
-                <element signature="e#1795#3187#0" expanded="true" />
-                <element signature="e#3186#3187#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="76" column="73" lean-forward="true" selection-start-line="76" selection-start-column="73" selection-end-line="76" selection-end-column="73" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IdentifyUserHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IdentifyUserHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
+            <state relative-caret-position="527">
               <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="83" />
               <folding />
             </state>
@@ -98,7 +79,7 @@
       <file leaf-file-name="Rpc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145469">
+            <state relative-caret-position="140301">
               <caret line="8598" column="0" lean-forward="false" selection-start-line="8598" selection-start-column="0" selection-end-line="8598" selection-end-column="0" />
               <folding />
             </state>
@@ -120,9 +101,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
               <caret line="28" column="87" lean-forward="false" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,8 +119,8 @@
       <file leaf-file-name="LoadTeamsCallback.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="35" column="46" lean-forward="true" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+            <state relative-caret-position="306">
+              <caret line="35" column="46" lean-forward="false" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,9 +143,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -557,8 +534,8 @@
         <option value="$PROJECT_DIR$/server/src/main/resources/teams.xml" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/Server.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java" />
       </list>
     </option>
   </component>
@@ -777,8 +754,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
@@ -984,6 +961,7 @@
       <setting name="passParentEnv" value="true" />
       <setting name="launchBrowser" value="true" />
       <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -1119,6 +1097,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -1201,6 +1185,7 @@
       <workItem from="1489239067447" duration="5086000" />
       <workItem from="1489246212337" duration="1277000" />
       <workItem from="1489252784734" duration="1777000" />
+      <workItem from="1489261016348" duration="1240000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1488040103435</created>
@@ -1339,7 +1324,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31317000" />
+    <option name="totallyTimeSpent" value="32557000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1352,7 +1337,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1361,7 +1346,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.240625" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1580,9 +1565,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="28" column="87" lean-forward="false" selection-start-line="28" selection-start-column="87" selection-end-line="28" selection-end-column="87" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1600,9 +1583,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1616,7 +1597,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145469">
+        <state relative-caret-position="140301">
           <caret line="8598" column="0" lean-forward="false" selection-start-line="8598" selection-start-column="0" selection-end-line="8598" selection-end-column="0" />
           <folding />
         </state>
@@ -1648,29 +1629,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/callbacks/LoadTeamsCallback.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="35" column="46" lean-forward="true" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+        <state relative-caret-position="306">
+          <caret line="35" column="46" lean-forward="false" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java">
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="38" column="81" lean-forward="false" selection-start-line="38" selection-start-column="81" selection-end-line="38" selection-end-column="81" />
-          <folding>
-            <element signature="e#1795#3187#0" expanded="true" />
-            <element signature="e#3186#3187#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="527">
+          <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="83" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/handlers/IdentifyUserHandler.java">
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/SocketHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="83" />
+        <state relative-caret-position="391">
+          <caret line="76" column="73" lean-forward="true" selection-start-line="76" selection-start-column="73" selection-end-line="76" selection-end-column="73" />
           <folding />
         </state>
       </provider>
