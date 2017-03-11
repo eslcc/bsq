@@ -18,7 +18,7 @@ import static club.eslcc.bigsciencequiz.proto.Gamestate.*;
 public class RedisHelpers {
     private static Jedis jedis = Redis.getJedis();
 
-    public static GameState getGameState(@Nullable String userId) {
+    public static GameState getGameState(String userId) {
         Map<String, String> state = jedis.hgetAll("state");
         GameState.Builder builder = GameState.newBuilder();
         builder.setState(GameState.State.valueOf(state.get("state")));
