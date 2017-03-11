@@ -2,6 +2,7 @@ package club.eslcc.bigsciencequiz.server.callbacks;
 
 import static club.eslcc.bigsciencequiz.proto.Gamestate.*;
 
+import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.server.IStartupCallback;
 import club.eslcc.bigsciencequiz.server.Redis;
 import redis.clients.jedis.Jedis;
@@ -24,5 +25,11 @@ public class InitializeStateCallback implements IStartupCallback {
             return;
         }
         jedis.hset("state", "state", GameState.State.NOTREADY.toString());
+        try {
+            jedis.hset("state".getBytes("UTF-8"), "currentQuestion".getBytes("UTF-8"), QuestionOuterClass.Question.newBuilder().build().toByteArray());
+        } catch (UnsupportedEncodingException e) {
+            // Can't happen
+            throw new RuntimeException(e);
+        }
     }
 }

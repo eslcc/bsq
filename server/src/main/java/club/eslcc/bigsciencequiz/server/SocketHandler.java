@@ -41,13 +41,16 @@ public class SocketHandler {
 
     @OnWebSocketConnect
     public void connect(Session session) {
-        Logger.getGlobal().log(Level.INFO, "hello from connect");
+        Logger logger = Logger.getGlobal();
+        logger.log(Level.FINE, "hello from connect");
+        session.getUpgradeResponse().setHeader("X-Horsemeat", "Swedish");
 
-//        if(session.getUpgradeRequest().getSubProtocols().contains("admin")) {
-//            users.put(session, "ADMIN");
-//        } else {
-//            users.put(session, null);
-//        }
+        if(session.getUpgradeRequest().getParameterMap().containsKey("admin")) {
+            users.put(session, "ADMIN");
+            logger.log(Level.INFO, "Admin connected!");
+        } else {
+            users.put(session, null);
+        }
 //
 //        jedis.subscribe(new JedisPubSub() {
 //            @Override

@@ -31,7 +31,10 @@ public class RedisHelpers {
             }
 
             if (userId != null) {
-                builder.setMyCurrentQuestionAnswer(Integer.parseInt(jedis.hget("answers", userId)));
+                String answer = jedis.hget("answers", userId);
+                if (answer != null) {
+                    builder.setMyCurrentQuestionAnswer(Integer.parseInt(answer));
+                }
             }
 
             return builder.build();
