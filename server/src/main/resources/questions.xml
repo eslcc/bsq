@@ -1,0 +1,10 @@
+<questions>
+    <question id="1" scored="false" class="senior">
+        <category>Test</category>
+        <text>Is this a test question that will not be scored?</text>
+        <answer correct="true">Yes</answer>
+        <answer>No</answer>
+        <answer>Carrot</answer>
+        <answer>turnip</answer>
+    </question>
+</questions>

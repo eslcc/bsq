@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server;
 
 import club.eslcc.bigsciencequiz.server.callbacks.InitializeStateCallback;
+import club.eslcc.bigsciencequiz.server.callbacks.LoadQuestionsCallback;
 import club.eslcc.bigsciencequiz.server.callbacks.LoadTeamsCallback;
 
 import java.util.Arrays;
@@ -15,7 +16,8 @@ public class Server {
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     private static List<IStartupCallback> callbacks = Arrays.asList(
             new InitializeStateCallback(),
-            new LoadTeamsCallback()
+            new LoadTeamsCallback(),
+            new LoadQuestionsCallback()
     );
 
     private static void runCallbacks() {
