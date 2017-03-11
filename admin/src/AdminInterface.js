@@ -4,6 +4,7 @@ import { protosLoaded } from './lib/ProtoLoader';
 
 import GameState from './GameState';
 import Questions from './Questions';
+import ReadyClients from './ReadyClients';
 
 export default class AdminInterface extends React.Component {
     state = {
@@ -45,8 +46,12 @@ export default class AdminInterface extends React.Component {
                            style={ {width: 32, height: 32}}
                     />
                     <span style={ {color: 'red'} }>DANGER ZONE</span>
+                    <br />
+                    <h2>Ready clients: </h2>
+                    <ReadyClients dangerZone={this.state.dangerZone} />
+                    <br />
                     <h2>State: </h2>
-                    <GameState dangerZone={this.state.dangerZone}/>
+                    <GameState dangerZone={this.state.dangerZone} />
                     <br />
                     <h2>Questions: </h2>
                     <Questions />

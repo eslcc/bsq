@@ -32,7 +32,7 @@ public class IdentifyUserHandler implements IRpcHandler {
         if (firstUnassigned.isPresent()) {
             List<String> members = jedis.lrange("team_members_" + firstUnassigned.get(), 0, -1);
 
-            jedis.hset("devices", firstUnassigned.get(), idR.getDeviceId());
+            jedis.hset("devices", idR.getDeviceId(), firstUnassigned.get());
 //            SocketHandler.users.put(session, idR.getDeviceId());
 
             User.Team.Builder teamBuilder = User.Team.newBuilder();

@@ -3,6 +3,7 @@ package club.eslcc.bigsciencequiz.server;
 import club.eslcc.bigsciencequiz.server.handlers.AdminHandlers;
 import club.eslcc.bigsciencequiz.server.handlers.GetGameStateHandler;
 import club.eslcc.bigsciencequiz.server.handlers.IdentifyUserHandler;
+import club.eslcc.bigsciencequiz.server.handlers.TeamReadyHandler;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -38,6 +39,8 @@ public class SocketHandler {
         handlers.put(RpcRequest.RequestCase.GETGAMESTATEREQUEST, new GetGameStateHandler());
         handlers.put(RpcRequest.RequestCase.IDENTIFYUSERREQUEST, new IdentifyUserHandler());
         handlers.put(RpcRequest.RequestCase.ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
+        handlers.put(RpcRequest.RequestCase.ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
+        handlers.put(RpcRequest.RequestCase.TEAMREADYREQUEST, new TeamReadyHandler());
     }
 
     private static void subscribe() {
