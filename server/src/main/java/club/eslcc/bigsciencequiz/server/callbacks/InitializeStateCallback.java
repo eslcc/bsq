@@ -5,6 +5,7 @@ import static club.eslcc.bigsciencequiz.proto.Gamestate.*;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.server.IStartupCallback;
 import club.eslcc.bigsciencequiz.server.Redis;
+import club.eslcc.bigsciencequiz.server.Server;
 import redis.clients.jedis.Jedis;
 
 import java.io.UnsupportedEncodingException;
@@ -30,6 +31,11 @@ public class InitializeStateCallback implements IStartupCallback {
         } catch (UnsupportedEncodingException e) {
             // Can't happen
             throw new RuntimeException(e);
+        }
+
+        if (!Server.PROD) {
+            jedis.del("devices");
+            jedis.del("team_names");
         }
     }
 }
