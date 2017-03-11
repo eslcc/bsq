@@ -1,5 +1,6 @@
 package club.eslcc.bigsciencequiz.server;
 
+import club.eslcc.bigsciencequiz.server.handlers.AdminHandlers;
 import club.eslcc.bigsciencequiz.server.handlers.GetGameStateHandler;
 import club.eslcc.bigsciencequiz.server.handlers.IdentifyUserHandler;
 import org.eclipse.jetty.websocket.api.Session;
@@ -37,6 +38,7 @@ public class SocketHandler {
     static {
         handlers.put(RpcRequest.RequestCase.GETGAMESTATEREQUEST, new GetGameStateHandler());
         handlers.put(RpcRequest.RequestCase.IDENTIFYUSERREQUEST, new IdentifyUserHandler());
+        handlers.put(RpcRequest.RequestCase.ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
     }
 
     @OnWebSocketConnect
@@ -52,12 +54,28 @@ public class SocketHandler {
             users.put(session, null);
         }
 //
-//        jedis.subscribe(new JedisPubSub() {
-//            @Override
-//            public void onMessage(String channel, String message) {
-//                System.out.println("Got message " + message);
-//            }
-//        }, "game_events");
+        jedis.subscribe(new JedisPubSub() {
+            @Override
+            public void onMessage(String channel, String message) {
+                System.out.println("Got message " + message);
+                try {
+                    switch (channel) {
+                        case "game_events":
+                            switch (message) {
+                                case "game_state_change":
+                                    GameEvent.Builder builder = GameEvent.newBuilder();
+                                    GameStateChangeEvent.Builder gsceB = GameStateChangeEvent.newBuilder();
+                                    gsceB.setNewState(RedisHelpers.getGameState(users.get(session)));
+                                    GameEvent event = builder.build();
+                                    session.getRemote().sendBytes(event.toByteString().asReadOnlyByteBuffer());
+                                    break;
+                            }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, "game_events");
     }
 
     @OnWebSocketClose
