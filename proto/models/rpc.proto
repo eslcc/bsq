@@ -26,9 +26,7 @@ message IdentifyUserResponse {
 }
 
 message TeamReadyRequest {
-    string deviceId = 1;
-    string teamName = 2;
-    string memberNames = 3;
+    string teamName = 1;
 }
 
 message TeamReadyResponse {
