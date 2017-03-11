@@ -11,7 +11,9 @@ import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -212,12 +215,22 @@ class AppOverlayView extends RelativeLayout
 
                 else
                 {
+                    final List<String> names = response.getIdentifyUserResponse().getTeam().getMemberNamesList();
+                    final ArrayList<String> namesArray = new ArrayList<>(names.size());
+                    namesArray.addAll(names);
+
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                            mContext, android.R.layout.simple_list_item_1, namesArray);
+
                     Callback callback = new Callback()
                     {
                         @Override
                         public void action()
                         {
+                            ListView teamMembers = (ListView) findViewById(R.id.team_members);
                             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+
+                            teamMembers.setAdapter(arrayAdapter);
                             fab.setOnClickListener(mCloseOnClick);
                         }
                     };
