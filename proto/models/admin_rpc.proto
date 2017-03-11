@@ -1,6 +1,8 @@
 syntax = "proto3";
 package bigsciencequiz.admin;
 
+option java_package = "club.eslcc.bigsciencequiz.proto.admin";
+
 import "gamestate.proto";
 import "question.proto";
 

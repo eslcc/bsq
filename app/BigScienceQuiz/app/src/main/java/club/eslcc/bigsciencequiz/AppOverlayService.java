@@ -14,9 +14,13 @@ import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
-import com.neovisionaries.ws.client.WebSocketFrame;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import club.eslcc.bigsciencequiz.proto.Rpc;
 
 public class AppOverlayService extends Service
 {
@@ -73,23 +77,43 @@ public class AppOverlayService extends Service
 
         try
         {
-            mWebSocket = factory.createSocket("ws://localhost/socket");
-            mWebSocket.connect();
-        } catch (IOException | WebSocketException e)
+            //TODO: replace with server IP
+            mWebSocket = factory.createSocket("ws://192.168.177.71:8080/socket");
+            mWebSocket.connectAsynchronously();
+
+            mWebSocket.addListener(new WebSocketAdapter()
+            {
+                @Override
+                public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
+                {
+                    super.onConnectError(websocket, exception);
+                    System.out.println("OH NOES :((((");
+                    exception.printStackTrace();
+                }
+
+                @Override
+                public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
+                {
+                    super.onConnected(websocket, headers);
+                    Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
+                    Rpc.GetGameStateRequest ggsR = Rpc.GetGameStateRequest.newBuilder().build();
+                    builder.setGetGameStateRequest(ggsR);
+                    byte[] data = builder.build().toByteArray();
+
+                    mWebSocket.sendBinary(data);
+                }
+
+                @Override
+                public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
+                {
+                    super.onBinaryMessage(websocket, binary);
+                    System.out.println(Arrays.toString(binary));
+                }
+            });
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
-
-        mWebSocket.addListener(new WebSocketAdapter()
-        {
-            @Override
-            public void onBinaryFrame(WebSocket websocket, WebSocketFrame frame) throws Exception
-            {
-                super.onBinaryFrame(websocket, frame);
-
-                System.out.println(frame.getPayloadText());
-            }
-        });
 
         return super.onStartCommand(intent, flags, startID);
     }

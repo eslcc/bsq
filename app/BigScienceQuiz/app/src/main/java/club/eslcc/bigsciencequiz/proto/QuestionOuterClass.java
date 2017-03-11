@@ -71,6 +71,11 @@ public final class QuestionOuterClass {
      */
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.AnswerOrBuilder getAnswersOrBuilder(
         int index);
+
+    /**
+     * <code>bool alreadyPlayed = 6;</code>
+     */
+    boolean getAlreadyPlayed();
   }
   /**
    * Protobuf type {@code bigsciencequiz.Question}
@@ -89,6 +94,7 @@ public final class QuestionOuterClass {
       question_ = "";
       scored_ = false;
       answers_ = java.util.Collections.emptyList();
+      alreadyPlayed_ = false;
     }
 
     @java.lang.Override
@@ -145,6 +151,11 @@ public final class QuestionOuterClass {
               }
               answers_.add(
                   input.readMessage(club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Answer.parser(), extensionRegistry));
+              break;
+            }
+            case 48: {
+
+              alreadyPlayed_ = input.readBool();
               break;
             }
           }
@@ -925,6 +936,15 @@ public final class QuestionOuterClass {
       return answers_.get(index);
     }
 
+    public static final int ALREADYPLAYED_FIELD_NUMBER = 6;
+    private boolean alreadyPlayed_;
+    /**
+     * <code>bool alreadyPlayed = 6;</code>
+     */
+    public boolean getAlreadyPlayed() {
+      return alreadyPlayed_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -952,6 +972,9 @@ public final class QuestionOuterClass {
       for (int i = 0; i < answers_.size(); i++) {
         output.writeMessage(5, answers_.get(i));
       }
+      if (alreadyPlayed_ != false) {
+        output.writeBool(6, alreadyPlayed_);
+      }
     }
 
     public int getSerializedSize() {
@@ -976,6 +999,10 @@ public final class QuestionOuterClass {
       for (int i = 0; i < answers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, answers_.get(i));
+      }
+      if (alreadyPlayed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, alreadyPlayed_);
       }
       memoizedSize = size;
       return size;
@@ -1003,6 +1030,8 @@ public final class QuestionOuterClass {
           == other.getScored());
       result = result && getAnswersList()
           .equals(other.getAnswersList());
+      result = result && (getAlreadyPlayed()
+          == other.getAlreadyPlayed());
       return result;
     }
 
@@ -1026,6 +1055,9 @@ public final class QuestionOuterClass {
         hash = (37 * hash) + ANSWERS_FIELD_NUMBER;
         hash = (53 * hash) + getAnswersList().hashCode();
       }
+      hash = (37 * hash) + ALREADYPLAYED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAlreadyPlayed());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1159,6 +1191,8 @@ public final class QuestionOuterClass {
         } else {
           answersBuilder_.clear();
         }
+        alreadyPlayed_ = false;
+
         return this;
       }
 
@@ -1196,6 +1230,7 @@ public final class QuestionOuterClass {
         } else {
           result.answers_ = answersBuilder_.build();
         }
+        result.alreadyPlayed_ = alreadyPlayed_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1277,6 +1312,9 @@ public final class QuestionOuterClass {
               answersBuilder_.addAllMessages(other.answers_);
             }
           }
+        }
+        if (other.getAlreadyPlayed() != false) {
+          setAlreadyPlayed(other.getAlreadyPlayed());
         }
         onChanged();
         return this;
@@ -1734,6 +1772,32 @@ public final class QuestionOuterClass {
         }
         return answersBuilder_;
       }
+
+      private boolean alreadyPlayed_ ;
+      /**
+       * <code>bool alreadyPlayed = 6;</code>
+       */
+      public boolean getAlreadyPlayed() {
+        return alreadyPlayed_;
+      }
+      /**
+       * <code>bool alreadyPlayed = 6;</code>
+       */
+      public Builder setAlreadyPlayed(boolean value) {
+        
+        alreadyPlayed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool alreadyPlayed = 6;</code>
+       */
+      public Builder clearAlreadyPlayed() {
+        
+        alreadyPlayed_ = false;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1802,13 +1866,13 @@ public final class QuestionOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016question.proto\022\016bigsciencequiz\"\261\001\n\010Que" +
+      "\n\016question.proto\022\016bigsciencequiz\"\310\001\n\010Que" +
       "stion\022\n\n\002id\030\001 \001(\005\022\020\n\010category\030\002 \001(\t\022\020\n\010q" +
       "uestion\030\003 \001(\t\022\016\n\006scored\030\004 \001(\010\0220\n\007answers" +
-      "\030\005 \003(\0132\037.bigsciencequiz.Question.Answer\032" +
-      "3\n\006Answer\022\n\n\002id\030\001 \001(\005\022\014\n\004text\030\002 \001(\t\022\017\n\007c" +
-      "orrect\030\003 \001(\010B!\n\037club.eslcc.bigsciencequi" +
-      "z.protob\006proto3"
+      "\030\005 \003(\0132\037.bigsciencequiz.Question.Answer\022" +
+      "\025\n\ralreadyPlayed\030\006 \001(\010\0323\n\006Answer\022\n\n\002id\030\001" +
+      " \001(\005\022\014\n\004text\030\002 \001(\t\022\017\n\007correct\030\003 \001(\010B!\n\037c" +
+      "lub.eslcc.bigsciencequiz.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1827,7 +1891,7 @@ public final class QuestionOuterClass {
     internal_static_bigsciencequiz_Question_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_Question_descriptor,
-        new java.lang.String[] { "Id", "Category", "Question", "Scored", "Answers", });
+        new java.lang.String[] { "Id", "Category", "Question", "Scored", "Answers", "AlreadyPlayed", });
     internal_static_bigsciencequiz_Question_Answer_descriptor =
       internal_static_bigsciencequiz_Question_descriptor.getNestedTypes().get(0);
     internal_static_bigsciencequiz_Question_Answer_fieldAccessorTable = new
