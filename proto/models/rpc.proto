@@ -16,8 +16,12 @@ message IdentifyUserRequest {
 }
 
 message IdentifyUserResponse {
-    Team team = 1;
-    GameState state = 2;
+    enum FailureReason {
+        NO_FREE_TEAMS = 0;
+    }
+    FailureReason failureReason = 1;
+    Team team = 2;
+    GameState state = 3;
 }
 
 message TeamReadyRequest {

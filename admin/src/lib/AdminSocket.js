@@ -41,10 +41,13 @@ export default class AdminSocket {
     }
 
     static _drainQueue() {
+        console.debug(`Draining ${AdminSocket._sendQueue.length} items`);
         while (AdminSocket._sendQueue.length > 0) {
             const item = AdminSocket._sendQueue.shift();
+            console.debug(`Sending ${item} from drain`);
             AdminSocket.socket.send(item);
         }
+        console.debug('Swamp drained');
     }
 
     static _onMessage(message) {
@@ -77,6 +80,7 @@ export default class AdminSocket {
 
     static sendMessage(message) {
         const data = RpcRequest.encode(message).finish();
+        console.log(`Socket ready state ${AdminSocket.socket && AdminSocket.socket.readyState}`);
         if (AdminSocket.socket !== null && AdminSocket.socket.readyState === AdminSocket.socket.OPEN) {
             AdminSocket.socket.send(data);
             console.debug(`Sending ${message.request}`);

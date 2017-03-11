@@ -887,28 +887,37 @@ public final class Rpc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+     */
+    int getFailureReasonValue();
+    /**
+     * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason getFailureReason();
+
+    /**
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     boolean hasTeam();
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     club.eslcc.bigsciencequiz.proto.User.Team getTeam();
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     club.eslcc.bigsciencequiz.proto.User.TeamOrBuilder getTeamOrBuilder();
 
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     boolean hasState();
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     club.eslcc.bigsciencequiz.proto.Gamestate.GameState getState();
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getStateOrBuilder();
   }
@@ -924,6 +933,7 @@ public final class Rpc {
       super(builder);
     }
     private IdentifyUserResponse() {
+      failureReason_ = 0;
     }
 
     @java.lang.Override
@@ -951,7 +961,13 @@ public final class Rpc {
               }
               break;
             }
-            case 10: {
+            case 8: {
+              int rawValue = input.readEnum();
+
+              failureReason_ = rawValue;
+              break;
+            }
+            case 18: {
               club.eslcc.bigsciencequiz.proto.User.Team.Builder subBuilder = null;
               if (team_ != null) {
                 subBuilder = team_.toBuilder();
@@ -964,7 +980,7 @@ public final class Rpc {
 
               break;
             }
-            case 18: {
+            case 26: {
               club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder subBuilder = null;
               if (state_ != null) {
                 subBuilder = state_.toBuilder();
@@ -1000,43 +1016,148 @@ public final class Rpc {
               club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.class, club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.Builder.class);
     }
 
-    public static final int TEAM_FIELD_NUMBER = 1;
+    /**
+     * Protobuf enum {@code bigsciencequiz.IdentifyUserResponse.FailureReason}
+     */
+    public enum FailureReason
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NO_FREE_TEAMS = 0;</code>
+       */
+      NO_FREE_TEAMS(0),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>NO_FREE_TEAMS = 0;</code>
+       */
+      public static final int NO_FREE_TEAMS_VALUE = 0;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static FailureReason valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static FailureReason forNumber(int value) {
+        switch (value) {
+          case 0: return NO_FREE_TEAMS;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<FailureReason>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          FailureReason> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<FailureReason>() {
+              public FailureReason findValueByNumber(int number) {
+                return FailureReason.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final FailureReason[] VALUES = values();
+
+      public static FailureReason valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private FailureReason(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:bigsciencequiz.IdentifyUserResponse.FailureReason)
+    }
+
+    public static final int FAILUREREASON_FIELD_NUMBER = 1;
+    private int failureReason_;
+    /**
+     * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+     */
+    public int getFailureReasonValue() {
+      return failureReason_;
+    }
+    /**
+     * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason getFailureReason() {
+      club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason result = club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.valueOf(failureReason_);
+      return result == null ? club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.UNRECOGNIZED : result;
+    }
+
+    public static final int TEAM_FIELD_NUMBER = 2;
     private club.eslcc.bigsciencequiz.proto.User.Team team_;
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     public boolean hasTeam() {
       return team_ != null;
     }
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     public club.eslcc.bigsciencequiz.proto.User.Team getTeam() {
       return team_ == null ? club.eslcc.bigsciencequiz.proto.User.Team.getDefaultInstance() : team_;
     }
     /**
-     * <code>.bigsciencequiz.Team team = 1;</code>
+     * <code>.bigsciencequiz.Team team = 2;</code>
      */
     public club.eslcc.bigsciencequiz.proto.User.TeamOrBuilder getTeamOrBuilder() {
       return getTeam();
     }
 
-    public static final int STATE_FIELD_NUMBER = 2;
+    public static final int STATE_FIELD_NUMBER = 3;
     private club.eslcc.bigsciencequiz.proto.Gamestate.GameState state_;
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     public boolean hasState() {
       return state_ != null;
     }
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     public club.eslcc.bigsciencequiz.proto.Gamestate.GameState getState() {
       return state_ == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.getDefaultInstance() : state_;
     }
     /**
-     * <code>.bigsciencequiz.GameState state = 2;</code>
+     * <code>.bigsciencequiz.GameState state = 3;</code>
      */
     public club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getStateOrBuilder() {
       return getState();
@@ -1054,11 +1175,14 @@ public final class Rpc {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.NO_FREE_TEAMS.getNumber()) {
+        output.writeEnum(1, failureReason_);
+      }
       if (team_ != null) {
-        output.writeMessage(1, getTeam());
+        output.writeMessage(2, getTeam());
       }
       if (state_ != null) {
-        output.writeMessage(2, getState());
+        output.writeMessage(3, getState());
       }
     }
 
@@ -1067,13 +1191,17 @@ public final class Rpc {
       if (size != -1) return size;
 
       size = 0;
+      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.NO_FREE_TEAMS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, failureReason_);
+      }
       if (team_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getTeam());
+          .computeMessageSize(2, getTeam());
       }
       if (state_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getState());
+          .computeMessageSize(3, getState());
       }
       memoizedSize = size;
       return size;
@@ -1091,6 +1219,7 @@ public final class Rpc {
       club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse other = (club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse) obj;
 
       boolean result = true;
+      result = result && failureReason_ == other.failureReason_;
       result = result && (hasTeam() == other.hasTeam());
       if (hasTeam()) {
         result = result && getTeam()
@@ -1111,6 +1240,8 @@ public final class Rpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FAILUREREASON_FIELD_NUMBER;
+      hash = (53 * hash) + failureReason_;
       if (hasTeam()) {
         hash = (37 * hash) + TEAM_FIELD_NUMBER;
         hash = (53 * hash) + getTeam().hashCode();
@@ -1237,6 +1368,8 @@ public final class Rpc {
       }
       public Builder clear() {
         super.clear();
+        failureReason_ = 0;
+
         if (teamBuilder_ == null) {
           team_ = null;
         } else {
@@ -1271,6 +1404,7 @@ public final class Rpc {
 
       public club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse buildPartial() {
         club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse result = new club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse(this);
+        result.failureReason_ = failureReason_;
         if (teamBuilder_ == null) {
           result.team_ = team_;
         } else {
@@ -1322,6 +1456,9 @@ public final class Rpc {
 
       public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse other) {
         if (other == club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.getDefaultInstance()) return this;
+        if (other.failureReason_ != 0) {
+          setFailureReasonValue(other.getFailureReasonValue());
+        }
         if (other.hasTeam()) {
           mergeTeam(other.getTeam());
         }
@@ -1354,17 +1491,61 @@ public final class Rpc {
         return this;
       }
 
+      private int failureReason_ = 0;
+      /**
+       * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+       */
+      public int getFailureReasonValue() {
+        return failureReason_;
+      }
+      /**
+       * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+       */
+      public Builder setFailureReasonValue(int value) {
+        failureReason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason getFailureReason() {
+        club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason result = club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.valueOf(failureReason_);
+        return result == null ? club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+       */
+      public Builder setFailureReason(club.eslcc.bigsciencequiz.proto.Rpc.IdentifyUserResponse.FailureReason value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        failureReason_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.IdentifyUserResponse.FailureReason failureReason = 1;</code>
+       */
+      public Builder clearFailureReason() {
+        
+        failureReason_ = 0;
+        onChanged();
+        return this;
+      }
+
       private club.eslcc.bigsciencequiz.proto.User.Team team_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           club.eslcc.bigsciencequiz.proto.User.Team, club.eslcc.bigsciencequiz.proto.User.Team.Builder, club.eslcc.bigsciencequiz.proto.User.TeamOrBuilder> teamBuilder_;
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public boolean hasTeam() {
         return teamBuilder_ != null || team_ != null;
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public club.eslcc.bigsciencequiz.proto.User.Team getTeam() {
         if (teamBuilder_ == null) {
@@ -1374,7 +1555,7 @@ public final class Rpc {
         }
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public Builder setTeam(club.eslcc.bigsciencequiz.proto.User.Team value) {
         if (teamBuilder_ == null) {
@@ -1390,7 +1571,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public Builder setTeam(
           club.eslcc.bigsciencequiz.proto.User.Team.Builder builderForValue) {
@@ -1404,7 +1585,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public Builder mergeTeam(club.eslcc.bigsciencequiz.proto.User.Team value) {
         if (teamBuilder_ == null) {
@@ -1422,7 +1603,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public Builder clearTeam() {
         if (teamBuilder_ == null) {
@@ -1436,7 +1617,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public club.eslcc.bigsciencequiz.proto.User.Team.Builder getTeamBuilder() {
         
@@ -1444,7 +1625,7 @@ public final class Rpc {
         return getTeamFieldBuilder().getBuilder();
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       public club.eslcc.bigsciencequiz.proto.User.TeamOrBuilder getTeamOrBuilder() {
         if (teamBuilder_ != null) {
@@ -1455,7 +1636,7 @@ public final class Rpc {
         }
       }
       /**
-       * <code>.bigsciencequiz.Team team = 1;</code>
+       * <code>.bigsciencequiz.Team team = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           club.eslcc.bigsciencequiz.proto.User.Team, club.eslcc.bigsciencequiz.proto.User.Team.Builder, club.eslcc.bigsciencequiz.proto.User.TeamOrBuilder> 
@@ -1475,13 +1656,13 @@ public final class Rpc {
       private com.google.protobuf.SingleFieldBuilderV3<
           club.eslcc.bigsciencequiz.proto.Gamestate.GameState, club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder, club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder> stateBuilder_;
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public boolean hasState() {
         return stateBuilder_ != null || state_ != null;
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public club.eslcc.bigsciencequiz.proto.Gamestate.GameState getState() {
         if (stateBuilder_ == null) {
@@ -1491,7 +1672,7 @@ public final class Rpc {
         }
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public Builder setState(club.eslcc.bigsciencequiz.proto.Gamestate.GameState value) {
         if (stateBuilder_ == null) {
@@ -1507,7 +1688,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public Builder setState(
           club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder builderForValue) {
@@ -1521,7 +1702,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public Builder mergeState(club.eslcc.bigsciencequiz.proto.Gamestate.GameState value) {
         if (stateBuilder_ == null) {
@@ -1539,7 +1720,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public Builder clearState() {
         if (stateBuilder_ == null) {
@@ -1553,7 +1734,7 @@ public final class Rpc {
         return this;
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder getStateBuilder() {
         
@@ -1561,7 +1742,7 @@ public final class Rpc {
         return getStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       public club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getStateOrBuilder() {
         if (stateBuilder_ != null) {
@@ -1572,7 +1753,7 @@ public final class Rpc {
         }
       }
       /**
-       * <code>.bigsciencequiz.GameState state = 2;</code>
+       * <code>.bigsciencequiz.GameState state = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           club.eslcc.bigsciencequiz.proto.Gamestate.GameState, club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder, club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder> 
@@ -12542,71 +12723,74 @@ public final class Rpc {
       "\n\trpc.proto\022\016bigsciencequiz\032\016question.pr" +
       "oto\032\017gamestate.proto\032\nuser.proto\032\014events" +
       ".proto\032\017admin_rpc.proto\"\007\n\005Empty\"\'\n\023Iden" +
-      "tifyUserRequest\022\020\n\010deviceId\030\001 \001(\t\"d\n\024Ide" +
-      "ntifyUserResponse\022\"\n\004team\030\001 \001(\0132\024.bigsci" +
-      "encequiz.Team\022(\n\005state\030\002 \001(\0132\031.bigscienc" +
-      "equiz.GameState\"K\n\020TeamReadyRequest\022\020\n\010d" +
-      "eviceId\030\001 \001(\t\022\020\n\010teamName\030\002 \001(\t\022\023\n\013membe" +
-      "rNames\030\003 \001(\t\"\333\001\n\021TeamReadyResponse\022$\n\004te" +
-      "am\030\001 \001(\0132\024.bigsciencequiz.TeamH\000\022O\n\rfail",
-      "ureReason\030\002 \001(\01626.bigsciencequiz.TeamRea" +
-      "dyResponse.RegisterFailedReasonH\000\"C\n\024Reg" +
-      "isterFailedReason\022\026\n\022ALREADY_REGISTERED\020" +
-      "\000\022\023\n\017TEAM_NAME_TAKEN\020\001B\n\n\010response\"\025\n\023Ge" +
-      "tGameStateRequest\"@\n\024GetGameStateRespons" +
-      "e\022(\n\005state\030\001 \001(\0132\031.bigsciencequiz.GameSt" +
-      "ate\"4\n\035AutocompleteMemberNameRequest\022\023\n\013" +
-      "partialName\030\001 \001(\t\"/\n\036AutocompleteMemberN" +
-      "ameResponse\022\r\n\005names\030\001 \003(\t\")\n\025AnswerQues" +
-      "tionRequest\022\020\n\010answerId\030\001 \001(\005\"\337\001\n\026Answer",
-      "QuestionResponse\022X\n\rfailureReason\030\001 \001(\0162" +
-      "A.bigsciencequiz.AnswerQuestionResponse." +
-      "AnswerQuestionFailedReason\"k\n\032AnswerQues" +
-      "tionFailedReason\022\022\n\016NOT_IDENTIFIED\020\000\022\020\n\014" +
-      "OUT_OF_RANGE\020\001\022\021\n\rINVALID_STATE\020\002\022\024\n\020ALR" +
-      "EADY_ANSWERED\020\003\")\n\026UnknownRequestRespons" +
-      "e\022\017\n\007request\030\001 \001(\t\"-\n\033UnauthorisedReques" +
-      "tResponse\022\016\n\006reason\030\001 \001(\t\"\'\n\024GenericErro" +
-      "rResponse\022\017\n\007message\030\001 \001(\t\"\377\004\n\nRpcReques" +
-      "t\022B\n\023identifyUserRequest\030\001 \001(\0132#.bigscie",
-      "ncequiz.IdentifyUserRequestH\000\022<\n\020teamRea" +
-      "dyRequest\030\002 \001(\0132 .bigsciencequiz.TeamRea" +
-      "dyRequestH\000\022B\n\023getGameStateRequest\030\003 \001(\013" +
-      "2#.bigsciencequiz.GetGameStateRequestH\000\022" +
-      "V\n\035autocompleteMemberNameRequest\030\004 \001(\0132-" +
-      ".bigsciencequiz.AutocompleteMemberNameRe" +
-      "questH\000\022F\n\025answerQuestionRequest\030\005 \001(\0132%" +
-      ".bigsciencequiz.AnswerQuestionRequestH\000\022" +
-      "R\n\030adminGetQuestionsRequest\030e \001(\0132..bigs" +
-      "ciencequiz.admin.AdminGetQuestionsReques",
-      "tH\000\022\\\n\035adminSetActiveQuestionRequest\030f \001" +
-      "(\01323.bigsciencequiz.admin.AdminSetActive" +
-      "QuestionRequestH\000\022N\n\026adminResetStateRequ" +
-      "est\030g \001(\0132,.bigsciencequiz.admin.AdminRe" +
-      "setStateRequestH\000B\t\n\007request\"\366\006\n\013RpcResp" +
-      "onse\022D\n\024identifyUserResponse\030\001 \001(\0132$.big" +
-      "sciencequiz.IdentifyUserResponseH\000\022>\n\021te" +
-      "amReadyResponse\030\002 \001(\0132!.bigsciencequiz.T" +
-      "eamReadyResponseH\000\022D\n\024getGameStateRespon" +
-      "se\030\003 \001(\0132$.bigsciencequiz.GetGameStateRe",
-      "sponseH\000\022X\n\036autocompleteMemberNameRespon" +
-      "se\030\004 \001(\0132..bigsciencequiz.AutocompleteMe" +
-      "mberNameResponseH\000\022F\n\025answerQuestionRequ" +
-      "est\030\005 \001(\0132%.bigsciencequiz.AnswerQuestio" +
-      "nRequestH\000\022T\n\031adminGetQuestionsResponse\030" +
-      "e \001(\0132/.bigsciencequiz.admin.AdminGetQue" +
-      "stionsResponseH\000\022^\n\036adminSetActiveQuesti" +
-      "onResponse\030f \001(\01324.bigsciencequiz.admin." +
-      "AdminSetActiveQuestionResponseH\000\022P\n\027admi" +
-      "nResetStateResponse\030g \001(\0132-.bigsciencequ",
-      "iz.admin.AdminResetStateResponseH\000\022E\n\024ge" +
-      "nericErrorResponse\030\345\007 \001(\0132$.bigsciencequ" +
-      "iz.GenericErrorResponseH\000\022S\n\033unauthorise" +
-      "dRequestResponse\030\346\007 \001(\0132+.bigsciencequiz" +
-      ".UnauthorisedRequestResponseH\000\022I\n\026unknow" +
-      "nRequestResponse\030\347\007 \001(\0132&.bigsciencequiz" +
-      ".UnknownRequestResponseH\000B\n\n\010responseB!\n" +
-      "\037club.eslcc.bigsciencequiz.protob\006proto3"
+      "tifyUserRequest\022\020\n\010deviceId\030\001 \001(\t\"\323\001\n\024Id" +
+      "entifyUserResponse\022I\n\rfailureReason\030\001 \001(" +
+      "\01622.bigsciencequiz.IdentifyUserResponse." +
+      "FailureReason\022\"\n\004team\030\002 \001(\0132\024.bigscience" +
+      "quiz.Team\022(\n\005state\030\003 \001(\0132\031.bigsciencequi" +
+      "z.GameState\"\"\n\rFailureReason\022\021\n\rNO_FREE_" +
+      "TEAMS\020\000\"K\n\020TeamReadyRequest\022\020\n\010deviceId\030",
+      "\001 \001(\t\022\020\n\010teamName\030\002 \001(\t\022\023\n\013memberNames\030\003" +
+      " \001(\t\"\333\001\n\021TeamReadyResponse\022$\n\004team\030\001 \001(\013" +
+      "2\024.bigsciencequiz.TeamH\000\022O\n\rfailureReaso" +
+      "n\030\002 \001(\01626.bigsciencequiz.TeamReadyRespon" +
+      "se.RegisterFailedReasonH\000\"C\n\024RegisterFai" +
+      "ledReason\022\026\n\022ALREADY_REGISTERED\020\000\022\023\n\017TEA" +
+      "M_NAME_TAKEN\020\001B\n\n\010response\"\025\n\023GetGameSta" +
+      "teRequest\"@\n\024GetGameStateResponse\022(\n\005sta" +
+      "te\030\001 \001(\0132\031.bigsciencequiz.GameState\"4\n\035A" +
+      "utocompleteMemberNameRequest\022\023\n\013partialN",
+      "ame\030\001 \001(\t\"/\n\036AutocompleteMemberNameRespo" +
+      "nse\022\r\n\005names\030\001 \003(\t\")\n\025AnswerQuestionRequ" +
+      "est\022\020\n\010answerId\030\001 \001(\005\"\337\001\n\026AnswerQuestion" +
+      "Response\022X\n\rfailureReason\030\001 \001(\0162A.bigsci" +
+      "encequiz.AnswerQuestionResponse.AnswerQu" +
+      "estionFailedReason\"k\n\032AnswerQuestionFail" +
+      "edReason\022\022\n\016NOT_IDENTIFIED\020\000\022\020\n\014OUT_OF_R" +
+      "ANGE\020\001\022\021\n\rINVALID_STATE\020\002\022\024\n\020ALREADY_ANS" +
+      "WERED\020\003\")\n\026UnknownRequestResponse\022\017\n\007req" +
+      "uest\030\001 \001(\t\"-\n\033UnauthorisedRequestRespons",
+      "e\022\016\n\006reason\030\001 \001(\t\"\'\n\024GenericErrorRespons" +
+      "e\022\017\n\007message\030\001 \001(\t\"\377\004\n\nRpcRequest\022B\n\023ide" +
+      "ntifyUserRequest\030\001 \001(\0132#.bigsciencequiz." +
+      "IdentifyUserRequestH\000\022<\n\020teamReadyReques" +
+      "t\030\002 \001(\0132 .bigsciencequiz.TeamReadyReques" +
+      "tH\000\022B\n\023getGameStateRequest\030\003 \001(\0132#.bigsc" +
+      "iencequiz.GetGameStateRequestH\000\022V\n\035autoc" +
+      "ompleteMemberNameRequest\030\004 \001(\0132-.bigscie" +
+      "ncequiz.AutocompleteMemberNameRequestH\000\022" +
+      "F\n\025answerQuestionRequest\030\005 \001(\0132%.bigscie",
+      "ncequiz.AnswerQuestionRequestH\000\022R\n\030admin" +
+      "GetQuestionsRequest\030e \001(\0132..bigsciencequ" +
+      "iz.admin.AdminGetQuestionsRequestH\000\022\\\n\035a" +
+      "dminSetActiveQuestionRequest\030f \001(\01323.big" +
+      "sciencequiz.admin.AdminSetActiveQuestion" +
+      "RequestH\000\022N\n\026adminResetStateRequest\030g \001(" +
+      "\0132,.bigsciencequiz.admin.AdminResetState" +
+      "RequestH\000B\t\n\007request\"\366\006\n\013RpcResponse\022D\n\024" +
+      "identifyUserResponse\030\001 \001(\0132$.bigscienceq" +
+      "uiz.IdentifyUserResponseH\000\022>\n\021teamReadyR",
+      "esponse\030\002 \001(\0132!.bigsciencequiz.TeamReady" +
+      "ResponseH\000\022D\n\024getGameStateResponse\030\003 \001(\013" +
+      "2$.bigsciencequiz.GetGameStateResponseH\000" +
+      "\022X\n\036autocompleteMemberNameResponse\030\004 \001(\013" +
+      "2..bigsciencequiz.AutocompleteMemberName" +
+      "ResponseH\000\022F\n\025answerQuestionRequest\030\005 \001(" +
+      "\0132%.bigsciencequiz.AnswerQuestionRequest" +
+      "H\000\022T\n\031adminGetQuestionsResponse\030e \001(\0132/." +
+      "bigsciencequiz.admin.AdminGetQuestionsRe" +
+      "sponseH\000\022^\n\036adminSetActiveQuestionRespon",
+      "se\030f \001(\01324.bigsciencequiz.admin.AdminSet" +
+      "ActiveQuestionResponseH\000\022P\n\027adminResetSt" +
+      "ateResponse\030g \001(\0132-.bigsciencequiz.admin" +
+      ".AdminResetStateResponseH\000\022E\n\024genericErr" +
+      "orResponse\030\345\007 \001(\0132$.bigsciencequiz.Gener" +
+      "icErrorResponseH\000\022S\n\033unauthorisedRequest" +
+      "Response\030\346\007 \001(\0132+.bigsciencequiz.Unautho" +
+      "risedRequestResponseH\000\022I\n\026unknownRequest" +
+      "Response\030\347\007 \001(\0132&.bigsciencequiz.Unknown" +
+      "RequestResponseH\000B\n\n\010responseB!\n\037club.es",
+      "lcc.bigsciencequiz.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12642,7 +12826,7 @@ public final class Rpc {
     internal_static_bigsciencequiz_IdentifyUserResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_IdentifyUserResponse_descriptor,
-        new java.lang.String[] { "Team", "State", });
+        new java.lang.String[] { "FailureReason", "Team", "State", });
     internal_static_bigsciencequiz_TeamReadyRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_bigsciencequiz_TeamReadyRequest_fieldAccessorTable = new

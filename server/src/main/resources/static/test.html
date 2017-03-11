@@ -41,6 +41,7 @@
         RpcRequest: 'bigsciencequiz.RpcRequest',
         RpcResponse: 'bigsciencequiz.RpcResponse',
         IdentifyUserRequest: 'bigsciencequiz.IdentifyUserRequest',
+        IdentifyUserResponse: 'bigsciencequiz.IdentifyUserResponse',
         AutocompleteMemberNameRequest: 'bigsciencequiz.AutocompleteMemberNameRequest',
         AutocompleteMemberNameResponse: 'bigsciencequiz.AutocompleteMemberNameResponse',
         GetGameStateRequest: 'bigsciencequiz.GetGameStateRequest',
@@ -73,7 +74,8 @@
             switch (which) {
                 case 'test':
                     var message = RpcRequest.create();
-                    message.getGameStateRequest = GetGameStateRequest.create();
+                    message.identifyUserRequest = IdentifyUserRequest.create();
+                    message.identifyUserRequest.deviceId = "deadbeef";
                     var data = RpcRequest.encode(message).finish();
                     socket.send(data);
                     setStatus(`sent ${which}`);

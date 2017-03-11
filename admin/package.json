@@ -1,0 +1,21 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "protobufjs": "^6.6.5",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0",
+    "react-scripts": "0.9.5"
+  },
+  "homepage": "/admin",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && ncp build ../server/src/main/resources/static/admin",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
