@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/admin" />
+    <content url="file://$MODULE_DIR$/proto" />
+    <content url="file://$MODULE_DIR$/server" />
+    <orderEntry type="jdk" jdkName="Python 3.6.0 virtualenv at D:\Code\eslcc\bsq-server\server\app\env" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="socket.io" level="application" />
+    <orderEntry type="library" name="sockjs" level="application" />
+    <orderEntry type="library" name="protobuf" level="application" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
+  </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
+  </component>
+</module>
