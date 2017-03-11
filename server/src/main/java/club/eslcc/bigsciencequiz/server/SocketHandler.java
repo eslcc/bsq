@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server;
 
 import club.eslcc.bigsciencequiz.server.handlers.GetGameStateHandler;
+import club.eslcc.bigsciencequiz.server.handlers.IdentifyUserHandler;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -35,6 +36,7 @@ public class SocketHandler {
 
     static {
         handlers.put(RpcRequest.RequestCase.GETGAMESTATEREQUEST, new GetGameStateHandler());
+        handlers.put(RpcRequest.RequestCase.IDENTIFYUSERREQUEST, new IdentifyUserHandler());
     }
 
     @OnWebSocketConnect
@@ -61,21 +63,21 @@ public class SocketHandler {
     }
 
     @OnWebSocketMessage
-    public void onMessage(Session s, byte[] buf, int offset, int length) {
+    public void onMessage(Session session, byte[] buf, int offset, int length) {
         try {
             RpcRequest request = RpcRequest.parseFrom(buf);
             RpcRequest.RequestCase requestCase = request.getRequestCase();
-            RpcResponse response = null;
+            RpcResponse response;
             if (handlers.containsKey(requestCase)) {
-                response = handlers.get(requestCase).handle(users.get(s), request);
+                response = handlers.get(requestCase).handle(users.get(session), request, session);
             } else {
                 RpcResponse.Builder builder = RpcResponse.newBuilder();
                 UnknownRequestResponse.Builder responseBuilder = UnknownRequestResponse.newBuilder();
                 responseBuilder.setRequest(requestCase.toString());
+                builder.setUnknownRequestResponse(responseBuilder.build());
                 response = builder.build();
             }
-            assert response != null;
-            s.getRemote().sendBytes(response.toByteString().asReadOnlyByteBuffer());
+            session.getRemote().sendBytes(response.toByteString().asReadOnlyByteBuffer());
         } catch (Exception e) {
             e.printStackTrace();
         }
