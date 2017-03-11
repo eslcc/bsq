@@ -4,7 +4,6 @@ import static club.eslcc.bigsciencequiz.proto.QuestionOuterClass.*;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.jetbrains.annotations.Nullable;
 import redis.clients.jedis.Jedis;
 
 import java.io.UnsupportedEncodingException;
