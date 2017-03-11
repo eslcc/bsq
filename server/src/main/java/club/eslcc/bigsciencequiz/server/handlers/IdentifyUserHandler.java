@@ -27,7 +27,8 @@ public class IdentifyUserHandler implements IRpcHandler {
         IdentifyUserRequest idR = request.getIdentifyUserRequest();
 
         List<String> teams = jedis.lrange("teams", 0, -1);
-        Optional<String> firstUnassigned = teams.stream().filter((team) -> jedis.hget("devices", team) == null).findFirst();
+        List<String> teamNumbers = jedis.hvals("devices");
+        Optional<String> firstUnassigned = teams.stream().filter((team) -> !teamNumbers.contains(team)).findFirst();
 
         if (firstUnassigned.isPresent()) {
             List<String> members = jedis.lrange("team_members_" + firstUnassigned.get(), 0, -1);
