@@ -1,7 +1,11 @@
 package club.eslcc.bigsciencequiz;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
@@ -25,8 +30,17 @@ import club.eslcc.bigsciencequiz.proto.Rpc;
 class AppOverlayView extends RelativeLayout
 {
     private Context mContext;
-    private Button mExitButton;
     private WebSocket mWebSocket;
+
+    private OnClickListener mCloseOnClick = new OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            mWebSocket.disconnect();
+            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+        }
+    };
 
     public AppOverlayView(Context context)
     {
@@ -63,8 +77,6 @@ class AppOverlayView extends RelativeLayout
 
     private void connectToServer(String address)
     {
-        final AppOverlayView ctx = this;
-
         WebSocketFactory factory = new WebSocketFactory();
         factory.setConnectionTimeout(10000);
 
@@ -88,55 +100,111 @@ class AppOverlayView extends RelativeLayout
                 public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
                 {
                     super.onConnected(websocket, headers);
-                    Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-                    Rpc.GetGameStateRequest ggsR = Rpc.GetGameStateRequest.newBuilder().build();
-                    builder.setGetGameStateRequest(ggsR);
-                    byte[] data = builder.build().toByteArray();
-
-                    mWebSocket.sendBinary(data);
+                    onConnectToServer();
                 }
 
                 @Override
                 public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
                 {
                     super.onBinaryMessage(websocket, binary);
+                    onReceivedMessage(websocket, binary);
+                }
 
-                    Events.GameEvent event = Events.GameEvent.parseFrom(binary);
-
-                    if (event.getEventCase() != Events.GameEvent.EventCase.EVENT_NOT_SET)
-                    {
-                        System.out.println("Got GameEventThing");
-                    }
-
-                    else
-                    {
-                        Rpc.RpcResponse response = Rpc.RpcResponse.parseFrom(binary);
-                        System.out.println("Got RPC Response Thing");
-
-                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-                        View newLayout = layoutInflater.inflate(R.layout.team_select, ctx, false);
-                        
-                        removeView(findViewById(R.id.current_layout));
-                        newLayout.setId(R.id.current_layout);
-                        addView(newLayout);
-
-                        FloatingActionButton fab = (FloatingActionButton) newLayout.findViewById(R.id.team_name_fab);
-
-                        fab.setOnClickListener(new OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View v)
-                            {
-                                mWebSocket.disconnect();
-                                mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-                            }
-                        });
-                    }
+                @Override
+                public void onError(WebSocket websocket, WebSocketException cause) throws Exception
+                {
+                    super.onError(websocket, cause);
+                    throw new RuntimeException(cause);
                 }
             });
         } catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    @SuppressLint("HardwareIds")
+    private void onConnectToServer()
+    {
+        Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
+
+        Rpc.IdentifyUserRequest.Builder requestBuilder = Rpc.IdentifyUserRequest.newBuilder();
+
+        requestBuilder.setDeviceId(Settings.Secure.getString(
+                getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+
+        builder.setIdentifyUserRequest(requestBuilder);
+
+        byte[] data = builder.build().toByteArray();
+
+        mWebSocket.sendBinary(data);
+    }
+
+    private void onReceivedMessage(WebSocket websocket, byte[] binary)
+    {
+        try
+        {
+            Events.GameEvent event = Events.GameEvent.parseFrom(binary);
+
+            if (event.getEventCase() != Events.GameEvent.EventCase.EVENT_NOT_SET)
+                onReceivedGameEvent(event);
+
+            else
+            {
+                Rpc.RpcResponse response = Rpc.RpcResponse.parseFrom(binary);
+                onReceivedRpcResponse(response);
+            }
+
+
+        } catch (InvalidProtocolBufferException | NullPointerException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void onReceivedGameEvent(Events.GameEvent event)
+    {
+        System.out.println("Got GameEventThing of type " + event.getEventCase());
+
+        switch (event.getEventCase())
+        {
+            default:
+                System.out.println("bish pls");
+                break;
+        }
+    }
+
+    private void onReceivedRpcResponse(Rpc.RpcResponse response)
+    {
+        System.out.println("Got RPC Response Thing");
+
+        switch (response.getResponseCase())
+        {
+            case IDENTIFYUSERRESPONSE:
+                final AppOverlayView ctx = this;
+
+                new Handler(Looper.getMainLooper()).post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        removeView(findViewById(R.id.current_layout));
+
+                        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                        View newLayout = layoutInflater.inflate(R.layout.team_select, ctx, false);
+
+                        newLayout.setId(R.id.current_layout);
+                        addView(newLayout);
+
+                        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+                        fab.setOnClickListener(mCloseOnClick);
+                    }
+                });
+                break;
+
+            default:
+                System.out.println("bish pls");
+                break;
         }
     }
 }
