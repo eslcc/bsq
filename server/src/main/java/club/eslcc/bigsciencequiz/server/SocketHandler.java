@@ -28,7 +28,7 @@ import static club.eslcc.bigsciencequiz.proto.Events.*;
  */
 @WebSocket
 public class SocketHandler {
-    static Map<Session, String> users = Collections.synchronizedMap(new HashMap<>());
+    public static Map<Session, String> users = Collections.synchronizedMap(new HashMap<>());
     private static Jedis jedis = Redis.getJedis();
     private static Jedis pubSubJedis = Redis.getNewJedis();
     private static volatile boolean subscribed = false;
