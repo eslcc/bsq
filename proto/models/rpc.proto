@@ -101,7 +101,7 @@ message RpcResponse {
         TeamReadyResponse teamReadyResponse = 2;
         GetGameStateResponse getGameStateResponse = 3;
         AutocompleteMemberNameResponse autocompleteMemberNameResponse = 4;
-        AnswerQuestionRequest answerQuestionRequest = 5;
+        AnswerQuestionResponse answerQuestionResponse = 5;
         bigsciencequiz.admin.AdminGetQuestionsResponse adminGetQuestionsResponse = 101;
         bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
         bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;

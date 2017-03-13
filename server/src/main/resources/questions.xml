@@ -2,9 +2,9 @@
     <question id="1" scored="false" class="senior">
         <category>Test</category>
         <text>Is this a test question that will not be scored?</text>
-        <answer correct="true">Yes</answer>
-        <answer>No</answer>
-        <answer>Carrot</answer>
-        <answer>turnip</answer>
+        <answer correct="true" id="1">Yes</answer>
+        <answer id="2">No</answer>
+        <answer id="3">Carrot</answer>
+        <answer id="4">turnip</answer>
     </question>
 </questions>
