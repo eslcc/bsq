@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server.callbacks;
 
 import static club.eslcc.bigsciencequiz.proto.Gamestate.*;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.server.IStartupCallback;
@@ -30,12 +31,7 @@ public class InitializeStateCallback implements IStartupCallback {
             }
             return;
         }
-        jedis.hset("state", "state", GameState.State.NOTREADY.toString());
-        try {
-            jedis.hset("state".getBytes("UTF-8"), "currentQuestion".getBytes("UTF-8"), QuestionOuterClass.Question.newBuilder().build().toByteArray());
-        } catch (UnsupportedEncodingException e) {
-            // Can't happen
-            throw new RuntimeException(e);
-        }
+    jedis.hset("state", "state", GameState.State.NOTREADY.toString());
+            jedis.hset(stob("state"), stob("currentQuestion"), QuestionOuterClass.Question.newBuilder().build().toByteArray());
     }
 }
