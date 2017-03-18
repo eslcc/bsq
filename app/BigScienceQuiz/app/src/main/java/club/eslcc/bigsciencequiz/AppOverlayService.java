@@ -3,6 +3,7 @@ package club.eslcc.bigsciencequiz;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
@@ -52,6 +53,8 @@ public class AppOverlayService extends Service
                 WindowManager.LayoutParams.TYPE_PHONE,
                 windowFlags,
                 PixelFormat.TRANSLUCENT);
+
+        windowParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RelativeLayout dummyRoot = new RelativeLayout(this);

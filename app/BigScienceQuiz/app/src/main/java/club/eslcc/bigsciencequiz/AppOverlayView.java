@@ -3,22 +3,22 @@ package club.eslcc.bigsciencequiz;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.neovisionaries.ws.client.WebSocket;
@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import club.eslcc.bigsciencequiz.proto.Events;
+import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.Rpc;
 
 class AppOverlayView extends RelativeLayout
@@ -40,7 +41,49 @@ class AppOverlayView extends RelativeLayout
     private Context mContext;
     private WebSocket mWebSocket;
 
-    private OnClickListener mCloseOnClick = new OnClickListener()
+    
+    private ViewFlipper mViewFlipper;
+
+    private void changeToLayout(int layoutId)
+    {
+        mViewFlipper.setDisplayedChild(mViewFlipper.indexOfChild(findViewById(layoutId)));
+    }
+
+    private void showError(OnClickListener listener)
+    {
+        changeToLayout(R.id.error_layout);
+        TextView sadFace = (TextView) findViewById(R.id.sad_face);
+        sadFace.setOnClickListener(listener);
+    }
+
+    private void showError(CharSequence error, OnClickListener listener)
+    {
+        changeToLayout(R.id.error_layout);
+        TextView text = (TextView) findViewById(R.id.error_text);
+        TextView sadFace = (TextView) findViewById(R.id.sad_face);
+        text.setText(error);
+        sadFace.setOnClickListener(listener);
+    }
+
+    private void showError(int errorResource, OnClickListener listener)
+    {
+        changeToLayout(R.id.error_layout);
+        TextView text = (TextView) findViewById(R.id.error_text);
+        TextView sadFace = (TextView) findViewById(R.id.sad_face);
+        text.setText(errorResource);
+        sadFace.setOnClickListener(listener);
+    }
+
+    private OnClickListener mClose = new OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+        }
+    };
+
+    private OnClickListener mDisconnectAndClose = new OnClickListener()
     {
         @Override
         public void onClick(View v)
@@ -49,11 +92,6 @@ class AppOverlayView extends RelativeLayout
             mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
         }
     };
-
-    interface Callback
-    {
-        void action();
-    }
 
     public AppOverlayView(Context context)
     {
@@ -75,37 +113,50 @@ class AppOverlayView extends RelativeLayout
 
     public void setup()
     {
-        final TextInputEditText serverIP = (TextInputEditText) findViewById(R.id.server_ip);
-        final Button startButton = (Button) findViewById(R.id.start_button);
+        mViewFlipper = (ViewFlipper) findViewById(R.id.current_view);
 
-        startButton.setOnClickListener(new OnClickListener()
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (activeNetworkInfo == null || !activeNetworkInfo.isConnectedOrConnecting())
+            showError(R.string.no_internet, mClose);
+
+        else
         {
-            @Override
-            public void onClick(View v)
+            changeToLayout(R.id.connect_server_layout);
+
+            final TextInputEditText serverIP = (TextInputEditText) findViewById(R.id.server_ip);
+            final Button startButton = (Button) findViewById(R.id.start_button);
+
+            startButton.setOnClickListener(new OnClickListener()
             {
-                connectToServer(serverIP.getText().toString());
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    connectToServer(serverIP.getText().toString());
+                }
+            });
+        }
     }
 
     private void connectToServer(String address)
     {
         WebSocketFactory factory = new WebSocketFactory();
-        factory.setConnectionTimeout(10000);
+        factory.setConnectionTimeout(3000);
 
         try
         {
-            //TODO: replace with server IP
             mWebSocket = factory.createSocket("ws://" + address + "/socket");
             mWebSocket.connectAsynchronously();
 
             mWebSocket.addListener(new WebSocketAdapter()
             {
                 @Override
-                public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
+                public void onConnectError(WebSocket websocket, final WebSocketException exception) throws Exception
                 {
                     super.onConnectError(websocket, exception);
-                    System.out.println("OH NOES :((((");
+                    showError(exception.getLocalizedMessage(), mClose);
                     exception.printStackTrace();
                 }
 
@@ -120,14 +171,14 @@ class AppOverlayView extends RelativeLayout
                 public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
                 {
                     super.onBinaryMessage(websocket, binary);
-                    onReceivedMessage(websocket, binary);
+                    onReceivedMessage(binary);
                 }
 
                 @Override
-                public void onError(WebSocket websocket, WebSocketException cause) throws Exception
+                public void onError(WebSocket websocket, final WebSocketException cause) throws Exception
                 {
                     super.onError(websocket, cause);
-                    Toast.makeText(mContext, cause.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    showError(cause.getLocalizedMessage(), mDisconnectAndClose);
                     cause.printStackTrace();
                 }
             });
@@ -141,7 +192,6 @@ class AppOverlayView extends RelativeLayout
     private void onConnectToServer()
     {
         Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-
         Rpc.IdentifyUserRequest.Builder requestBuilder = Rpc.IdentifyUserRequest.newBuilder();
 
         requestBuilder.setDeviceId(Settings.Secure.getString(
@@ -150,11 +200,10 @@ class AppOverlayView extends RelativeLayout
         builder.setIdentifyUserRequest(requestBuilder);
 
         byte[] data = builder.build().toByteArray();
-
         mWebSocket.sendBinary(data);
     }
 
-    private void onReceivedMessage(WebSocket websocket, byte[] binary)
+    private void onReceivedMessage(byte[] binary)
     {
         if (binary[0] == (byte) 0xff
                 && binary[1] == (byte) 0xff
@@ -188,10 +237,23 @@ class AppOverlayView extends RelativeLayout
         switch (event.getEventCase())
         {
             case GAMESTATECHANGEEVENT:
-                System.out.println("Game supposed to start");
+                switch (event.getGameStateChangeEvent().getNewState().getState())
+                {
+                    case QUESTION_ANSWERING:
+                    case QUESTION_LIVEANSWERS:
+                    case QUESTION_CLOSED:
+                    case QUESTION_ANSWERS_REVEALED:
+                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion());
+                        break;
+
+                    default:
+                        showError(mDisconnectAndClose);
+                        break;
+                }
                 break;
 
             default:
+                showError(mDisconnectAndClose);
                 System.out.println("Got GameEventThing of type " + event.getEventCase());
                 System.out.println("Content: " + event);
                 System.out.println("Binary: " + Arrays.toString(event.toByteArray()));
@@ -212,7 +274,10 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             default:
+                showError(mDisconnectAndClose);
                 System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
+                System.out.println("Content: " + response);
+                System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
                 break;
         }
     }
@@ -220,22 +285,7 @@ class AppOverlayView extends RelativeLayout
     private void handleIdentifyUserResponse(final Rpc.IdentifyUserResponse response)
     {
         if (!response.hasTeam())
-        {
-            Callback callback = new Callback()
-            {
-                @Override
-                public void action()
-                {
-                    TextView errorText = (TextView) findViewById(R.id.error_text);
-                    TextView sadFace = (TextView) findViewById(R.id.sad_face);
-
-                    errorText.setText(response.getFailureReason().toString());
-                    sadFace.setOnClickListener(mCloseOnClick);
-                }
-            };
-
-            swapLayout(R.layout.error, callback);
-        }
+            showError(response.getFailureReason().toString(), mDisconnectAndClose);
 
         else
         {
@@ -244,65 +294,44 @@ class AppOverlayView extends RelativeLayout
                 @Override
                 public void run()
                 {
+                    changeToLayout(R.id.team_select_layout);
+
+                    final List<String> names = response.getTeam().getMemberNamesList();
+                    final ArrayList<String> namesArray = new ArrayList<>(names.size());
+                    namesArray.addAll(names);
+
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                            mContext, android.R.layout.simple_list_item_1, namesArray);
+
                     final TextView teamNumber = (TextView) findViewById(R.id.team_number);
-                    final ImageView bsqLogo = (ImageView) findViewById(R.id.bsq_logo);
-                    final TextInputLayout textLayout = (TextInputLayout) findViewById(R.id.text_layout);
-                    final Button startButton = (Button) findViewById(R.id.start_button);
+                    final ListView teamMembers = (ListView) findViewById(R.id.team_members);
+                    final TextInputEditText teamName = (TextInputEditText) findViewById(R.id.team_name);
+                    final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
 
-                    textLayout.setVisibility(INVISIBLE);
-                    startButton.setVisibility(INVISIBLE);
                     teamNumber.setText(response.getTeam().getNumber());
+                    teamMembers.setAdapter(arrayAdapter);
 
-                    bsqLogo.setOnClickListener(new OnClickListener()
+                    fab.setOnClickListener(new OnClickListener()
                     {
                         @Override
                         public void onClick(View v)
                         {
-                            final List<String> names = response.getTeam().getMemberNamesList();
-                            final ArrayList<String> namesArray = new ArrayList<>(names.size());
-                            namesArray.addAll(names);
+                            String name = teamName.getText().toString().trim();
 
-                            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                                    mContext, android.R.layout.simple_list_item_1, namesArray);
-
-                            Callback callback = new Callback()
+                            if (name.isEmpty())
                             {
-                                @Override
-                                public void action()
-                                {
-                                    final ListView teamMembers = (ListView) findViewById(R.id.team_members);
-                                    final TextInputEditText teamName = (TextInputEditText) findViewById(R.id.team_name);
-                                    final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+                                Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
-                                    teamMembers.setAdapter(arrayAdapter);
+                            //TODO Filter names maybe
 
-                                    fab.setOnClickListener(new OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(View v)
-                                        {
-                                            String name = teamName.getText().toString().trim();
-
-                                            if (name.isEmpty())
-                                            {
-                                                Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
-                                                return;
-                                            }
-
-                                            //TODO Filter names maybe
-
-                                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
-                                            Rpc.TeamReadyRequest.Builder builder = Rpc.TeamReadyRequest.newBuilder();
-                                            builder.setTeamName(name);
-                                            wrapperBuilder.setTeamReadyRequest(builder);
-                                            byte[] data = wrapperBuilder.build().toByteArray();
-                                            mWebSocket.sendBinary(data);
-                                        }
-                                    });
-                                }
-                            };
-
-                            swapLayout(R.layout.team_select, callback);
+                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
+                            Rpc.TeamReadyRequest.Builder builder = Rpc.TeamReadyRequest.newBuilder();
+                            builder.setTeamName(name);
+                            wrapperBuilder.setTeamReadyRequest(builder);
+                            byte[] data = wrapperBuilder.build().toByteArray();
+                            mWebSocket.sendBinary(data);
                         }
                     });
                 }
@@ -312,29 +341,11 @@ class AppOverlayView extends RelativeLayout
 
     private void handleTeamReadyResponse(Rpc.TeamReadyResponse response)
     {
-        swapLayout(R.layout.wait_for_start, null);
+        changeToLayout(R.id.waiting_layout);
     }
 
-    private void swapLayout(final int layoutId, final Callback callback)
+    private void handleQuestionEvent(QuestionOuterClass.Question question)
     {
-        final AppOverlayView ctx = this;
 
-        new Handler(Looper.getMainLooper()).post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                removeView(findViewById(R.id.current_layout));
-
-                LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-                View newLayout = layoutInflater.inflate(layoutId, ctx, false);
-
-                newLayout.setId(R.id.current_layout);
-                addView(newLayout);
-
-                if (callback != null)
-                    callback.action();
-            }
-        });
     }
 }
