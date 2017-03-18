@@ -75,7 +75,7 @@
                 case 'test':
                     var message = RpcRequest.create();
                     message.identifyUserRequest = IdentifyUserRequest.create();
-                    message.identifyUserRequest.deviceId = "deadbeef";
+                    message.identifyUserRequest.deviceId = document.getElementById('param').value;
                     var data = RpcRequest.encode(message).finish();
                     socket.send(data);
                     setStatus(`sent ${which}`);

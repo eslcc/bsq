@@ -10,6 +10,7 @@ import club.eslcc.bigsciencequiz.server.Server;
 import redis.clients.jedis.Jedis;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,14 +21,26 @@ public class InitializeStateCallback implements IStartupCallback {
     private static Jedis jedis = Redis.getJedis();
     private static Logger log = Logger.getGlobal();
 
+    private void del(String key) {
+        log.log(Level.INFO, "Deleting key " + key);;
+        jedis.del(key);
+    }
+
     @Override
     public void onStartup() {
         if (jedis.exists("state")) {
             log.log(Level.INFO, "[InitializeStateCallback] Skipping state initialization because state exists");
 
             if (!Server.PROD) {
-                jedis.del("devices");
-                jedis.del("team_names");
+                del("devices");
+                del("team_names");
+                del("questions");
+                del("state");
+                List<String> teams = jedis.lrange("teams", 0, -1);
+                teams.forEach(t -> del("team_members_" + t));
+                del("teams");
+                del("ready_devices");
+                del("answers");
             }
             return;
         }
