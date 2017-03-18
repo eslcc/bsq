@@ -6,6 +6,7 @@ import static club.eslcc.bigsciencequiz.proto.Rpc.*;
 import static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.*;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
 
 import club.eslcc.bigsciencequiz.proto.Rpc;
 import club.eslcc.bigsciencequiz.proto.admin.AdminRpc;
@@ -98,6 +99,19 @@ public class AdminHandlers {
                 AdminSetGameStateRequest wrapped = request.getAdminSetGameStateRequest();
                 jedis.hset("state", "state", wrapped.getNewState().toString());
                 jedis.publish("game_events", "game_state_change");
+
+                switch (wrapped.getNewState()) {
+                    case QUESTION_ANSWERS_REVEALED:
+                        Map<String, String> answers = jedis.hgetAll("answers");
+                        int correctAnswer = RedisHelpers.getGameState(null).getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
+
+                        for (String device: answers.keySet()) {
+                            int answer = stoi(answers.get(device));
+                            if (answer == correctAnswer) {
+                                jedis.zincrby("scores", 3, device);
+                            }
+                        }
+                }
 
                 RpcResponse.Builder builder = RpcResponse.newBuilder();
                 AdminSetGameStateResponse.Builder responseBuilder = AdminSetGameStateResponse.newBuilder();
