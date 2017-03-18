@@ -10,10 +10,12 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,37 +43,65 @@ class AppOverlayView extends RelativeLayout
     private Context mContext;
     private WebSocket mWebSocket;
 
-    
+
     private ViewFlipper mViewFlipper;
 
-    private void changeToLayout(int layoutId)
+    private void changeToLayout(final int layoutId, final Runnable runnable)
     {
-        mViewFlipper.setDisplayedChild(mViewFlipper.indexOfChild(findViewById(layoutId)));
+        new Handler(Looper.getMainLooper()).post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mViewFlipper.setDisplayedChild(mViewFlipper.indexOfChild(findViewById(layoutId)));
+
+                if (runnable != null)
+                    runnable.run();
+            }
+        });
     }
 
-    private void showError(OnClickListener listener)
+    private void showError(final OnClickListener listener)
     {
-        changeToLayout(R.id.error_layout);
-        TextView sadFace = (TextView) findViewById(R.id.sad_face);
-        sadFace.setOnClickListener(listener);
+        changeToLayout(R.id.error_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView sadFace = (TextView) findViewById(R.id.sad_face);
+                sadFace.setOnClickListener(listener);
+            }
+        });
     }
 
-    private void showError(CharSequence error, OnClickListener listener)
+    private void showError(final CharSequence error, final OnClickListener listener)
     {
-        changeToLayout(R.id.error_layout);
-        TextView text = (TextView) findViewById(R.id.error_text);
-        TextView sadFace = (TextView) findViewById(R.id.sad_face);
-        text.setText(error);
-        sadFace.setOnClickListener(listener);
+        changeToLayout(R.id.error_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView text = (TextView) findViewById(R.id.error_text);
+                TextView sadFace = (TextView) findViewById(R.id.sad_face);
+                text.setText(error);
+                sadFace.setOnClickListener(listener);
+            }
+        });
     }
 
-    private void showError(int errorResource, OnClickListener listener)
+    private void showError(final int errorResource, final OnClickListener listener)
     {
-        changeToLayout(R.id.error_layout);
-        TextView text = (TextView) findViewById(R.id.error_text);
-        TextView sadFace = (TextView) findViewById(R.id.sad_face);
-        text.setText(errorResource);
-        sadFace.setOnClickListener(listener);
+        changeToLayout(R.id.error_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView text = (TextView) findViewById(R.id.error_text);
+                TextView sadFace = (TextView) findViewById(R.id.sad_face);
+                text.setText(errorResource);
+                sadFace.setOnClickListener(listener);
+            }
+        });
     }
 
     private OnClickListener mClose = new OnClickListener()
@@ -124,17 +154,22 @@ class AppOverlayView extends RelativeLayout
 
         else
         {
-            changeToLayout(R.id.connect_server_layout);
-
-            final TextInputEditText serverIP = (TextInputEditText) findViewById(R.id.server_ip);
-            final Button startButton = (Button) findViewById(R.id.start_button);
-
-            startButton.setOnClickListener(new OnClickListener()
+            changeToLayout(R.id.connect_server_layout, new Runnable()
             {
                 @Override
-                public void onClick(View v)
+                public void run()
                 {
-                    connectToServer(serverIP.getText().toString());
+                    final TextInputEditText serverIP = (TextInputEditText) findViewById(R.id.server_ip);
+                    final Button startButton = (Button) findViewById(R.id.start_button);
+
+                    startButton.setOnClickListener(new OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            connectToServer(serverIP.getText().toString());
+                        }
+                    });
                 }
             });
         }
@@ -246,8 +281,15 @@ class AppOverlayView extends RelativeLayout
                         handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion());
                         break;
 
+                    case READY:
+                        changeToLayout(R.id.waiting_layout, null);
+                        break;
+
                     default:
                         showError(mDisconnectAndClose);
+                        System.out.println("Got NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
+                        System.out.println("Content: " + event.getGameStateChangeEvent().getNewState());
+                        System.out.println("Binary: " + Arrays.toString(event.getGameStateChangeEvent().getNewState().toByteArray()));
                         break;
                 }
                 break;
@@ -289,13 +331,11 @@ class AppOverlayView extends RelativeLayout
 
         else
         {
-            new Handler(Looper.getMainLooper()).post(new Runnable()
+            changeToLayout(R.id.team_select_layout, new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    changeToLayout(R.id.team_select_layout);
-
                     final List<String> names = response.getTeam().getMemberNamesList();
                     final ArrayList<String> namesArray = new ArrayList<>(names.size());
                     namesArray.addAll(names);
@@ -336,16 +376,38 @@ class AppOverlayView extends RelativeLayout
                     });
                 }
             });
+
+
         }
     }
 
     private void handleTeamReadyResponse(Rpc.TeamReadyResponse response)
     {
-        changeToLayout(R.id.waiting_layout);
+        changeToLayout(R.id.waiting_layout, null);
     }
 
-    private void handleQuestionEvent(QuestionOuterClass.Question question)
+    private void handleQuestionEvent(final QuestionOuterClass.Question question)
     {
+        changeToLayout(R.id.question_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView category = (TextView) findViewById(R.id.question_category);
+                TextView questionText = (TextView) findViewById(R.id.question);
+                ListView answers = (ListView) findViewById(R.id.question_answers);
 
+                category.setText(question.getCategory());
+                questionText.setText(question.getQuestion());
+
+                ListAdapter adapter = new AnswerAdapter(
+                        mContext,
+                        R.layout.answer,
+                        ContextCompat.getColor(mContext, R.color.focused),
+                        question.getAnswersList());
+
+                answers.setAdapter(adapter);
+            }
+        });
     }
 }

@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Uh oh!"
-        android:textSize="50sp"/>
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/sad_face"

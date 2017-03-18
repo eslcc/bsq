@@ -6,4 +6,6 @@
     <color name="background_color">#0A0023</color>
     <color name="circle_fill">#0a0023</color>
     <color name="circle_stroke">#FFFFFF</color>
+    <color name="focused">#fdd835</color>
+    <color name="defocused">#757575</color>
 </resources>

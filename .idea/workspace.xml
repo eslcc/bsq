@@ -10,37 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ed852-774f-4d37-baa6-fbc63b066900" name="Default" comment="Make it compile again">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminEvents.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/connect_server.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/question.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/team_select.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/ids.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/Events.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/Gamestate.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/QuestionOuterClass.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/Rpc.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminEvents.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/microtests/src/main/java/club/eslcc/bigsciencequiz/proto/admin/AdminRpc.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/main/resources/static/proto/proto.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/androidTest/java/club/eslcc/bigsciencequiz/ExampleInstrumentedTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/connect_server.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/team_select.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/wait_for_start.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/test/java/club/eslcc/bigsciencequiz/ExampleUnitTest.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AnswerAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/answer.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/build.gradle" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayService.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/AppOverlayView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/MainActivity.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Events.java" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/java/club/eslcc/bigsciencequiz/proto/Events.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/connect_server.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/connect_server.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/question.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/question.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/wait_for_start.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout-land/wait_for_start.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/error.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/error.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/overlay_app.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/layout/overlay_app.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compile_proto_java.cmd" afterPath="$PROJECT_DIR$/compile_proto_java.cmd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Events.java" afterPath="$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/proto/Events.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/main/resources/teams.xml" afterPath="$PROJECT_DIR$/server/src/main/resources/teams.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/BigScienceQuiz/app/src/main/res/values/colors.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/server/.gradle/" />
     <ignored path="$PROJECT_DIR$/server/build/" />
@@ -95,11 +74,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teams.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="teams.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/resources/teams.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
               <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RpcPubSub.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/RpcPubSub.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="331">
+              <caret line="65" column="69" lean-forward="true" selection-start-line="65" selection-start-column="69" selection-end-line="65" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -1080,7 +1069,7 @@
       <workItem from="1489260168100" duration="10649000" />
       <workItem from="1489311002931" duration="242000" />
       <workItem from="1489428173908" duration="684000" />
-      <workItem from="1489842114081" duration="6333000" />
+      <workItem from="1489842114081" duration="10559000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1488040103435</created>
@@ -1282,7 +1271,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49225000" />
+    <option name="totallyTimeSpent" value="53451000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1393,7 +1382,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.5.5/spark-core-2.5.5.jar!/spark/Service.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/sparkjava/spark-core/2.5.5/spark-core-2.5.5.jar!/spark/Spark.class" />
     <entry file="file://$PROJECT_DIR$/admin/src/Questions.js" />
     <entry file="file://$PROJECT_DIR$/admin/src/lib/helpers.js" />
@@ -1605,6 +1593,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/club/eslcc/bigsciencequiz/server/RpcPubSub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="65" column="69" lean-forward="true" selection-start-line="65" selection-start-column="69" selection-end-line="65" selection-end-column="69" />
           <folding />
         </state>
       </provider>

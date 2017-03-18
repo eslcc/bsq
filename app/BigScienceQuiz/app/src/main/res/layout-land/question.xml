@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/question_category"
@@ -11,7 +13,7 @@
         android:layout_marginStart="@dimen/small_space_margin"
         android:layout_marginTop="@dimen/small_space_margin"
         android:text="Category"
-        android:textSize="30sp"/>
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/question"
@@ -25,8 +27,11 @@
 
     <ListView
         android:id="@+id/question_answers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        app:layout_heightPercent="50%"
         android:layout_below="@+id/question"
-        />
-</RelativeLayout>
+        android:layout_marginEnd="@dimen/space_margin"
+        android:layout_marginLeft="@dimen/space_margin"
+        android:layout_marginRight="@dimen/space_margin"
+        android:layout_marginStart="@dimen/space_margin"/>
+</android.support.percent.PercentRelativeLayout>

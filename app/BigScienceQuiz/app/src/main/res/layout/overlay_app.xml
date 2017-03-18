@@ -26,6 +26,10 @@
         <include
             android:id="@+id/waiting_layout"
             layout="@layout/wait_for_start"/>
+
+        <include
+            android:id="@+id/question_layout"
+            layout="@layout/question"/>
     </ViewFlipper>
 
 </club.eslcc.bigsciencequiz.AppOverlayView>
