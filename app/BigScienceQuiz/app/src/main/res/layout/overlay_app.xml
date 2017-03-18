@@ -6,8 +6,30 @@
     android:animateLayoutChanges="true"
     android:background="@color/background_color">
 
-    <include
-        android:id="@+id/current_layout"
-        layout="@layout/connect_server"/>
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/current_view">
+
+        <include
+            android:id="@+id/error_layout"
+            layout="@layout/error"/>
+
+        <include
+            android:id="@+id/connect_server_layout"
+            layout="@layout/connect_server"/>
+
+        <include
+            android:id="@+id/team_select_layout"
+            layout="@layout/team_select"/>
+
+        <include
+            android:id="@+id/waiting_layout"
+            layout="@layout/wait_for_start"/>
+
+        <include
+            android:id="@+id/question_layout"
+            layout="@layout/question"/>
+    </ViewFlipper>
 
 </club.eslcc.bigsciencequiz.AppOverlayView>

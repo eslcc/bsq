@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onPostCreate(savedInstanceState);
 
-        mAppOverlayIntent = new Intent(this, AppOverlayService.class);
+        mAppOverlayIntent = new Intent(getApplicationContext(), AppOverlayService.class);
         startService(mAppOverlayIntent);
     }
 

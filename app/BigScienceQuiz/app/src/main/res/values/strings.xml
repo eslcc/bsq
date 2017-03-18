@@ -10,5 +10,8 @@
     <string name="bsq_logo">BSQ Logo</string>
     <string name="default_server_ip">192.168.177.71:8080</string>
     <string name="team_hint">Choose your team name</string>
+    <string name="team_number">0</string>
+    <string name="team_members_label">Team Members:</string>
+    <string name="no_internet">No Internet</string>
 
 </resources>
