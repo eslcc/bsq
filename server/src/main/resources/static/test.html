@@ -80,7 +80,7 @@
                     socket.send(data);
                     setStatus(`sent ${which}`);
                     break;
-                case 'autocomplete':
+                case 'ready':
                     var message = RpcRequest.create();
                     message.autocompleteMemberNameRequest = AutocompleteMemberNameRequest.create();
                     message.autocompleteMemberNameRequest.partialName = document.getElementById('param').value;

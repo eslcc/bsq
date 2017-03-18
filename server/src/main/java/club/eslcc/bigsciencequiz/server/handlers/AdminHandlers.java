@@ -68,6 +68,7 @@ public class AdminHandlers {
                 newBuilder.setCurrentQuestion(newQuestion);
                 GameState newState = newBuilder.build();
                 jedis.hset(stob("state"), stob("currentQuestion"), newQuestion.toByteArray());
+                jedis.hset("state", "state", GameState.State.QUESTION_ANSWERING.toString());
                 jedis.publish("game_events", "game_state_change");
 
                 RpcResponse.Builder builder = RpcResponse.newBuilder();
