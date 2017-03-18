@@ -1,7 +1,9 @@
 package club.eslcc.bigsciencequiz.server;
 
 import club.eslcc.bigsciencequiz.proto.Events;
+import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.admin.AdminEvents;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.eclipse.jetty.websocket.api.Session;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -14,6 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
 
 
@@ -21,7 +24,6 @@ import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
  * Created by marks on 18/03/2017.
  */
 public class RpcPubSub extends JedisPubSub {
-    private Jedis jedis = Redis.getJedis();
 
     private void sendEvent(Events.GameEvent event) {
         byte[] data = EventHelpers.addEventFlag(event.toByteArray());
@@ -71,23 +73,25 @@ public class RpcPubSub extends JedisPubSub {
     }
 
     private void handleAdminDevices() {
-        Map<String, String> deviceTeams = jedis.hgetAll("devices");
-        Set<String> readyDevices = jedis.smembers("ready_devices");
+        try (Jedis jedis = Redis.pool.getResource()) {
+            Map<String, String> deviceTeams = jedis.hgetAll("devices");
+            Set<String> readyDevices = jedis.smembers("ready_devices");
 
-        List<AdminEvents.AdminDevicesChangedEvent.Device> result = deviceTeams.keySet().stream().map(
-                id -> AdminEvents.AdminDevicesChangedEvent.Device.newBuilder()
-                        .setDeviceId(id)
-                        .setReady(readyDevices.contains(id))
-                        .setTeam(stoi(deviceTeams.get(id)))
-                        .build()
-        ).collect(Collectors.toList());
+            List<AdminEvents.AdminDevicesChangedEvent.Device> result = deviceTeams.keySet().stream().map(
+                    id -> AdminEvents.AdminDevicesChangedEvent.Device.newBuilder()
+                            .setDeviceId(id)
+                            .setReady(readyDevices.contains(id))
+                            .setTeam(stoi(deviceTeams.get(id)))
+                            .build()
+            ).collect(Collectors.toList());
 
-        Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
-        AdminEvents.AdminDevicesChangedEvent.Builder builder = AdminEvents.AdminDevicesChangedEvent.newBuilder();
-        builder.addAllDevices(result);
-        wrapped.setAdminDevicesChangedEvent(builder);
-        Events.GameEvent event = wrapped.build();
-        sendAdminEvent(event);
+            Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+            AdminEvents.AdminDevicesChangedEvent.Builder builder = AdminEvents.AdminDevicesChangedEvent.newBuilder();
+            builder.addAllDevices(result);
+            wrapped.setAdminDevicesChangedEvent(builder);
+            Events.GameEvent event = wrapped.build();
+            sendAdminEvent(event);
+        }
     }
 
     private void handleNoFreeTeams(String[] args) {
@@ -97,6 +101,27 @@ public class RpcPubSub extends JedisPubSub {
         wrapped.setErrorEvent(builder);
         Events.GameEvent event = wrapped.build();
         sendAdminEvent(event);
+    }
+
+    private void handleQuestionsChange() {
+        try (Jedis jedis = Redis.pool.getResource()) {
+            Map<byte[], byte[]> questions = jedis.hgetAll(stob("questions"));
+
+            List<QuestionOuterClass.Question> questionProtos = questions.values().stream().map(bytes -> {
+                try {
+                    return QuestionOuterClass.Question.parseFrom(bytes);
+                } catch (InvalidProtocolBufferException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList());
+
+            Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+            AdminEvents.AdminQuestionsChangedEvent.Builder builder = AdminEvents.AdminQuestionsChangedEvent.newBuilder();
+            builder.addAllNewQuestions(questionProtos);
+            wrapped.setAdminQuestionsChangedEvent(builder);
+            Events.GameEvent event = wrapped.build();
+            sendAdminEvent(event);
+        }
     }
 
     @Override
@@ -114,6 +139,9 @@ public class RpcPubSub extends JedisPubSub {
                     case "identified_device_change":
                     case "ready_device_change":
                         handleAdminDevices();
+                        break;
+                    case "questions_change":
+                        handleQuestionsChange();
                         break;
                     default:
                         if (message.startsWith("no_free_teams")) {

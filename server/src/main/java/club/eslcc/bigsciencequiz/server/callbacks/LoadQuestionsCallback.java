@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
 
 /**
  * Created by marks on 11/03/2017.
@@ -41,7 +42,8 @@ public class LoadQuestionsCallback implements IStartupCallback {
                 QuestionOuterClass.Question.Builder builder = QuestionOuterClass.Question.newBuilder();
                 Element el = (Element) elements.item(i);
 
-                builder.setId(Integer.valueOf(el.getAttribute("id"), 10));
+                String id = el.getAttribute("id");
+                builder.setId(Integer.valueOf(id, 10));
                 builder.setScored(!el.getAttribute("scored").equals("false"));
                 builder.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
                 builder.setQuestion(el.getElementsByTagName("text").item(0).getTextContent());
@@ -58,7 +60,7 @@ public class LoadQuestionsCallback implements IStartupCallback {
 
                 pipe.hset(
                         stob("questions"),
-                        itob(i),
+                        itob(stoi(id)),
                         builder.build().toByteArray()
                 );
             }

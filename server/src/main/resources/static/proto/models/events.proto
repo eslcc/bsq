@@ -20,5 +20,6 @@ message GameEvent {
         GameStateChangeEvent gameStateChangeEvent = 1;
         ErrorEvent errorEvent = 2;
         bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 3;
+        bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;
     }
 }

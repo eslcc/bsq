@@ -1,41 +1,62 @@
 import React from 'react';
 import AdminSocket from './lib/AdminSocket';
 import {getKeyByValue} from './lib/helpers';
-import {RpcRequest, GetGameStateRequest, AdminResetStateRequest} from './lib/ProtoLoader';
+import {
+    RpcRequest,
+    GetGameStateRequest,
+    AdminResetStateRequest,
+    AdminSetGameStateRequest,
+    GameState
+} from './lib/ProtoLoader';
 
-export default class GameState extends React.Component {
-    state = {
-        state: null,
-    };
-
-    componentDidMount() {
-        AdminSocket.registerResponseHandler('getGameStateResponse', this._onGetGameState.bind(this));
-        AdminSocket.registerEventHandler('gameStateChangeEvent', this._onStateChange.bind(this));
-        const message = RpcRequest.create();
-        message.getGameStateRequest = GetGameStateRequest.create();
-        AdminSocket.sendMessage(message);
-    }
-
-    _onGetGameState(message) {
-        this.setState({
-            state: message.state,
-        });
-    }
-
-    _onStateChange(event) {
-        this.setState({
-            state: event.newState,
-        });
-    }
-
+export default class GameStateComponent extends React.Component {
     _resetState() {
         const message = RpcRequest.create();
         message.adminResetStateRequest = AdminResetStateRequest.create();
         AdminSocket.sendMessage(message);
     }
 
+    _setState(newState) {
+        const message = RpcRequest.create();
+        message.adminSetGameStateRequest = AdminSetGameStateRequest.create();
+        message.adminSetGameStateRequest.newState = newState;
+        AdminSocket.sendMessage(message);
+    }
+
+    renderAdvanceButton() {
+        switch (this.props.state.state) {
+            case GameState.State.QUESTION_ANSWERING:
+                return (
+                    <button
+                        onClick={() => this._setState(GameState.State.QUESTION_LIVEANSWERS)}
+                    >
+                        Show Live Answers
+                    </button>
+                );
+            case GameState.State.QUESTION_LIVEANSWERS:
+                return (
+                    <button
+                        onClick={() => this._setState(GameState.State.QUESTION_CLOSED)}
+                    >
+                        Close Answers
+                    </button>
+                );
+            case GameState.State.QUESTION_CLOSED:
+                return (
+                    <button
+                        onClick={() => this._setState(GameState.State.QUESTION_ANSWERS_REVEALED)}
+                    >
+                        Reveal Answers and Calculate Scores
+                    </button>
+                );
+            default:
+                return null;
+        }
+    }
+
     render() {
-        if (this.state.state === null) {
+        const {state} = this.props;
+        if (typeof state === "undefined" || state === null) {
             return <div>loading state</div>;
         }
         // debugger;
@@ -43,12 +64,12 @@ export default class GameState extends React.Component {
             <div>
                 <strong>State:</strong>
                 <em>
-                    <span>{(this.state.state.state || 0)}</span>
-                    <span>({getKeyByValue(GameState.State, (this.state.state.state || 0))})</span>
+                    <span>{(state.state || 0)}</span>
+                    <span>({getKeyByValue(GameState.State, (state.state || 0))})</span>
                 </em>
                 <strong>Question:</strong>
-                <em>{!!this.state.state.currentQuestion ? this.state.state.currentQuestion.id : 'NONE'}</em>
-                <button disabled={!this.props.dangerZone}>RESET STATE ENTIRELY</button>
+                <em>{!!state.currentQuestion ? state.currentQuestion.id : 'NONE'}</em>
+                {this.renderAdvanceButton()}
             </div>
         );
     }

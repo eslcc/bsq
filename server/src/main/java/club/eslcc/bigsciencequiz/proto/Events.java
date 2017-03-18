@@ -1108,6 +1108,15 @@ public final class Events {
      */
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminDevicesChangedEventOrBuilder getAdminDevicesChangedEventOrBuilder();
 
+    /**
+     * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getAdminQuestionsChangedEvent();
+    /**
+     * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder getAdminQuestionsChangedEventOrBuilder();
+
     public club.eslcc.bigsciencequiz.proto.Events.GameEvent.EventCase getEventCase();
   }
   /**
@@ -1191,6 +1200,20 @@ public final class Events {
               eventCase_ = 3;
               break;
             }
+            case 34: {
+              club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder subBuilder = null;
+              if (eventCase_ == 4) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_).toBuilder();
+              }
+              event_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_);
+                event_ = subBuilder.buildPartial();
+              }
+              eventCase_ = 4;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1221,6 +1244,7 @@ public final class Events {
       GAMESTATECHANGEEVENT(1),
       ERROREVENT(2),
       ADMINDEVICESCHANGEDEVENT(3),
+      ADMINQUESTIONSCHANGEDEVENT(4),
       EVENT_NOT_SET(0);
       private final int value;
       private EventCase(int value) {
@@ -1239,6 +1263,7 @@ public final class Events {
           case 1: return GAMESTATECHANGEEVENT;
           case 2: return ERROREVENT;
           case 3: return ADMINDEVICESCHANGEDEVENT;
+          case 4: return ADMINQUESTIONSCHANGEDEVENT;
           case 0: return EVENT_NOT_SET;
           default: return null;
         }
@@ -1314,6 +1339,26 @@ public final class Events {
       return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminDevicesChangedEvent.getDefaultInstance();
     }
 
+    public static final int ADMINQUESTIONSCHANGEDEVENT_FIELD_NUMBER = 4;
+    /**
+     * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getAdminQuestionsChangedEvent() {
+      if (eventCase_ == 4) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder getAdminQuestionsChangedEventOrBuilder() {
+      if (eventCase_ == 4) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1335,6 +1380,9 @@ public final class Events {
       if (eventCase_ == 3) {
         output.writeMessage(3, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminDevicesChangedEvent) event_);
       }
+      if (eventCase_ == 4) {
+        output.writeMessage(4, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_);
+      }
     }
 
     public int getSerializedSize() {
@@ -1353,6 +1401,10 @@ public final class Events {
       if (eventCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminDevicesChangedEvent) event_);
+      }
+      if (eventCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_);
       }
       memoizedSize = size;
       return size;
@@ -1386,6 +1438,10 @@ public final class Events {
           result = result && getAdminDevicesChangedEvent()
               .equals(other.getAdminDevicesChangedEvent());
           break;
+        case 4:
+          result = result && getAdminQuestionsChangedEvent()
+              .equals(other.getAdminQuestionsChangedEvent());
+          break;
         case 0:
         default:
       }
@@ -1411,6 +1467,10 @@ public final class Events {
         case 3:
           hash = (37 * hash) + ADMINDEVICESCHANGEDEVENT_FIELD_NUMBER;
           hash = (53 * hash) + getAdminDevicesChangedEvent().hashCode();
+          break;
+        case 4:
+          hash = (37 * hash) + ADMINQUESTIONSCHANGEDEVENT_FIELD_NUMBER;
+          hash = (53 * hash) + getAdminQuestionsChangedEvent().hashCode();
           break;
         case 0:
         default:
@@ -1578,6 +1638,13 @@ public final class Events {
             result.event_ = adminDevicesChangedEventBuilder_.build();
           }
         }
+        if (eventCase_ == 4) {
+          if (adminQuestionsChangedEventBuilder_ == null) {
+            result.event_ = event_;
+          } else {
+            result.event_ = adminQuestionsChangedEventBuilder_.build();
+          }
+        }
         result.eventCase_ = eventCase_;
         onBuilt();
         return result;
@@ -1631,6 +1698,10 @@ public final class Events {
           }
           case ADMINDEVICESCHANGEDEVENT: {
             mergeAdminDevicesChangedEvent(other.getAdminDevicesChangedEvent());
+            break;
+          }
+          case ADMINQUESTIONSCHANGEDEVENT: {
+            mergeAdminQuestionsChangedEvent(other.getAdminQuestionsChangedEvent());
             break;
           }
           case EVENT_NOT_SET: {
@@ -2067,6 +2138,136 @@ public final class Events {
         onChanged();;
         return adminDevicesChangedEventBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder> adminQuestionsChangedEventBuilder_;
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getAdminQuestionsChangedEvent() {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          if (eventCase_ == 4) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+        } else {
+          if (eventCase_ == 4) {
+            return adminQuestionsChangedEventBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public Builder setAdminQuestionsChangedEvent(club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent value) {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+          onChanged();
+        } else {
+          adminQuestionsChangedEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public Builder setAdminQuestionsChangedEvent(
+          club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder builderForValue) {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          event_ = builderForValue.build();
+          onChanged();
+        } else {
+          adminQuestionsChangedEventBuilder_.setMessage(builderForValue.build());
+        }
+        eventCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public Builder mergeAdminQuestionsChangedEvent(club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent value) {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          if (eventCase_ == 4 &&
+              event_ != club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance()) {
+            event_ = club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.newBuilder((club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            event_ = value;
+          }
+          onChanged();
+        } else {
+          if (eventCase_ == 4) {
+            adminQuestionsChangedEventBuilder_.mergeFrom(value);
+          }
+          adminQuestionsChangedEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public Builder clearAdminQuestionsChangedEvent() {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          if (eventCase_ == 4) {
+            eventCase_ = 0;
+            event_ = null;
+            onChanged();
+          }
+        } else {
+          if (eventCase_ == 4) {
+            eventCase_ = 0;
+            event_ = null;
+          }
+          adminQuestionsChangedEventBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder getAdminQuestionsChangedEventBuilder() {
+        return getAdminQuestionsChangedEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder getAdminQuestionsChangedEventOrBuilder() {
+        if ((eventCase_ == 4) && (adminQuestionsChangedEventBuilder_ != null)) {
+          return adminQuestionsChangedEventBuilder_.getMessageOrBuilder();
+        } else {
+          if (eventCase_ == 4) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder> 
+          getAdminQuestionsChangedEventFieldBuilder() {
+        if (adminQuestionsChangedEventBuilder_ == null) {
+          if (!(eventCase_ == 4)) {
+            event_ = club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+          }
+          adminQuestionsChangedEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_,
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        eventCase_ = 4;
+        onChanged();;
+        return adminQuestionsChangedEventBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -2144,14 +2345,16 @@ public final class Events {
       "ents.proto\032\016question.proto\032\017gamestate.pr" +
       "oto\"C\n\024GameStateChangeEvent\022+\n\010newState\030" +
       "\001 \001(\0132\031.bigsciencequiz.GameState\"!\n\nErro" +
-      "rEvent\022\023\n\013description\030\001 \001(\t\"\340\001\n\tGameEven" +
+      "rEvent\022\023\n\013description\030\001 \001(\t\"\270\002\n\tGameEven" +
       "t\022D\n\024gameStateChangeEvent\030\001 \001(\0132$.bigsci" +
       "encequiz.GameStateChangeEventH\000\0220\n\nerror" +
       "Event\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH" +
       "\000\022R\n\030adminDevicesChangedEvent\030\003 \001(\0132..bi" +
       "gsciencequiz.admin.AdminDevicesChangedEv",
-      "entH\000B\007\n\005eventB!\n\037club.eslcc.bigscienceq" +
-      "uiz.protob\006proto3"
+      "entH\000\022V\n\032adminQuestionsChangedEvent\030\004 \001(" +
+      "\01320.bigsciencequiz.admin.AdminQuestionsC" +
+      "hangedEventH\000B\007\n\005eventB!\n\037club.eslcc.big" +
+      "sciencequiz.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2185,7 +2388,7 @@ public final class Events {
     internal_static_bigsciencequiz_GameEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_GameEvent_descriptor,
-        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "Event", });
+        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();

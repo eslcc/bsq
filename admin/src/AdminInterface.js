@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminSocket from './lib/AdminSocket';
-import { protosLoaded } from './lib/ProtoLoader';
+import { protosLoaded, RpcRequest, GetGameStateRequest } from './lib/ProtoLoader';
 
 import GameState from './GameState';
 import Questions from './Questions';
@@ -11,6 +11,7 @@ export default class AdminInterface extends React.Component {
     state = {
         rootsLoaded: false,
         dangerZone: false,
+        gameState: {},
     };
 
     dangerZoneCheckbox = null;
@@ -20,6 +21,12 @@ export default class AdminInterface extends React.Component {
             this.setState({rootsLoaded: true});
             AdminSocket.open();
             window.as = AdminSocket;
+
+            AdminSocket.registerResponseHandler('getGameStateResponse', this._onGetGameState.bind(this));
+            AdminSocket.registerEventHandler('gameStateChangeEvent', this._onStateChange.bind(this));
+            const message = RpcRequest.create();
+            message.getGameStateRequest = GetGameStateRequest.create();
+            AdminSocket.sendMessage(message);
         });
     }
 
@@ -27,12 +34,16 @@ export default class AdminInterface extends React.Component {
         this.setState({dangerZone: this.dangerZoneCheckbox.checked});
     }
 
-    _onResponse(message) {
-
+    _onStateChange(message) {
+        this.setState({
+            state: message.newState,
+        });
     }
 
-    _onEvent(message) {
-
+    _onGetGameState(message) {
+        this.setState({
+            state: message.state,
+        });
     }
 
     render() {
@@ -49,15 +60,15 @@ export default class AdminInterface extends React.Component {
                     <span style={ {color: 'red'} }>DANGER ZONE</span>
                     <br />
                     <h2>Ready clients: </h2>
-                    <ReadyClients dangerZone={this.state.dangerZone} />
+                    <ReadyClients dangerZone={this.state.dangerZone} state={this.state.state} />
                     <br />
                     <h2>State: </h2>
-                    <GameState dangerZone={this.state.dangerZone} />
+                    <GameState dangerZone={this.state.dangerZone} state={this.state.state} />
                     <br />
                     <h2>Questions: </h2>
-                    <Questions />
+                    <Questions state={this.state.state} />
                     <h2>Errors: </h2>
-                    <Errors />
+                    <Errors state={this.state.state} />
                 </div>
             );
         } else {
