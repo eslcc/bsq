@@ -22,4 +22,8 @@ public class RpcHelpers {
     public static byte[] itob(int i) {
         return stob(itos(i));
     }
+
+    public static int stoi(String s) {
+        return Integer.valueOf(s);
+    }
 }

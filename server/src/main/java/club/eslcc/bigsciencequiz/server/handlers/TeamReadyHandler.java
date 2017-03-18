@@ -38,6 +38,9 @@ public class TeamReadyHandler implements IRpcHandler {
         if (result == 0L) {
             responseBuilder.setFailureReason(TeamReadyResponse.RegisterFailedReason.ALREADY_REGISTERED);
         } else {
+            jedis.sadd("ready_devices", currentUserId);
+            jedis.publish("admin_events", "ready_device_change");
+
             User.Team.Builder teamBuilder = User.Team.newBuilder();
             teamBuilder.setNumber(teamNumber);
             teamBuilder.addAllMemberNames(members);

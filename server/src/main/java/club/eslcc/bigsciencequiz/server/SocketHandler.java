@@ -46,33 +46,7 @@ public class SocketHandler {
     }
 
     private static void subscribe() {
-        pubSubJedis.subscribe(new JedisPubSub() {
-            @Override
-            public void onMessage(String channel, String message) {
-                System.out.println("Got message " + message);
-                switch (channel) {
-                    case "game_events":
-                        switch (message) {
-                            case "game_state_change":
-                                users.keySet().stream().filter(Session::isOpen).forEach(session -> {
-                                    GameEvent.Builder builder = GameEvent.newBuilder();
-                                    GameStateChangeEvent.Builder gsceB = GameStateChangeEvent.newBuilder();
-                                    gsceB.setNewState(RedisHelpers.getGameState(users.get(session)));
-                                    builder.setGameStateChangeEvent(gsceB);
-                                    GameEvent event = builder.build();
-                                    byte[] data = EventHelpers.addEventFlag(event.toByteArray());
-                                    try {
-                                        session.getRemote().sendBytes(ByteBuffer.wrap(data));
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                });
-                                break;
-                        }
-                        break;
-                }
-            }
-        }, "game_events");
+        pubSubJedis.subscribe(new RpcPubSub(), "game_events", "admin_events", "system_messages");
     }
 
     @OnWebSocketConnect

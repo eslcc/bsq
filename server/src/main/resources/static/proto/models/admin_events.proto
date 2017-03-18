@@ -1,0 +1,13 @@
+syntax = "proto3";
+package bigsciencequiz.admin;
+
+option java_package = "club.eslcc.bigsciencequiz.proto.admin";
+
+message AdminDevicesChangedEvent {
+    message Device {
+        string deviceId = 1;
+        int32 team = 2;
+        bool ready = 3;
+    }
+    repeated Device devices = 1;
+}
