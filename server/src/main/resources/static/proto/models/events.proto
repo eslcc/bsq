@@ -3,6 +3,7 @@ package bigsciencequiz;
 
 option java_package = "club.eslcc.bigsciencequiz.proto";
 
+import "admin_events.proto";
 import "question.proto";
 import "gamestate.proto";
 
@@ -18,5 +19,6 @@ message GameEvent {
     oneof event {
         GameStateChangeEvent gameStateChangeEvent = 1;
         ErrorEvent errorEvent = 2;
+        bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 3;
     }
 }

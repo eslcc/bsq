@@ -3413,7 +3413,7 @@ public final class AdminRpc {
        * <code>.bigsciencequiz.GameState.State newState = 1;</code>
        */
       public club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State getNewState() {
-        club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State result = club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.forNumber(newState_);
+        club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State result = club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.valueOf(newState_);
         return result == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.UNRECOGNIZED : result;
       }
       /**
