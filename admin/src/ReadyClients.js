@@ -4,26 +4,19 @@ import AdminSocket from './lib/AdminSocket';
 
 export default class ReadyClients extends Component {
     state = {
-        tablets: [
-            {
-                device: 'c0a5fa5f484820fa',
-                team: '1',
-                ready: false
-            },
-            {
-                device: '2b14548e2af389b2',
-                team: '2',
-                ready: true
-            },
-            {
-                device: '0d8fcafc01467d8f',
-                team: '3',
-                ready: false
-            },
-
-        ],
+        tablets: [],
         displayList: false,
     };
+
+    componentDidMount() {
+        AdminSocket.registerEventHandler('adminDevicesChangedEvent', this._onEvent.bind(this));
+    }
+
+    _onEvent(event) {
+        this.setState({
+            tablets: event.devices,
+        });
+    }
 
     async startQuiz() {
         await protosLoaded;
@@ -58,9 +51,9 @@ export default class ReadyClients extends Component {
                 {this.state.displayList && (
                     <ul className="devices">
                         {this.state.tablets.map(tablet => (
-                            <li key={tablet.device} className={tablet.ready && 'ready'}>
-                                <b>Device: </b> {tablet.device}; <b>Team: </b> {tablet.team};
-                                <b>Ready: </b> {tablet.ready.toString()}
+                            <li key={tablet.deviceId} className={tablet.ready && 'ready'}>
+                                <b>Device: </b> {tablet.deviceId}; <b>Team: </b> {tablet.team || 'NONE'};
+                                <b>Ready: </b> {!!tablet.ready ? tablet.ready.toString() : 'no'}
                             </li>
                         ))}
                     </ul>

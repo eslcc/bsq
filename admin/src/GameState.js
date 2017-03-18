@@ -47,7 +47,7 @@ export default class GameState extends React.Component {
                     <span>({getKeyByValue(GameState.State, (this.state.state.state || 0))})</span>
                 </em>
                 <strong>Question:</strong>
-                <em>{this.state.state.currentQuestion.id}</em>
+                <em>{!!this.state.state.currentQuestion ? this.state.state.currentQuestion.id : 'NONE'}</em>
                 <button disabled={!this.props.dangerZone}>RESET STATE ENTIRELY</button>
             </div>
         );

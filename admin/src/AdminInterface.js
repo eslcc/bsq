@@ -5,6 +5,7 @@ import { protosLoaded } from './lib/ProtoLoader';
 import GameState from './GameState';
 import Questions from './Questions';
 import ReadyClients from './ReadyClients';
+import Errors from './Errors';
 
 export default class AdminInterface extends React.Component {
     state = {
@@ -55,6 +56,8 @@ export default class AdminInterface extends React.Component {
                     <br />
                     <h2>Questions: </h2>
                     <Questions />
+                    <h2>Errors: </h2>
+                    <Errors />
                 </div>
             );
         } else {

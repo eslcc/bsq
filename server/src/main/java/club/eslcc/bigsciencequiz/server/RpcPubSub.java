@@ -23,6 +23,37 @@ import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
 public class RpcPubSub extends JedisPubSub {
     private Jedis jedis = Redis.getJedis();
 
+    private void sendEvent(Events.GameEvent event) {
+        byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+        SocketHandler.users.keySet().stream()
+                .filter(s -> SocketHandler.users.get(s) != null)
+                .filter(Session::isOpen)
+                .forEach(session -> {
+                            try {
+                                session.getRemote().sendBytes(ByteBuffer.wrap(data));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+    }
+
+    private void sendAdminEvent(Events.GameEvent event) {
+        byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+        SocketHandler.users.keySet().stream()
+                .filter(s -> SocketHandler.users.get(s) != null)
+                .filter(s -> SocketHandler.users.get(s).equals("ADMIN"))
+                .filter(Session::isOpen)
+                .forEach(session -> {
+                            try {
+                                session.getRemote().sendBytes(ByteBuffer.wrap(data));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+    }
+
     private void handleGameStateChange() {
         SocketHandler.users.keySet().stream().filter(Session::isOpen).forEach(session -> {
             Events.GameEvent.Builder builder = Events.GameEvent.newBuilder();
@@ -51,21 +82,21 @@ public class RpcPubSub extends JedisPubSub {
                         .build()
         ).collect(Collectors.toList());
 
+        Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
         AdminEvents.AdminDevicesChangedEvent.Builder builder = AdminEvents.AdminDevicesChangedEvent.newBuilder();
         builder.addAllDevices(result);
-        byte[] data = EventHelpers.addEventFlag(builder.build().toByteArray());
+        wrapped.setAdminDevicesChangedEvent(builder);
+        Events.GameEvent event = wrapped.build();
+        sendAdminEvent(event);
+    }
 
-        SocketHandler.users.keySet().stream()
-                .filter(s -> SocketHandler.users.get(s).equals("ADMIN"))
-                .filter(Session::isOpen)
-                .forEach(session -> {
-                            try {
-                                session.getRemote().sendBytes(ByteBuffer.wrap(data));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                );
+    private void handleNoFreeTeams(String[] args) {
+        Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+        Events.ErrorEvent.Builder builder = Events.ErrorEvent.newBuilder();
+        builder.setDescription("No free teams for device " + args[0]);
+        wrapped.setErrorEvent(builder);
+        Events.GameEvent event = wrapped.build();
+        sendAdminEvent(event);
     }
 
     @Override
@@ -83,6 +114,14 @@ public class RpcPubSub extends JedisPubSub {
                     case "identified_device_change":
                     case "ready_device_change":
                         handleAdminDevices();
+                        break;
+                    default:
+                        if (message.startsWith("no_free_teams")) {
+                            String[] args = message.substring("no_free_teams:".length()).split(":");
+                            handleNoFreeTeams(args);
+                        } else {
+                            System.out.println("WHAT: " + message);
+                        }
                 }
         }
     }

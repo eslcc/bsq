@@ -30,6 +30,7 @@ const TYPES = {
     GameState: 'bigsciencequiz.GameState',
     GameEvent: 'bigsciencequiz.GameEvent',
     GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
+    AdminDevicesChangedEvent: 'bigsciencequiz.admin.AdminDevicesChangedEvent'
 };
 
 

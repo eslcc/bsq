@@ -20,7 +20,8 @@ public class RedisHelpers {
     public static GameState getGameState(String userId) {
         Map<String, String> state = jedis.hgetAll("state");
         GameState.Builder builder = GameState.newBuilder();
-        builder.setState(GameState.State.valueOf(state.get("state")));
+        String stateName = state.get("state");
+        builder.setState(GameState.State.valueOf(stateName == null ? "NOTREADY" : stateName));
 
         try {
             // TODO: copyFrom will be called often, perhaps cache the ByteString?

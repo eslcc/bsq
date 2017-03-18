@@ -44,6 +44,7 @@ public class IdentifyUserHandler implements IRpcHandler {
             responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
         } else {
             responseBuilder.setFailureReason(IdentifyUserResponse.FailureReason.NO_FREE_TEAMS);
+            jedis.publish("admin_events", "no_free_teams:" + idR.getDeviceId());
         }
         jedis.publish("admin_events", "identified_device_change");
         builder.setIdentifyUserResponse(responseBuilder);
