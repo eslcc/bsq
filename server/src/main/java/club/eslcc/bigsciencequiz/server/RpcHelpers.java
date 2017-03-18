@@ -14,4 +14,12 @@ public class RpcHelpers {
             throw new RuntimeException(e);
         }
     }
+
+    public static String itos(int i) {
+        return Integer.valueOf(i).toString();
+    }
+
+    public static byte[] itob(int i) {
+        return stob(itos(i));
+    }
 }

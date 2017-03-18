@@ -2,6 +2,7 @@ package club.eslcc.bigsciencequiz.server.handlers;
 
 import static club.eslcc.bigsciencequiz.proto.Gamestate.*;
 import static club.eslcc.bigsciencequiz.proto.QuestionOuterClass.*;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.itob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 
 import club.eslcc.bigsciencequiz.proto.Rpc;
@@ -59,7 +60,7 @@ public class AdminHandlers {
                 GameState state = GameState.parseFrom(jedis.hget(stob("state"), stob("state")));
                 GameState.Builder newBuilder = GameState.newBuilder(state);
                 Question newQuestion = Question.parseFrom(jedis.hget(
-                        stob("questions"), stob(Integer.valueOf(request.getQuestionId()).toString())
+                        stob("questions"), itob(request.getQuestionId())
                 ));
                 newBuilder.setCurrentQuestion(newQuestion);
                 GameState newState = newBuilder.build();

@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
 
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.itob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 
 /**
@@ -57,7 +58,7 @@ public class LoadQuestionsCallback implements IStartupCallback {
 
                 pipe.hset(
                         stob("questions"),
-                        stob(Integer.valueOf(i).toString()),
+                        itob(i),
                         builder.build().toByteArray()
                 );
             }

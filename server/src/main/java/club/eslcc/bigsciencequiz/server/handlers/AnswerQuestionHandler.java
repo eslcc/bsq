@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server.handlers;
 
 import static club.eslcc.bigsciencequiz.proto.Rpc.*;
+import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
 
 import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
@@ -13,7 +14,7 @@ import redis.clients.jedis.Jedis;
 /**
  * Created by marks on 13/03/2017.
  */
-public class AnswerQuestion implements IRpcHandler {
+public class AnswerQuestionHandler implements IRpcHandler {
     private Jedis jedis = Redis.getJedis();
 
     @Override
@@ -38,7 +39,7 @@ public class AnswerQuestion implements IRpcHandler {
                         responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.OUT_OF_RANGE);
                     } else {
                         String teamId = jedis.hget("devices", currentUserId);
-                        jedis.hset("answers", teamId, Integer.valueOf(answer).toString());
+                        jedis.hset("answers", teamId, itos(answer));
                     }
                 }
             }
