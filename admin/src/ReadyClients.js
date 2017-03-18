@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { RpcRequest, AdminSetGameStateRequest, GameState, protosLoaded } from './lib/ProtoLoader';
+import AdminSocket from './lib/AdminSocket';
 
 export default class ReadyClients extends Component {
     state = {
@@ -23,6 +25,14 @@ export default class ReadyClients extends Component {
         displayList: false,
     };
 
+    async startQuiz() {
+        await protosLoaded;
+        const message = RpcRequest.create();
+        message.adminSetGameStateRequest = AdminSetGameStateRequest.create();
+        message.adminSetGameStateRequest.newState = GameState.State.READY;
+        AdminSocket.sendMessage(message);
+    }
+
     render() {
         const readyClients = this.state.tablets.reduce((prev, curr) => prev + (curr.ready ? 1 : 0), 0);
         const totalClients = this.state.tablets.length;
@@ -40,6 +50,7 @@ export default class ReadyClients extends Component {
                 </button>
                 <button
                     disabled={!(this.props.dangerZone || (readyClients === totalClients))}
+                    onClick={this.startQuiz}
                 >
                     Start Quiz
                 </button>

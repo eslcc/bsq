@@ -3028,6 +3028,1024 @@ public final class AdminRpc {
 
   }
 
+  public interface AdminSetGameStateRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.admin.AdminSetGameStateRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+     */
+    int getNewStateValue();
+    /**
+     * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State getNewState();
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.admin.AdminSetGameStateRequest}
+   */
+  public  static final class AdminSetGameStateRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.admin.AdminSetGameStateRequest)
+      AdminSetGameStateRequestOrBuilder {
+    // Use AdminSetGameStateRequest.newBuilder() to construct.
+    private AdminSetGameStateRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminSetGameStateRequest() {
+      newState_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AdminSetGameStateRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+
+              newState_ = rawValue;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder.class);
+    }
+
+    public static final int NEWSTATE_FIELD_NUMBER = 1;
+    private int newState_;
+    /**
+     * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+     */
+    public int getNewStateValue() {
+      return newState_;
+    }
+    /**
+     * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State getNewState() {
+      club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State result = club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.valueOf(newState_);
+      return result == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (newState_ != club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.NOTREADY.getNumber()) {
+        output.writeEnum(1, newState_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (newState_ != club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.NOTREADY.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, newState_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest other = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) obj;
+
+      boolean result = true;
+      result = result && newState_ == other.newState_;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NEWSTATE_FIELD_NUMBER;
+      hash = (53 * hash) + newState_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.admin.AdminSetGameStateRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.admin.AdminSetGameStateRequest)
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        newState_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest build() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest buildPartial() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest result = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest(this);
+        result.newState_ = newState_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest other) {
+        if (other == club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance()) return this;
+        if (other.newState_ != 0) {
+          setNewStateValue(other.getNewStateValue());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int newState_ = 0;
+      /**
+       * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+       */
+      public int getNewStateValue() {
+        return newState_;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+       */
+      public Builder setNewStateValue(int value) {
+        newState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State getNewState() {
+        club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State result = club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.valueOf(newState_);
+        return result == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+       */
+      public Builder setNewState(club.eslcc.bigsciencequiz.proto.Gamestate.GameState.State value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        newState_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState.State newState = 1;</code>
+       */
+      public Builder clearNewState() {
+        
+        newState_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.admin.AdminSetGameStateRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.admin.AdminSetGameStateRequest)
+    private static final club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminSetGameStateRequest>
+        PARSER = new com.google.protobuf.AbstractParser<AdminSetGameStateRequest>() {
+      public AdminSetGameStateRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AdminSetGameStateRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminSetGameStateRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminSetGameStateRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AdminSetGameStateResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.admin.AdminSetGameStateResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    boolean hasNewState();
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Gamestate.GameState getNewState();
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getNewStateOrBuilder();
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.admin.AdminSetGameStateResponse}
+   */
+  public  static final class AdminSetGameStateResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.admin.AdminSetGameStateResponse)
+      AdminSetGameStateResponseOrBuilder {
+    // Use AdminSetGameStateResponse.newBuilder() to construct.
+    private AdminSetGameStateResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminSetGameStateResponse() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AdminSetGameStateResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder subBuilder = null;
+              if (newState_ != null) {
+                subBuilder = newState_.toBuilder();
+              }
+              newState_ = input.readMessage(club.eslcc.bigsciencequiz.proto.Gamestate.GameState.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(newState_);
+                newState_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder.class);
+    }
+
+    public static final int NEWSTATE_FIELD_NUMBER = 1;
+    private club.eslcc.bigsciencequiz.proto.Gamestate.GameState newState_;
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    public boolean hasNewState() {
+      return newState_ != null;
+    }
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Gamestate.GameState getNewState() {
+      return newState_ == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.getDefaultInstance() : newState_;
+    }
+    /**
+     * <code>.bigsciencequiz.GameState newState = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getNewStateOrBuilder() {
+      return getNewState();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (newState_ != null) {
+        output.writeMessage(1, getNewState());
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (newState_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getNewState());
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse other = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) obj;
+
+      boolean result = true;
+      result = result && (hasNewState() == other.hasNewState());
+      if (hasNewState()) {
+        result = result && getNewState()
+            .equals(other.getNewState());
+      }
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNewState()) {
+        hash = (37 * hash) + NEWSTATE_FIELD_NUMBER;
+        hash = (53 * hash) + getNewState().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.admin.AdminSetGameStateResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.admin.AdminSetGameStateResponse)
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (newStateBuilder_ == null) {
+          newState_ = null;
+        } else {
+          newState_ = null;
+          newStateBuilder_ = null;
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse build() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse buildPartial() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse result = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse(this);
+        if (newStateBuilder_ == null) {
+          result.newState_ = newState_;
+        } else {
+          result.newState_ = newStateBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse other) {
+        if (other == club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance()) return this;
+        if (other.hasNewState()) {
+          mergeNewState(other.getNewState());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private club.eslcc.bigsciencequiz.proto.Gamestate.GameState newState_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Gamestate.GameState, club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder, club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder> newStateBuilder_;
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public boolean hasNewState() {
+        return newStateBuilder_ != null || newState_ != null;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Gamestate.GameState getNewState() {
+        if (newStateBuilder_ == null) {
+          return newState_ == null ? club.eslcc.bigsciencequiz.proto.Gamestate.GameState.getDefaultInstance() : newState_;
+        } else {
+          return newStateBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public Builder setNewState(club.eslcc.bigsciencequiz.proto.Gamestate.GameState value) {
+        if (newStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          newState_ = value;
+          onChanged();
+        } else {
+          newStateBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public Builder setNewState(
+          club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder builderForValue) {
+        if (newStateBuilder_ == null) {
+          newState_ = builderForValue.build();
+          onChanged();
+        } else {
+          newStateBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public Builder mergeNewState(club.eslcc.bigsciencequiz.proto.Gamestate.GameState value) {
+        if (newStateBuilder_ == null) {
+          if (newState_ != null) {
+            newState_ =
+              club.eslcc.bigsciencequiz.proto.Gamestate.GameState.newBuilder(newState_).mergeFrom(value).buildPartial();
+          } else {
+            newState_ = value;
+          }
+          onChanged();
+        } else {
+          newStateBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public Builder clearNewState() {
+        if (newStateBuilder_ == null) {
+          newState_ = null;
+          onChanged();
+        } else {
+          newState_ = null;
+          newStateBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder getNewStateBuilder() {
+        
+        onChanged();
+        return getNewStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder getNewStateOrBuilder() {
+        if (newStateBuilder_ != null) {
+          return newStateBuilder_.getMessageOrBuilder();
+        } else {
+          return newState_ == null ?
+              club.eslcc.bigsciencequiz.proto.Gamestate.GameState.getDefaultInstance() : newState_;
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.GameState newState = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Gamestate.GameState, club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder, club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder> 
+          getNewStateFieldBuilder() {
+        if (newStateBuilder_ == null) {
+          newStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.Gamestate.GameState, club.eslcc.bigsciencequiz.proto.Gamestate.GameState.Builder, club.eslcc.bigsciencequiz.proto.Gamestate.GameStateOrBuilder>(
+                  getNewState(),
+                  getParentForChildren(),
+                  isClean());
+          newState_ = null;
+        }
+        return newStateBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.admin.AdminSetGameStateResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.admin.AdminSetGameStateResponse)
+    private static final club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminSetGameStateResponse>
+        PARSER = new com.google.protobuf.AbstractParser<AdminSetGameStateResponse>() {
+      public AdminSetGameStateResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AdminSetGameStateResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminSetGameStateResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminSetGameStateResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bigsciencequiz_admin_AdminGetQuestionsRequest_descriptor;
   private static final 
@@ -3058,6 +4076,16 @@ public final class AdminRpc {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bigsciencequiz_admin_AdminResetStateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3077,8 +4105,12 @@ public final class AdminRpc {
       "\031.bigsciencequiz.GameState\"\030\n\026AdminReset" +
       "StateRequest\"F\n\027AdminResetStateResponse\022" +
       "+\n\010newState\030\001 \001(\0132\031.bigsciencequiz.GameS",
-      "tateB\'\n%club.eslcc.bigsciencequiz.proto." +
-      "adminb\006proto3"
+      "tate\"M\n\030AdminSetGameStateRequest\0221\n\010newS" +
+      "tate\030\001 \001(\0162\037.bigsciencequiz.GameState.St" +
+      "ate\"H\n\031AdminSetGameStateResponse\022+\n\010newS" +
+      "tate\030\001 \001(\0132\031.bigsciencequiz.GameStateB\'\n" +
+      "%club.eslcc.bigsciencequiz.proto.adminb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3129,6 +4161,18 @@ public final class AdminRpc {
     internal_static_bigsciencequiz_admin_AdminResetStateResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_admin_AdminResetStateResponse_descriptor,
+        new java.lang.String[] { "NewState", });
+    internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_admin_AdminSetGameStateRequest_descriptor,
+        new java.lang.String[] { "NewState", });
+    internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor,
         new java.lang.String[] { "NewState", });
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();

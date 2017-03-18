@@ -25,7 +25,11 @@ const TYPES = {
     AdminSetActiveQuestionRequest: 'bigsciencequiz.admin.AdminSetActiveQuestionRequest',
     AdminResetStateRequest: 'bigsciencequiz.admin.AdminResetStateRequest',
     AdminResetStateResponse: 'bigsciencequiz.admin.AdminResetStateResponse',
+    AdminSetGameStateRequest: 'bigsciencequiz.admin.AdminSetGameStateRequest',
+    AdminSetGameStateResponse: 'bigsciencequiz.admin.AdminSetGameStateResponse',
     GameState: 'bigsciencequiz.GameState',
+    GameEvent: 'bigsciencequiz.GameEvent',
+    GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
 };
 
 

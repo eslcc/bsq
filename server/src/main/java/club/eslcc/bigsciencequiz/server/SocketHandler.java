@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static club.eslcc.bigsciencequiz.proto.Rpc.*;
+import static club.eslcc.bigsciencequiz.proto.Rpc.RpcRequest.RequestCase.*;
 import static club.eslcc.bigsciencequiz.proto.Events.*;
 
 /**
@@ -36,11 +37,12 @@ public class SocketHandler {
     private static Map<RpcRequest.RequestCase, IRpcHandler> handlers = new HashMap<>();
 
     static {
-        handlers.put(RpcRequest.RequestCase.GETGAMESTATEREQUEST, new GetGameStateHandler());
-        handlers.put(RpcRequest.RequestCase.IDENTIFYUSERREQUEST, new IdentifyUserHandler());
-        handlers.put(RpcRequest.RequestCase.ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
-        handlers.put(RpcRequest.RequestCase.ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
-        handlers.put(RpcRequest.RequestCase.TEAMREADYREQUEST, new TeamReadyHandler());
+        handlers.put(GETGAMESTATEREQUEST, new GetGameStateHandler());
+        handlers.put(IDENTIFYUSERREQUEST, new IdentifyUserHandler());
+        handlers.put(ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
+        handlers.put(ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
+        handlers.put(TEAMREADYREQUEST, new TeamReadyHandler());
+        handlers.put(ADMINSETGAMESTATEREQUEST, new AdminHandlers.SetGameStateHandler());
     }
 
     private static void subscribe() {

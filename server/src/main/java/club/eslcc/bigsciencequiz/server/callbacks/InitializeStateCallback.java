@@ -31,7 +31,7 @@ public class InitializeStateCallback implements IStartupCallback {
             }
             return;
         }
-    jedis.hset("state", "state", GameState.State.NOTREADY.toString());
-            jedis.hset(stob("state"), stob("currentQuestion"), QuestionOuterClass.Question.newBuilder().build().toByteArray());
+        jedis.hset("state", "state", GameState.State.NOTREADY.toString());
+        jedis.hset(stob("state"), stob("currentQuestion"), QuestionOuterClass.Question.newBuilder().build().toByteArray());
     }
 }

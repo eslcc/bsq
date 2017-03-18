@@ -29,3 +29,11 @@ message AdminResetStateRequest {
 message AdminResetStateResponse {
     GameState newState = 1;
 }
+
+message AdminSetGameStateRequest {
+    GameState.State newState = 1;
+}
+
+message AdminSetGameStateResponse {
+    GameState newState = 1;
+}

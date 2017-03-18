@@ -53,14 +53,19 @@ export default class AdminSocket {
     static _onMessage(message) {
         const data = new Uint8Array(message.data);
         console.log(`received ${data}`);
-        try {
-            const event = GameEvent.decode(data);
-            GameEvent.verify(event);
+        if (
+            data[0] === 0xff &&
+            data[1] === 0xff &&
+            data[2] === 0xff &&
+            data[3] === 0xff
+        ) {
+            const eventBuffer = data.slice(4);
+            const event = GameEvent.decode(eventBuffer);
             console.log(`decoded GameEvent ${event.event}`);
             (AdminSocket._eventCallbacks[event.event] || []).forEach(
                 handler => handler(event[event.event])
             );
-        } catch (e) {
+        } else {
             const response = RpcResponse.decode(data);
             console.log(`decoded RpcResponse ${response.response}`);
             (AdminSocket._responseCallbacks[response.response] || []).forEach(

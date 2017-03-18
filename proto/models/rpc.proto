@@ -92,6 +92,7 @@ message RpcRequest {
         bigsciencequiz.admin.AdminGetQuestionsRequest adminGetQuestionsRequest = 101;
         bigsciencequiz.admin.AdminSetActiveQuestionRequest adminSetActiveQuestionRequest = 102;
         bigsciencequiz.admin.AdminResetStateRequest adminResetStateRequest = 103;
+        bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;
     }
 }
 
@@ -105,6 +106,7 @@ message RpcResponse {
         bigsciencequiz.admin.AdminGetQuestionsResponse adminGetQuestionsResponse = 101;
         bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
         bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;
+        bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;
         GenericErrorResponse genericErrorResponse = 997;
         UnauthorisedRequestResponse unauthorisedRequestResponse = 998;
         UnknownRequestResponse unknownRequestResponse = 999;

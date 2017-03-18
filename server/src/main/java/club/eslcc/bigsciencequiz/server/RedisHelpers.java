@@ -30,7 +30,7 @@ public class RedisHelpers {
                 builder.setCurrentQuestion(question);
             }
 
-            if (userId != null) {
+            if (userId != null && (!userId.equals("ADMIN"))) {
                 String answer = jedis.hget("answers", userId);
                 if (answer != null) {
                     builder.setMyCurrentQuestionAnswer(Integer.parseInt(answer));

@@ -7751,6 +7751,15 @@ public final class Rpc {
      */
     club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateRequestOrBuilder getAdminResetStateRequestOrBuilder();
 
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getAdminSetGameStateRequest();
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder getAdminSetGameStateRequestOrBuilder();
+
     public club.eslcc.bigsciencequiz.proto.Rpc.RpcRequest.RequestCase getRequestCase();
   }
   /**
@@ -7904,6 +7913,20 @@ public final class Rpc {
               requestCase_ = 103;
               break;
             }
+            case 834: {
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder subBuilder = null;
+              if (requestCase_ == 104) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_).toBuilder();
+              }
+              request_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_);
+                request_ = subBuilder.buildPartial();
+              }
+              requestCase_ = 104;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -7939,6 +7962,7 @@ public final class Rpc {
       ADMINGETQUESTIONSREQUEST(101),
       ADMINSETACTIVEQUESTIONREQUEST(102),
       ADMINRESETSTATEREQUEST(103),
+      ADMINSETGAMESTATEREQUEST(104),
       REQUEST_NOT_SET(0);
       private final int value;
       private RequestCase(int value) {
@@ -7962,6 +7986,7 @@ public final class Rpc {
           case 101: return ADMINGETQUESTIONSREQUEST;
           case 102: return ADMINSETACTIVEQUESTIONREQUEST;
           case 103: return ADMINRESETSTATEREQUEST;
+          case 104: return ADMINSETGAMESTATEREQUEST;
           case 0: return REQUEST_NOT_SET;
           default: return null;
         }
@@ -8137,6 +8162,26 @@ public final class Rpc {
       return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateRequest.getDefaultInstance();
     }
 
+    public static final int ADMINSETGAMESTATEREQUEST_FIELD_NUMBER = 104;
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getAdminSetGameStateRequest() {
+      if (requestCase_ == 104) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder getAdminSetGameStateRequestOrBuilder() {
+      if (requestCase_ == 104) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -8172,6 +8217,9 @@ public final class Rpc {
       }
       if (requestCase_ == 103) {
         output.writeMessage(103, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateRequest) request_);
+      }
+      if (requestCase_ == 104) {
+        output.writeMessage(104, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_);
       }
     }
 
@@ -8211,6 +8259,10 @@ public final class Rpc {
       if (requestCase_ == 103) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(103, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateRequest) request_);
+      }
+      if (requestCase_ == 104) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(104, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_);
       }
       memoizedSize = size;
       return size;
@@ -8264,6 +8316,10 @@ public final class Rpc {
           result = result && getAdminResetStateRequest()
               .equals(other.getAdminResetStateRequest());
           break;
+        case 104:
+          result = result && getAdminSetGameStateRequest()
+              .equals(other.getAdminSetGameStateRequest());
+          break;
         case 0:
         default:
       }
@@ -8309,6 +8365,10 @@ public final class Rpc {
         case 103:
           hash = (37 * hash) + ADMINRESETSTATEREQUEST_FIELD_NUMBER;
           hash = (53 * hash) + getAdminResetStateRequest().hashCode();
+          break;
+        case 104:
+          hash = (37 * hash) + ADMINSETGAMESTATEREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getAdminSetGameStateRequest().hashCode();
           break;
         case 0:
         default:
@@ -8511,6 +8571,13 @@ public final class Rpc {
             result.request_ = adminResetStateRequestBuilder_.build();
           }
         }
+        if (requestCase_ == 104) {
+          if (adminSetGameStateRequestBuilder_ == null) {
+            result.request_ = request_;
+          } else {
+            result.request_ = adminSetGameStateRequestBuilder_.build();
+          }
+        }
         result.requestCase_ = requestCase_;
         onBuilt();
         return result;
@@ -8584,6 +8651,10 @@ public final class Rpc {
           }
           case ADMINRESETSTATEREQUEST: {
             mergeAdminResetStateRequest(other.getAdminResetStateRequest());
+            break;
+          }
+          case ADMINSETGAMESTATEREQUEST: {
+            mergeAdminSetGameStateRequest(other.getAdminSetGameStateRequest());
             break;
           }
           case REQUEST_NOT_SET: {
@@ -9670,6 +9741,136 @@ public final class Rpc {
         onChanged();;
         return adminResetStateRequestBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder> adminSetGameStateRequestBuilder_;
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest getAdminSetGameStateRequest() {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          if (requestCase_ == 104) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+        } else {
+          if (requestCase_ == 104) {
+            return adminSetGameStateRequestBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public Builder setAdminSetGameStateRequest(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest value) {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          request_ = value;
+          onChanged();
+        } else {
+          adminSetGameStateRequestBuilder_.setMessage(value);
+        }
+        requestCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public Builder setAdminSetGameStateRequest(
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder builderForValue) {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          request_ = builderForValue.build();
+          onChanged();
+        } else {
+          adminSetGameStateRequestBuilder_.setMessage(builderForValue.build());
+        }
+        requestCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public Builder mergeAdminSetGameStateRequest(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest value) {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          if (requestCase_ == 104 &&
+              request_ != club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance()) {
+            request_ = club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.newBuilder((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            request_ = value;
+          }
+          onChanged();
+        } else {
+          if (requestCase_ == 104) {
+            adminSetGameStateRequestBuilder_.mergeFrom(value);
+          }
+          adminSetGameStateRequestBuilder_.setMessage(value);
+        }
+        requestCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public Builder clearAdminSetGameStateRequest() {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          if (requestCase_ == 104) {
+            requestCase_ = 0;
+            request_ = null;
+            onChanged();
+          }
+        } else {
+          if (requestCase_ == 104) {
+            requestCase_ = 0;
+            request_ = null;
+          }
+          adminSetGameStateRequestBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder getAdminSetGameStateRequestBuilder() {
+        return getAdminSetGameStateRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder getAdminSetGameStateRequestOrBuilder() {
+        if ((requestCase_ == 104) && (adminSetGameStateRequestBuilder_ != null)) {
+          return adminSetGameStateRequestBuilder_.getMessageOrBuilder();
+        } else {
+          if (requestCase_ == 104) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder> 
+          getAdminSetGameStateRequestFieldBuilder() {
+        if (adminSetGameStateRequestBuilder_ == null) {
+          if (!(requestCase_ == 104)) {
+            request_ = club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.getDefaultInstance();
+          }
+          adminSetGameStateRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequestOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateRequest) request_,
+                  getParentForChildren(),
+                  isClean());
+          request_ = null;
+        }
+        requestCase_ = 104;
+        onChanged();;
+        return adminSetGameStateRequestBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -9760,13 +9961,13 @@ public final class Rpc {
     club.eslcc.bigsciencequiz.proto.Rpc.AutocompleteMemberNameResponseOrBuilder getAutocompleteMemberNameResponseOrBuilder();
 
     /**
-     * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+     * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
      */
-    club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest getAnswerQuestionRequest();
+    club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse getAnswerQuestionResponse();
     /**
-     * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+     * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
      */
-    club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder getAnswerQuestionRequestOrBuilder();
+    club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder getAnswerQuestionResponseOrBuilder();
 
     /**
      * <code>.bigsciencequiz.admin.AdminGetQuestionsResponse adminGetQuestionsResponse = 101;</code>
@@ -9794,6 +9995,15 @@ public final class Rpc {
      * <code>.bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;</code>
      */
     club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateResponseOrBuilder getAdminResetStateResponseOrBuilder();
+
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getAdminSetGameStateResponse();
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder getAdminSetGameStateResponseOrBuilder();
 
     /**
      * <code>.bigsciencequiz.GenericErrorResponse genericErrorResponse = 997;</code>
@@ -9920,14 +10130,14 @@ public final class Rpc {
               break;
             }
             case 42: {
-              club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder subBuilder = null;
+              club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder subBuilder = null;
               if (responseCase_ == 5) {
-                subBuilder = ((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_).toBuilder();
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_).toBuilder();
               }
               response_ =
-                  input.readMessage(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.parser(), extensionRegistry);
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_);
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_);
                 response_ = subBuilder.buildPartial();
               }
               responseCase_ = 5;
@@ -9973,6 +10183,20 @@ public final class Rpc {
                 response_ = subBuilder.buildPartial();
               }
               responseCase_ = 103;
+              break;
+            }
+            case 834: {
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder subBuilder = null;
+              if (responseCase_ == 104) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_).toBuilder();
+              }
+              response_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_);
+                response_ = subBuilder.buildPartial();
+              }
+              responseCase_ = 104;
               break;
             }
             case 7978: {
@@ -10048,10 +10272,11 @@ public final class Rpc {
       TEAMREADYRESPONSE(2),
       GETGAMESTATERESPONSE(3),
       AUTOCOMPLETEMEMBERNAMERESPONSE(4),
-      ANSWERQUESTIONREQUEST(5),
+      ANSWERQUESTIONRESPONSE(5),
       ADMINGETQUESTIONSRESPONSE(101),
       ADMINSETACTIVEQUESTIONRESPONSE(102),
       ADMINRESETSTATERESPONSE(103),
+      ADMINSETGAMESTATERESPONSE(104),
       GENERICERRORRESPONSE(997),
       UNAUTHORISEDREQUESTRESPONSE(998),
       UNKNOWNREQUESTRESPONSE(999),
@@ -10074,10 +10299,11 @@ public final class Rpc {
           case 2: return TEAMREADYRESPONSE;
           case 3: return GETGAMESTATERESPONSE;
           case 4: return AUTOCOMPLETEMEMBERNAMERESPONSE;
-          case 5: return ANSWERQUESTIONREQUEST;
+          case 5: return ANSWERQUESTIONRESPONSE;
           case 101: return ADMINGETQUESTIONSRESPONSE;
           case 102: return ADMINSETACTIVEQUESTIONRESPONSE;
           case 103: return ADMINRESETSTATERESPONSE;
+          case 104: return ADMINSETGAMESTATERESPONSE;
           case 997: return GENERICERRORRESPONSE;
           case 998: return UNAUTHORISEDREQUESTRESPONSE;
           case 999: return UNKNOWNREQUESTRESPONSE;
@@ -10176,24 +10402,24 @@ public final class Rpc {
       return club.eslcc.bigsciencequiz.proto.Rpc.AutocompleteMemberNameResponse.getDefaultInstance();
     }
 
-    public static final int ANSWERQUESTIONREQUEST_FIELD_NUMBER = 5;
+    public static final int ANSWERQUESTIONRESPONSE_FIELD_NUMBER = 5;
     /**
-     * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+     * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
      */
-    public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest getAnswerQuestionRequest() {
+    public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse getAnswerQuestionResponse() {
       if (responseCase_ == 5) {
-         return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_;
+         return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_;
       }
-      return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+      return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
     }
     /**
-     * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+     * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
      */
-    public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder getAnswerQuestionRequestOrBuilder() {
+    public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder getAnswerQuestionResponseOrBuilder() {
       if (responseCase_ == 5) {
-         return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_;
+         return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_;
       }
-      return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+      return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
     }
 
     public static final int ADMINGETQUESTIONSRESPONSE_FIELD_NUMBER = 101;
@@ -10254,6 +10480,26 @@ public final class Rpc {
          return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateResponse) response_;
       }
       return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateResponse.getDefaultInstance();
+    }
+
+    public static final int ADMINSETGAMESTATERESPONSE_FIELD_NUMBER = 104;
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getAdminSetGameStateResponse() {
+      if (responseCase_ == 104) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder getAdminSetGameStateResponseOrBuilder() {
+      if (responseCase_ == 104) {
+         return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_;
+      }
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
     }
 
     public static final int GENERICERRORRESPONSE_FIELD_NUMBER = 997;
@@ -10341,7 +10587,7 @@ public final class Rpc {
         output.writeMessage(4, (club.eslcc.bigsciencequiz.proto.Rpc.AutocompleteMemberNameResponse) response_);
       }
       if (responseCase_ == 5) {
-        output.writeMessage(5, (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_);
+        output.writeMessage(5, (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_);
       }
       if (responseCase_ == 101) {
         output.writeMessage(101, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminGetQuestionsResponse) response_);
@@ -10351,6 +10597,9 @@ public final class Rpc {
       }
       if (responseCase_ == 103) {
         output.writeMessage(103, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateResponse) response_);
+      }
+      if (responseCase_ == 104) {
+        output.writeMessage(104, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_);
       }
       if (responseCase_ == 997) {
         output.writeMessage(997, (club.eslcc.bigsciencequiz.proto.Rpc.GenericErrorResponse) response_);
@@ -10386,7 +10635,7 @@ public final class Rpc {
       }
       if (responseCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_);
+          .computeMessageSize(5, (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_);
       }
       if (responseCase_ == 101) {
         size += com.google.protobuf.CodedOutputStream
@@ -10399,6 +10648,10 @@ public final class Rpc {
       if (responseCase_ == 103) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(103, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminResetStateResponse) response_);
+      }
+      if (responseCase_ == 104) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(104, (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_);
       }
       if (responseCase_ == 997) {
         size += com.google.protobuf.CodedOutputStream
@@ -10449,8 +10702,8 @@ public final class Rpc {
               .equals(other.getAutocompleteMemberNameResponse());
           break;
         case 5:
-          result = result && getAnswerQuestionRequest()
-              .equals(other.getAnswerQuestionRequest());
+          result = result && getAnswerQuestionResponse()
+              .equals(other.getAnswerQuestionResponse());
           break;
         case 101:
           result = result && getAdminGetQuestionsResponse()
@@ -10463,6 +10716,10 @@ public final class Rpc {
         case 103:
           result = result && getAdminResetStateResponse()
               .equals(other.getAdminResetStateResponse());
+          break;
+        case 104:
+          result = result && getAdminSetGameStateResponse()
+              .equals(other.getAdminSetGameStateResponse());
           break;
         case 997:
           result = result && getGenericErrorResponse()
@@ -10507,8 +10764,8 @@ public final class Rpc {
           hash = (53 * hash) + getAutocompleteMemberNameResponse().hashCode();
           break;
         case 5:
-          hash = (37 * hash) + ANSWERQUESTIONREQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getAnswerQuestionRequest().hashCode();
+          hash = (37 * hash) + ANSWERQUESTIONRESPONSE_FIELD_NUMBER;
+          hash = (53 * hash) + getAnswerQuestionResponse().hashCode();
           break;
         case 101:
           hash = (37 * hash) + ADMINGETQUESTIONSRESPONSE_FIELD_NUMBER;
@@ -10521,6 +10778,10 @@ public final class Rpc {
         case 103:
           hash = (37 * hash) + ADMINRESETSTATERESPONSE_FIELD_NUMBER;
           hash = (53 * hash) + getAdminResetStateResponse().hashCode();
+          break;
+        case 104:
+          hash = (37 * hash) + ADMINSETGAMESTATERESPONSE_FIELD_NUMBER;
+          hash = (53 * hash) + getAdminSetGameStateResponse().hashCode();
           break;
         case 997:
           hash = (37 * hash) + GENERICERRORRESPONSE_FIELD_NUMBER;
@@ -10708,10 +10969,10 @@ public final class Rpc {
           }
         }
         if (responseCase_ == 5) {
-          if (answerQuestionRequestBuilder_ == null) {
+          if (answerQuestionResponseBuilder_ == null) {
             result.response_ = response_;
           } else {
-            result.response_ = answerQuestionRequestBuilder_.build();
+            result.response_ = answerQuestionResponseBuilder_.build();
           }
         }
         if (responseCase_ == 101) {
@@ -10733,6 +10994,13 @@ public final class Rpc {
             result.response_ = response_;
           } else {
             result.response_ = adminResetStateResponseBuilder_.build();
+          }
+        }
+        if (responseCase_ == 104) {
+          if (adminSetGameStateResponseBuilder_ == null) {
+            result.response_ = response_;
+          } else {
+            result.response_ = adminSetGameStateResponseBuilder_.build();
           }
         }
         if (responseCase_ == 997) {
@@ -10815,8 +11083,8 @@ public final class Rpc {
             mergeAutocompleteMemberNameResponse(other.getAutocompleteMemberNameResponse());
             break;
           }
-          case ANSWERQUESTIONREQUEST: {
-            mergeAnswerQuestionRequest(other.getAnswerQuestionRequest());
+          case ANSWERQUESTIONRESPONSE: {
+            mergeAnswerQuestionResponse(other.getAnswerQuestionResponse());
             break;
           }
           case ADMINGETQUESTIONSRESPONSE: {
@@ -10829,6 +11097,10 @@ public final class Rpc {
           }
           case ADMINRESETSTATERESPONSE: {
             mergeAdminResetStateResponse(other.getAdminResetStateResponse());
+            break;
+          }
+          case ADMINSETGAMESTATERESPONSE: {
+            mergeAdminSetGameStateResponse(other.getAdminSetGameStateResponse());
             break;
           }
           case GENERICERRORRESPONSE: {
@@ -11409,61 +11681,61 @@ public final class Rpc {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder> answerQuestionRequestBuilder_;
+          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder> answerQuestionResponseBuilder_;
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest getAnswerQuestionRequest() {
-        if (answerQuestionRequestBuilder_ == null) {
+      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse getAnswerQuestionResponse() {
+        if (answerQuestionResponseBuilder_ == null) {
           if (responseCase_ == 5) {
-            return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_;
+            return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_;
           }
-          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
         } else {
           if (responseCase_ == 5) {
-            return answerQuestionRequestBuilder_.getMessage();
+            return answerQuestionResponseBuilder_.getMessage();
           }
-          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
         }
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public Builder setAnswerQuestionRequest(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest value) {
-        if (answerQuestionRequestBuilder_ == null) {
+      public Builder setAnswerQuestionResponse(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse value) {
+        if (answerQuestionResponseBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           response_ = value;
           onChanged();
         } else {
-          answerQuestionRequestBuilder_.setMessage(value);
+          answerQuestionResponseBuilder_.setMessage(value);
         }
         responseCase_ = 5;
         return this;
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public Builder setAnswerQuestionRequest(
-          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder builderForValue) {
-        if (answerQuestionRequestBuilder_ == null) {
+      public Builder setAnswerQuestionResponse(
+          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder builderForValue) {
+        if (answerQuestionResponseBuilder_ == null) {
           response_ = builderForValue.build();
           onChanged();
         } else {
-          answerQuestionRequestBuilder_.setMessage(builderForValue.build());
+          answerQuestionResponseBuilder_.setMessage(builderForValue.build());
         }
         responseCase_ = 5;
         return this;
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public Builder mergeAnswerQuestionRequest(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest value) {
-        if (answerQuestionRequestBuilder_ == null) {
+      public Builder mergeAnswerQuestionResponse(club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse value) {
+        if (answerQuestionResponseBuilder_ == null) {
           if (responseCase_ == 5 &&
-              response_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance()) {
-            response_ = club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.newBuilder((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_)
+              response_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance()) {
+            response_ = club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.newBuilder((club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_)
                 .mergeFrom(value).buildPartial();
           } else {
             response_ = value;
@@ -11471,18 +11743,18 @@ public final class Rpc {
           onChanged();
         } else {
           if (responseCase_ == 5) {
-            answerQuestionRequestBuilder_.mergeFrom(value);
+            answerQuestionResponseBuilder_.mergeFrom(value);
           }
-          answerQuestionRequestBuilder_.setMessage(value);
+          answerQuestionResponseBuilder_.setMessage(value);
         }
         responseCase_ = 5;
         return this;
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public Builder clearAnswerQuestionRequest() {
-        if (answerQuestionRequestBuilder_ == null) {
+      public Builder clearAnswerQuestionResponse() {
+        if (answerQuestionResponseBuilder_ == null) {
           if (responseCase_ == 5) {
             responseCase_ = 0;
             response_ = null;
@@ -11493,49 +11765,49 @@ public final class Rpc {
             responseCase_ = 0;
             response_ = null;
           }
-          answerQuestionRequestBuilder_.clear();
+          answerQuestionResponseBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder getAnswerQuestionRequestBuilder() {
-        return getAnswerQuestionRequestFieldBuilder().getBuilder();
+      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder getAnswerQuestionResponseBuilder() {
+        return getAnswerQuestionResponseFieldBuilder().getBuilder();
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
-      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder getAnswerQuestionRequestOrBuilder() {
-        if ((responseCase_ == 5) && (answerQuestionRequestBuilder_ != null)) {
-          return answerQuestionRequestBuilder_.getMessageOrBuilder();
+      public club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder getAnswerQuestionResponseOrBuilder() {
+        if ((responseCase_ == 5) && (answerQuestionResponseBuilder_ != null)) {
+          return answerQuestionResponseBuilder_.getMessageOrBuilder();
         } else {
           if (responseCase_ == 5) {
-            return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_;
+            return (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_;
           }
-          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+          return club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
         }
       }
       /**
-       * <code>.bigsciencequiz.AnswerQuestionRequest answerQuestionRequest = 5;</code>
+       * <code>.bigsciencequiz.AnswerQuestionResponse answerQuestionResponse = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder> 
-          getAnswerQuestionRequestFieldBuilder() {
-        if (answerQuestionRequestBuilder_ == null) {
+          club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder> 
+          getAnswerQuestionResponseFieldBuilder() {
+        if (answerQuestionResponseBuilder_ == null) {
           if (!(responseCase_ == 5)) {
-            response_ = club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.getDefaultInstance();
+            response_ = club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.getDefaultInstance();
           }
-          answerQuestionRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequestOrBuilder>(
-                  (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionRequest) response_,
+          answerQuestionResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.Builder, club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponseOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse) response_,
                   getParentForChildren(),
                   isClean());
           response_ = null;
         }
         responseCase_ = 5;
         onChanged();;
-        return answerQuestionRequestBuilder_;
+        return answerQuestionResponseBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -11926,6 +12198,136 @@ public final class Rpc {
         responseCase_ = 103;
         onChanged();;
         return adminResetStateResponseBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder> adminSetGameStateResponseBuilder_;
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse getAdminSetGameStateResponse() {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          if (responseCase_ == 104) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+        } else {
+          if (responseCase_ == 104) {
+            return adminSetGameStateResponseBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public Builder setAdminSetGameStateResponse(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse value) {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          response_ = value;
+          onChanged();
+        } else {
+          adminSetGameStateResponseBuilder_.setMessage(value);
+        }
+        responseCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public Builder setAdminSetGameStateResponse(
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder builderForValue) {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          response_ = builderForValue.build();
+          onChanged();
+        } else {
+          adminSetGameStateResponseBuilder_.setMessage(builderForValue.build());
+        }
+        responseCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public Builder mergeAdminSetGameStateResponse(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse value) {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          if (responseCase_ == 104 &&
+              response_ != club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance()) {
+            response_ = club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.newBuilder((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            response_ = value;
+          }
+          onChanged();
+        } else {
+          if (responseCase_ == 104) {
+            adminSetGameStateResponseBuilder_.mergeFrom(value);
+          }
+          adminSetGameStateResponseBuilder_.setMessage(value);
+        }
+        responseCase_ = 104;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public Builder clearAdminSetGameStateResponse() {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          if (responseCase_ == 104) {
+            responseCase_ = 0;
+            response_ = null;
+            onChanged();
+          }
+        } else {
+          if (responseCase_ == 104) {
+            responseCase_ = 0;
+            response_ = null;
+          }
+          adminSetGameStateResponseBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder getAdminSetGameStateResponseBuilder() {
+        return getAdminSetGameStateResponseFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder getAdminSetGameStateResponseOrBuilder() {
+        if ((responseCase_ == 104) && (adminSetGameStateResponseBuilder_ != null)) {
+          return adminSetGameStateResponseBuilder_.getMessageOrBuilder();
+        } else {
+          if (responseCase_ == 104) {
+            return (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_;
+          }
+          return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder> 
+          getAdminSetGameStateResponseFieldBuilder() {
+        if (adminSetGameStateResponseBuilder_ == null) {
+          if (!(responseCase_ == 104)) {
+            response_ = club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.getDefaultInstance();
+          }
+          adminSetGameStateResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse.Builder, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponseOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminSetGameStateResponse) response_,
+                  getParentForChildren(),
+                  isClean());
+          response_ = null;
+        }
+        responseCase_ = 104;
+        onChanged();;
+        return adminSetGameStateResponseBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -12486,7 +12888,7 @@ public final class Rpc {
       "ownRequestResponse\022\017\n\007request\030\001 \001(\t\"-\n\033U" +
       "nauthorisedRequestResponse\022\016\n\006reason\030\001 \001",
       "(\t\"\'\n\024GenericErrorResponse\022\017\n\007message\030\001 " +
-      "\001(\t\"\377\004\n\nRpcRequest\022B\n\023identifyUserReques" +
+      "\001(\t\"\323\005\n\nRpcRequest\022B\n\023identifyUserReques" +
       "t\030\001 \001(\0132#.bigsciencequiz.IdentifyUserReq" +
       "uestH\000\022<\n\020teamReadyRequest\030\002 \001(\0132 .bigsc" +
       "iencequiz.TeamReadyRequestH\000\022B\n\023getGameS" +
@@ -12501,31 +12903,35 @@ public final class Rpc {
       "estionRequest\030f \001(\01323.bigsciencequiz.adm" +
       "in.AdminSetActiveQuestionRequestH\000\022N\n\026ad" +
       "minResetStateRequest\030g \001(\0132,.bigscienceq" +
-      "uiz.admin.AdminResetStateRequestH\000B\t\n\007re" +
-      "quest\"\366\006\n\013RpcResponse\022D\n\024identifyUserRes" +
-      "ponse\030\001 \001(\0132$.bigsciencequiz.IdentifyUse" +
-      "rResponseH\000\022>\n\021teamReadyResponse\030\002 \001(\0132!",
-      ".bigsciencequiz.TeamReadyResponseH\000\022D\n\024g" +
-      "etGameStateResponse\030\003 \001(\0132$.bigsciencequ" +
-      "iz.GetGameStateResponseH\000\022X\n\036autocomplet" +
-      "eMemberNameResponse\030\004 \001(\0132..bigsciencequ" +
-      "iz.AutocompleteMemberNameResponseH\000\022F\n\025a" +
-      "nswerQuestionRequest\030\005 \001(\0132%.bigscienceq" +
-      "uiz.AnswerQuestionRequestH\000\022T\n\031adminGetQ" +
-      "uestionsResponse\030e \001(\0132/.bigsciencequiz." +
-      "admin.AdminGetQuestionsResponseH\000\022^\n\036adm" +
-      "inSetActiveQuestionResponse\030f \001(\01324.bigs",
-      "ciencequiz.admin.AdminSetActiveQuestionR" +
-      "esponseH\000\022P\n\027adminResetStateResponse\030g \001" +
-      "(\0132-.bigsciencequiz.admin.AdminResetStat" +
-      "eResponseH\000\022E\n\024genericErrorResponse\030\345\007 \001" +
-      "(\0132$.bigsciencequiz.GenericErrorResponse" +
-      "H\000\022S\n\033unauthorisedRequestResponse\030\346\007 \001(\013" +
-      "2+.bigsciencequiz.UnauthorisedRequestRes" +
-      "ponseH\000\022I\n\026unknownRequestResponse\030\347\007 \001(\013" +
-      "2&.bigsciencequiz.UnknownRequestResponse" +
-      "H\000B\n\n\010responseB!\n\037club.eslcc.bigscienceq",
-      "uiz.protob\006proto3"
+      "uiz.admin.AdminResetStateRequestH\000\022R\n\030ad" +
+      "minSetGameStateRequest\030h \001(\0132..bigscienc" +
+      "equiz.admin.AdminSetGameStateRequestH\000B\t" +
+      "\n\007request\"\316\007\n\013RpcResponse\022D\n\024identifyUse",
+      "rResponse\030\001 \001(\0132$.bigsciencequiz.Identif" +
+      "yUserResponseH\000\022>\n\021teamReadyResponse\030\002 \001" +
+      "(\0132!.bigsciencequiz.TeamReadyResponseH\000\022" +
+      "D\n\024getGameStateResponse\030\003 \001(\0132$.bigscien" +
+      "cequiz.GetGameStateResponseH\000\022X\n\036autocom" +
+      "pleteMemberNameResponse\030\004 \001(\0132..bigscien" +
+      "cequiz.AutocompleteMemberNameResponseH\000\022" +
+      "H\n\026answerQuestionResponse\030\005 \001(\0132&.bigsci" +
+      "encequiz.AnswerQuestionResponseH\000\022T\n\031adm" +
+      "inGetQuestionsResponse\030e \001(\0132/.bigscienc",
+      "equiz.admin.AdminGetQuestionsResponseH\000\022" +
+      "^\n\036adminSetActiveQuestionResponse\030f \001(\0132" +
+      "4.bigsciencequiz.admin.AdminSetActiveQue" +
+      "stionResponseH\000\022P\n\027adminResetStateRespon" +
+      "se\030g \001(\0132-.bigsciencequiz.admin.AdminRes" +
+      "etStateResponseH\000\022T\n\031adminSetGameStateRe" +
+      "sponse\030h \001(\0132/.bigsciencequiz.admin.Admi" +
+      "nSetGameStateResponseH\000\022E\n\024genericErrorR" +
+      "esponse\030\345\007 \001(\0132$.bigsciencequiz.GenericE" +
+      "rrorResponseH\000\022S\n\033unauthorisedRequestRes",
+      "ponse\030\346\007 \001(\0132+.bigsciencequiz.Unauthoris" +
+      "edRequestResponseH\000\022I\n\026unknownRequestRes" +
+      "ponse\030\347\007 \001(\0132&.bigsciencequiz.UnknownReq" +
+      "uestResponseH\000B\n\n\010responseB!\n\037club.eslcc" +
+      ".bigsciencequiz.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12633,13 +13039,13 @@ public final class Rpc {
     internal_static_bigsciencequiz_RpcRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_RpcRequest_descriptor,
-        new java.lang.String[] { "IdentifyUserRequest", "TeamReadyRequest", "GetGameStateRequest", "AutocompleteMemberNameRequest", "AnswerQuestionRequest", "AdminGetQuestionsRequest", "AdminSetActiveQuestionRequest", "AdminResetStateRequest", "Request", });
+        new java.lang.String[] { "IdentifyUserRequest", "TeamReadyRequest", "GetGameStateRequest", "AutocompleteMemberNameRequest", "AnswerQuestionRequest", "AdminGetQuestionsRequest", "AdminSetActiveQuestionRequest", "AdminResetStateRequest", "AdminSetGameStateRequest", "Request", });
     internal_static_bigsciencequiz_RpcResponse_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_bigsciencequiz_RpcResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_RpcResponse_descriptor,
-        new java.lang.String[] { "IdentifyUserResponse", "TeamReadyResponse", "GetGameStateResponse", "AutocompleteMemberNameResponse", "AnswerQuestionRequest", "AdminGetQuestionsResponse", "AdminSetActiveQuestionResponse", "AdminResetStateResponse", "GenericErrorResponse", "UnauthorisedRequestResponse", "UnknownRequestResponse", "Response", });
+        new java.lang.String[] { "IdentifyUserResponse", "TeamReadyResponse", "GetGameStateResponse", "AutocompleteMemberNameResponse", "AnswerQuestionResponse", "AdminGetQuestionsResponse", "AdminSetActiveQuestionResponse", "AdminResetStateResponse", "AdminSetGameStateResponse", "GenericErrorResponse", "UnauthorisedRequestResponse", "UnknownRequestResponse", "Response", });
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
     club.eslcc.bigsciencequiz.proto.User.getDescriptor();
