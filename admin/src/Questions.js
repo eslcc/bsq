@@ -30,6 +30,7 @@ export default class Questions extends React.Component {
     render() {
         return (
             <div>
+                <button>Auto-activate next question</button>
                 {this.state.questions.sort((a, b) => a.id - b.id).map(question => (
                     <div key={question.id}>
                         {question.id}:
