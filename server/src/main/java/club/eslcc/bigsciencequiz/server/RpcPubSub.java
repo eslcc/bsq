@@ -10,6 +10,7 @@ import redis.clients.jedis.JedisPubSub;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,11 +32,7 @@ public class RpcPubSub extends JedisPubSub {
                 .filter(s -> SocketHandler.users.get(s) != null)
                 .filter(Session::isOpen)
                 .forEach(session -> {
-                            try {
-                                session.getRemote().sendBytes(ByteBuffer.wrap(data));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                            session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
     }
@@ -47,11 +44,19 @@ public class RpcPubSub extends JedisPubSub {
                 .filter(s -> SocketHandler.users.get(s).equals("ADMIN"))
                 .filter(Session::isOpen)
                 .forEach(session -> {
-                            try {
-                                session.getRemote().sendBytes(ByteBuffer.wrap(data));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                            session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
+                        }
+                );
+    }
+
+    private void sendBigscreenEvent(Events.GameEvent event) {
+        byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+        SocketHandler.users.keySet().stream()
+                .filter(s -> SocketHandler.users.get(s) != null)
+                .filter(s -> SocketHandler.users.get(s).equals("BIGSCREEN"))
+                .filter(Session::isOpen)
+                .forEach(session -> {
+                            session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
     }
@@ -64,11 +69,7 @@ public class RpcPubSub extends JedisPubSub {
             builder.setGameStateChangeEvent(gsceB);
             Events.GameEvent event = builder.build();
             byte[] data = EventHelpers.addEventFlag(event.toByteArray());
-            try {
-                session.getRemote().sendBytes(ByteBuffer.wrap(data));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
         });
     }
 
@@ -124,6 +125,25 @@ public class RpcPubSub extends JedisPubSub {
         }
     }
 
+    private void handleLiveanswers() {
+        try (Jedis jedis = Redis.pool.getResource()) {
+            List<String> answers = jedis.hvals("answers");
+            Map<Integer, Integer> answerCounts = new HashMap<>(answers.size());
+
+            for (String answer : answers) {
+                answerCounts.put(stoi(answer), jedis.zscore("answer_counts", answer).intValue());
+            }
+
+            Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+            Events.LiveAnswersEvent.Builder builder = Events.LiveAnswersEvent.newBuilder();
+            builder.putAllAnswers(answerCounts);
+            wrapped.setLiveAnswersEvent(builder);
+            Events.GameEvent event = wrapped.build();
+            sendAdminEvent(event);
+            sendBigscreenEvent(event);
+        }
+    }
+
     @Override
     public void onMessage(String channel, String message) {
         switch (channel) {
@@ -132,6 +152,8 @@ public class RpcPubSub extends JedisPubSub {
                     case "game_state_change":
                         handleGameStateChange();
                         break;
+                    case "live_answers":
+                        handleLiveanswers();
                 }
                 break;
             case "admin_events":

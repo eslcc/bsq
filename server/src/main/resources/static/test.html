@@ -13,7 +13,8 @@
 
 <input type="text" id="param" placeholder="Request Parameter">
 <button onclick="sendProto('test')">Send Test Proto</button>
-<button onclick="sendProto('autocomplete')">Send AutocompleteMemberNameRequest</button>
+<button onclick="sendProto('ready')">Send TeamReadyRequest</button>
+<button onclick="sendProto('answer')">Send AnswerQuestionRequest</button>
 
 <button onclick="send()">Send</button>
 <div id="status"></div>
@@ -48,7 +49,12 @@
         GetGameStateResponse: 'bigsciencequiz.GetGameStateResponse',
         UnknownRequestResponse: 'bigsciencequiz.UnknownRequestResponse',
         GameState: 'bigsciencequiz.GameState',
-        GameEvent: 'bigsciencequiz.GameEvent'
+        GameEvent: 'bigsciencequiz.GameEvent',
+        GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
+        TeamReadyRequest: 'bigsciencequiz.TeamReadyRequest',
+        TeamReadyResponse: 'bigsciencequiz.TeamReadyResponse',
+        AnswerQuestionRequest: 'bigsciencequiz.AnswerQuestionRequest',
+        TeamReadyResponse: 'bigsciencequiz.TeamReadyResponse',
     };
 
     Promise.all(promises).then(() => {
@@ -65,9 +71,16 @@
             } else {
                 const data = new Uint8Array(msg.data);
                 console.log(`Received ${data}`);
-                const response = RpcResponse.decode(data);
-                const fuckup = GameEvent.decode(data);
-                setStatus(`received ${JSON.stringify(response.toJSON())}`);
+                if (data[0] === 0xFF && data[1] === 0xFF && data[2] === 0xFF && data[3] === 0xFF) {
+                    const eventBuffer = data.slice(4);
+                    const event = GameEvent.decode(eventBuffer);
+                    console.log(`decoded GameEvent ${event.event}`);
+                    console.dir(event.toJSON());
+                } else {
+                    const response = RpcResponse.decode(data);
+                    console.log(`decoded RpcResponse ${response.response}`);
+                    console.dir(response.toJSON());
+                }
             }
         };
         window.sendProto = (which) => {
@@ -82,8 +95,16 @@
                     break;
                 case 'ready':
                     var message = RpcRequest.create();
-                    message.autocompleteMemberNameRequest = AutocompleteMemberNameRequest.create();
-                    message.autocompleteMemberNameRequest.partialName = document.getElementById('param').value;
+                    message.teamReadyRequest = TeamReadyRequest.create();
+                    message.teamReadyRequest.teamName = document.getElementById('param').value;
+                    var data = RpcRequest.encode(message).finish();
+                    socket.send(data);
+                    setStatus(`sent ${which}`);
+                    break;
+                case 'answer':
+                    var message = RpcRequest.create();
+                    message.answerQuestionRequest = AnswerQuestionRequest.create();
+                    message.answerQuestionRequest.answerId = parseInt(document.getElementById('param').value, 10);
                     var data = RpcRequest.encode(message).finish();
                     socket.send(data);
                     setStatus(`sent ${which}`);

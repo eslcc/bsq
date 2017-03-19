@@ -16,11 +16,16 @@ message ErrorEvent {
     string description = 1;
 }
 
+message LiveAnswersEvent {
+    map<int32, int32> answers = 1;
+}
+
 message GameEvent {
     oneof event {
         GameStateChangeEvent gameStateChangeEvent = 1;
         ErrorEvent errorEvent = 2;
         bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 3;
         bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;
+        LiveAnswersEvent liveAnswersEvent = 5;
     }
 }

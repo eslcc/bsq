@@ -17,37 +17,37 @@ import java.util.Optional;
  * Created by marks on 11/03/2017.
  */
 public class IdentifyUserHandler implements IRpcHandler {
-    private static Jedis jedis = Redis.getJedis();
-
     @Override
     public RpcResponse handle(String currentUserId, RpcRequest request, Session session) {
-        RpcResponse.Builder builder = RpcResponse.newBuilder();
-        IdentifyUserResponse.Builder responseBuilder = IdentifyUserResponse.newBuilder();
+        try (Jedis jedis = Redis.pool.getResource()) {
+            RpcResponse.Builder builder = RpcResponse.newBuilder();
+            IdentifyUserResponse.Builder responseBuilder = IdentifyUserResponse.newBuilder();
 
-        IdentifyUserRequest idR = request.getIdentifyUserRequest();
+            IdentifyUserRequest idR = request.getIdentifyUserRequest();
 
-        List<String> teams = jedis.lrange("teams", 0, -1);
-        List<String> teamNumbers = jedis.hvals("devices");
-        Optional<String> firstUnassigned = teams.stream().filter((team) -> !teamNumbers.contains(team)).findFirst();
+            List<String> teams = jedis.lrange("teams", 0, -1);
+            List<String> teamNumbers = jedis.hvals("devices");
+            Optional<String> firstUnassigned = teams.stream().filter((team) -> !teamNumbers.contains(team)).findFirst();
 
-        if (firstUnassigned.isPresent()) {
-            List<String> members = jedis.lrange("team_members_" + firstUnassigned.get(), 0, -1);
+            if (firstUnassigned.isPresent()) {
+                List<String> members = jedis.lrange("team_members_" + firstUnassigned.get(), 0, -1);
 
-            jedis.hset("devices", idR.getDeviceId(), firstUnassigned.get());
-            SocketHandler.users.put(session, idR.getDeviceId());
+                jedis.hset("devices", idR.getDeviceId(), firstUnassigned.get());
+                SocketHandler.users.put(session, idR.getDeviceId());
 
-            User.Team.Builder teamBuilder = User.Team.newBuilder();
-            teamBuilder.setNumber(firstUnassigned.get());
-            teamBuilder.addAllMemberNames(members);
+                User.Team.Builder teamBuilder = User.Team.newBuilder();
+                teamBuilder.setNumber(firstUnassigned.get());
+                teamBuilder.addAllMemberNames(members);
 
-            responseBuilder.setTeam(teamBuilder);
-            responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
-        } else {
-            responseBuilder.setFailureReason(IdentifyUserResponse.FailureReason.NO_FREE_TEAMS);
-            jedis.publish("admin_events", "no_free_teams:" + idR.getDeviceId());
+                responseBuilder.setTeam(teamBuilder);
+                responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
+            } else {
+                responseBuilder.setFailureReason(IdentifyUserResponse.FailureReason.NO_FREE_TEAMS);
+                jedis.publish("admin_events", "no_free_teams:" + idR.getDeviceId());
+            }
+            jedis.publish("admin_events", "identified_device_change");
+            builder.setIdentifyUserResponse(responseBuilder);
+            return builder.build();
         }
-        jedis.publish("admin_events", "identified_device_change");
-        builder.setIdentifyUserResponse(responseBuilder);
-        return builder.build();
     }
 }

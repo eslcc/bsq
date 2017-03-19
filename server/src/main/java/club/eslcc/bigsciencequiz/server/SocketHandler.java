@@ -22,7 +22,6 @@ import static club.eslcc.bigsciencequiz.proto.Rpc.RpcRequest.RequestCase.*;
 @WebSocket
 public class SocketHandler {
     public static Map<Session, String> users = Collections.synchronizedMap(new HashMap<>());
-    private static Jedis jedis = Redis.getJedis();
     private static Jedis pubSubJedis = Redis.getNewJedis();
     private static volatile boolean subscribed = false;
 
@@ -34,6 +33,7 @@ public class SocketHandler {
         handlers.put(ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
         handlers.put(ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
         handlers.put(TEAMREADYREQUEST, new TeamReadyHandler());
+        handlers.put(ANSWERQUESTIONREQUEST, new AnswerQuestionHandler());
         handlers.put(ADMINSETGAMESTATEREQUEST, new AdminHandlers.SetGameStateHandler());
         handlers.put(BIGSCREENGETTEAMSREQUEST, new BigscreenHandlers.GetTeamsHandler());
     }

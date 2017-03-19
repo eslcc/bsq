@@ -71,6 +71,8 @@ public class AdminHandlers {
                     GameState newState = newBuilder.build();
                     jedis.hset(stob("state"), stob("currentQuestion"), newQuestion.toByteArray());
                     jedis.hset("state", "state", GameState.State.QUESTION_ANSWERING.toString());
+                    jedis.del("answers");
+                    jedis.del("answer_counts");
                     jedis.publish("game_events", "game_state_change");
                     jedis.hset(
                             stob("questions"),
@@ -102,13 +104,13 @@ public class AdminHandlers {
 
                 switch (wrapped.getNewState()) {
                     case QUESTION_ANSWERS_REVEALED:
-                        Map<String, String> answers = jedis.hgetAll("answers");
+                        Map<String, String> teams = jedis.hgetAll("answers");
                         int correctAnswer = RedisHelpers.getGameState(null).getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
 
-                        for (String device: answers.keySet()) {
-                            int answer = stoi(answers.get(device));
+                        for (String team: teams.keySet()) {
+                            int answer = stoi(teams.get(team));
                             if (answer == correctAnswer) {
-                                jedis.zincrby("scores", 3, device);
+                                jedis.zincrby("scores", 3, team);
                             }
                         }
                 }

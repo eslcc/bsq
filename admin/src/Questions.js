@@ -5,11 +5,13 @@ import * as rpc from './common-js/ProtoLoader';
 export default class Questions extends React.Component {
     state = {
         questions: [],
+        liveanswers: {},
     };
 
     componentDidMount() {
         AdminSocket.registerResponseHandler('adminGetQuestionsResponse', this._onGetQuestionsResponse.bind(this));
         AdminSocket.registerEventHandler('adminQuestionsChangedEvent', this._onQuestionsChanged.bind(this));
+        AdminSocket.registerEventHandler('liveAnswersEvent', this._onLiveanswers.bind(this));
         const message = rpc.RpcRequest.create();
         message.adminGetQuestionsRequest = rpc.AdminGetQuestionsRequest.create();
         AdminSocket.sendMessage(message);
@@ -24,6 +26,12 @@ export default class Questions extends React.Component {
     _onQuestionsChanged(message) {
         this.setState({
             questions: message.newQuestions,
+        });
+    }
+
+    _onLiveanswers(message) {
+        this.setState({
+            liveanswers: message.answers
         });
     }
 
@@ -52,8 +60,28 @@ export default class Questions extends React.Component {
                         {question.alreadyPlayed ? <s>{this.renderQuestion(question)}</s> : this.renderQuestion(question)}
                     </div>
                 ))}
+                {this.renderLiveanswers()}
             </div>
         );
+    }
+
+    renderLiveanswers() {
+        const state = !!this.props.state ? this.props.state.state : 0;
+        if (
+            state === rpc.GameState.State.QUESTION_ANSWERING ||
+            state === rpc.GameState.State.QUESTION_LIVEANSWERS ||
+            state === rpc.GameState.State.QUESTION_CLOSED ||
+            state === rpc.GameState.State.QUESTION_ANSWERS_REVEALED
+        ) {
+            return (
+                <div>
+                    <h3>Live answers:</h3>
+                    {JSON.stringify(this.state.liveanswers)}
+                </div>
+            )
+        } else {
+            return null;
+        }
     }
 
     renderQuestion(question) {

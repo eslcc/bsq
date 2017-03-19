@@ -1077,6 +1077,680 @@ public final class Events {
 
   }
 
+  public interface LiveAnswersEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.LiveAnswersEvent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+    int getAnswersCount();
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+    boolean containsAnswers(
+        int key);
+    /**
+     * Use {@link #getAnswersMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.Integer, java.lang.Integer>
+    getAnswers();
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+    java.util.Map<java.lang.Integer, java.lang.Integer>
+    getAnswersMap();
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    int getAnswersOrDefault(
+        int key,
+        int defaultValue);
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    int getAnswersOrThrow(
+        int key);
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.LiveAnswersEvent}
+   */
+  public  static final class LiveAnswersEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.LiveAnswersEvent)
+      LiveAnswersEventOrBuilder {
+    // Use LiveAnswersEvent.newBuilder() to construct.
+    private LiveAnswersEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LiveAnswersEvent() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private LiveAnswersEvent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                answers_ = com.google.protobuf.MapField.newMapField(
+                    AnswersDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000001;
+              }
+              com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
+              answers__ = input.readMessage(
+                  AnswersDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              answers_.getMutableMap().put(
+                  answers__.getKey(), answers__.getValue());
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 1:
+          return internalGetAnswers();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.class, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder.class);
+    }
+
+    public static final int ANSWERS_FIELD_NUMBER = 1;
+    private static final class AnswersDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.Integer, java.lang.Integer> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.Integer, java.lang.Integer>newDefaultInstance(
+                  club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.INT32,
+                  0,
+                  com.google.protobuf.WireFormat.FieldType.INT32,
+                  0);
+    }
+    private com.google.protobuf.MapField<
+        java.lang.Integer, java.lang.Integer> answers_;
+    private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+    internalGetAnswers() {
+      if (answers_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            AnswersDefaultEntryHolder.defaultEntry);
+      }
+      return answers_;
+    }
+
+    public int getAnswersCount() {
+      return internalGetAnswers().getMap().size();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    public boolean containsAnswers(
+        int key) {
+      
+      return internalGetAnswers().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getAnswersMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.Integer, java.lang.Integer> getAnswers() {
+      return getAnswersMap();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    public java.util.Map<java.lang.Integer, java.lang.Integer> getAnswersMap() {
+      return internalGetAnswers().getMap();
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    public int getAnswersOrDefault(
+        int key,
+        int defaultValue) {
+      
+      java.util.Map<java.lang.Integer, java.lang.Integer> map =
+          internalGetAnswers().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;int32, int32&gt; answers = 1;</code>
+     */
+
+    public int getAnswersOrThrow(
+        int key) {
+      
+      java.util.Map<java.lang.Integer, java.lang.Integer> map =
+          internalGetAnswers().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      com.google.protobuf.GeneratedMessageV3
+        .serializeIntegerMapTo(
+          output,
+          internalGetAnswers(),
+          AnswersDefaultEntryHolder.defaultEntry,
+          1);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (java.util.Map.Entry<java.lang.Integer, java.lang.Integer> entry
+           : internalGetAnswers().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.Integer, java.lang.Integer>
+        answers__ = AnswersDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, answers__);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent other = (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) obj;
+
+      boolean result = true;
+      result = result && internalGetAnswers().equals(
+          other.internalGetAnswers());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (!internalGetAnswers().getMap().isEmpty()) {
+        hash = (37 * hash) + ANSWERS_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetAnswers().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.LiveAnswersEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.LiveAnswersEvent)
+        club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 1:
+            return internalGetAnswers();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 1:
+            return internalGetMutableAnswers();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.class, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        internalGetMutableAnswers().clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_LiveAnswersEvent_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent build() {
+        club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent buildPartial() {
+        club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent result = new club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent(this);
+        int from_bitField0_ = bitField0_;
+        result.answers_ = internalGetAnswers();
+        result.answers_.makeImmutable();
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent other) {
+        if (other == club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance()) return this;
+        internalGetMutableAnswers().mergeFrom(
+            other.internalGetAnswers());
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.MapField<
+          java.lang.Integer, java.lang.Integer> answers_;
+      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+      internalGetAnswers() {
+        if (answers_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              AnswersDefaultEntryHolder.defaultEntry);
+        }
+        return answers_;
+      }
+      private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
+      internalGetMutableAnswers() {
+        onChanged();;
+        if (answers_ == null) {
+          answers_ = com.google.protobuf.MapField.newMapField(
+              AnswersDefaultEntryHolder.defaultEntry);
+        }
+        if (!answers_.isMutable()) {
+          answers_ = answers_.copy();
+        }
+        return answers_;
+      }
+
+      public int getAnswersCount() {
+        return internalGetAnswers().getMap().size();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public boolean containsAnswers(
+          int key) {
+        
+        return internalGetAnswers().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getAnswersMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, java.lang.Integer> getAnswers() {
+        return getAnswersMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public java.util.Map<java.lang.Integer, java.lang.Integer> getAnswersMap() {
+        return internalGetAnswers().getMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public int getAnswersOrDefault(
+          int key,
+          int defaultValue) {
+        
+        java.util.Map<java.lang.Integer, java.lang.Integer> map =
+            internalGetAnswers().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public int getAnswersOrThrow(
+          int key) {
+        
+        java.util.Map<java.lang.Integer, java.lang.Integer> map =
+            internalGetAnswers().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearAnswers() {
+        internalGetMutableAnswers().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public Builder removeAnswers(
+          int key) {
+        
+        internalGetMutableAnswers().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, java.lang.Integer>
+      getMutableAnswers() {
+        return internalGetMutableAnswers().getMutableMap();
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+      public Builder putAnswers(
+          int key,
+          int value) {
+        
+        
+        internalGetMutableAnswers().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <code>map&lt;int32, int32&gt; answers = 1;</code>
+       */
+
+      public Builder putAllAnswers(
+          java.util.Map<java.lang.Integer, java.lang.Integer> values) {
+        internalGetMutableAnswers().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.LiveAnswersEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.LiveAnswersEvent)
+    private static final club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LiveAnswersEvent>
+        PARSER = new com.google.protobuf.AbstractParser<LiveAnswersEvent>() {
+      public LiveAnswersEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LiveAnswersEvent(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LiveAnswersEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LiveAnswersEvent> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GameEventOrBuilder extends
       // @@protoc_insertion_point(interface_extends:bigsciencequiz.GameEvent)
       com.google.protobuf.MessageOrBuilder {
@@ -1116,6 +1790,15 @@ public final class Events {
      * <code>.bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;</code>
      */
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder getAdminQuestionsChangedEventOrBuilder();
+
+    /**
+     * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getLiveAnswersEvent();
+    /**
+     * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder getLiveAnswersEventOrBuilder();
 
     public club.eslcc.bigsciencequiz.proto.Events.GameEvent.EventCase getEventCase();
   }
@@ -1214,6 +1897,20 @@ public final class Events {
               eventCase_ = 4;
               break;
             }
+            case 42: {
+              club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder subBuilder = null;
+              if (eventCase_ == 5) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_).toBuilder();
+              }
+              event_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_);
+                event_ = subBuilder.buildPartial();
+              }
+              eventCase_ = 5;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1245,6 +1942,7 @@ public final class Events {
       ERROREVENT(2),
       ADMINDEVICESCHANGEDEVENT(3),
       ADMINQUESTIONSCHANGEDEVENT(4),
+      LIVEANSWERSEVENT(5),
       EVENT_NOT_SET(0);
       private final int value;
       private EventCase(int value) {
@@ -1264,6 +1962,7 @@ public final class Events {
           case 2: return ERROREVENT;
           case 3: return ADMINDEVICESCHANGEDEVENT;
           case 4: return ADMINQUESTIONSCHANGEDEVENT;
+          case 5: return LIVEANSWERSEVENT;
           case 0: return EVENT_NOT_SET;
           default: return null;
         }
@@ -1359,6 +2058,26 @@ public final class Events {
       return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
     }
 
+    public static final int LIVEANSWERSEVENT_FIELD_NUMBER = 5;
+    /**
+     * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getLiveAnswersEvent() {
+      if (eventCase_ == 5) {
+         return (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder getLiveAnswersEventOrBuilder() {
+      if (eventCase_ == 5) {
+         return (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1383,6 +2102,9 @@ public final class Events {
       if (eventCase_ == 4) {
         output.writeMessage(4, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_);
       }
+      if (eventCase_ == 5) {
+        output.writeMessage(5, (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_);
+      }
     }
 
     public int getSerializedSize() {
@@ -1405,6 +2127,10 @@ public final class Events {
       if (eventCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) event_);
+      }
+      if (eventCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_);
       }
       memoizedSize = size;
       return size;
@@ -1442,6 +2168,10 @@ public final class Events {
           result = result && getAdminQuestionsChangedEvent()
               .equals(other.getAdminQuestionsChangedEvent());
           break;
+        case 5:
+          result = result && getLiveAnswersEvent()
+              .equals(other.getLiveAnswersEvent());
+          break;
         case 0:
         default:
       }
@@ -1471,6 +2201,10 @@ public final class Events {
         case 4:
           hash = (37 * hash) + ADMINQUESTIONSCHANGEDEVENT_FIELD_NUMBER;
           hash = (53 * hash) + getAdminQuestionsChangedEvent().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + LIVEANSWERSEVENT_FIELD_NUMBER;
+          hash = (53 * hash) + getLiveAnswersEvent().hashCode();
           break;
         case 0:
         default:
@@ -1645,6 +2379,13 @@ public final class Events {
             result.event_ = adminQuestionsChangedEventBuilder_.build();
           }
         }
+        if (eventCase_ == 5) {
+          if (liveAnswersEventBuilder_ == null) {
+            result.event_ = event_;
+          } else {
+            result.event_ = liveAnswersEventBuilder_.build();
+          }
+        }
         result.eventCase_ = eventCase_;
         onBuilt();
         return result;
@@ -1702,6 +2443,10 @@ public final class Events {
           }
           case ADMINQUESTIONSCHANGEDEVENT: {
             mergeAdminQuestionsChangedEvent(other.getAdminQuestionsChangedEvent());
+            break;
+          }
+          case LIVEANSWERSEVENT: {
+            mergeLiveAnswersEvent(other.getLiveAnswersEvent());
             break;
           }
           case EVENT_NOT_SET: {
@@ -2268,6 +3013,136 @@ public final class Events {
         onChanged();;
         return adminQuestionsChangedEventBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder> liveAnswersEventBuilder_;
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent getLiveAnswersEvent() {
+        if (liveAnswersEventBuilder_ == null) {
+          if (eventCase_ == 5) {
+            return (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+        } else {
+          if (eventCase_ == 5) {
+            return liveAnswersEventBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public Builder setLiveAnswersEvent(club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent value) {
+        if (liveAnswersEventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+          onChanged();
+        } else {
+          liveAnswersEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public Builder setLiveAnswersEvent(
+          club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder builderForValue) {
+        if (liveAnswersEventBuilder_ == null) {
+          event_ = builderForValue.build();
+          onChanged();
+        } else {
+          liveAnswersEventBuilder_.setMessage(builderForValue.build());
+        }
+        eventCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public Builder mergeLiveAnswersEvent(club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent value) {
+        if (liveAnswersEventBuilder_ == null) {
+          if (eventCase_ == 5 &&
+              event_ != club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance()) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.newBuilder((club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            event_ = value;
+          }
+          onChanged();
+        } else {
+          if (eventCase_ == 5) {
+            liveAnswersEventBuilder_.mergeFrom(value);
+          }
+          liveAnswersEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public Builder clearLiveAnswersEvent() {
+        if (liveAnswersEventBuilder_ == null) {
+          if (eventCase_ == 5) {
+            eventCase_ = 0;
+            event_ = null;
+            onChanged();
+          }
+        } else {
+          if (eventCase_ == 5) {
+            eventCase_ = 0;
+            event_ = null;
+          }
+          liveAnswersEventBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder getLiveAnswersEventBuilder() {
+        return getLiveAnswersEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder getLiveAnswersEventOrBuilder() {
+        if ((eventCase_ == 5) && (liveAnswersEventBuilder_ != null)) {
+          return liveAnswersEventBuilder_.getMessageOrBuilder();
+        } else {
+          if (eventCase_ == 5) {
+            return (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder> 
+          getLiveAnswersEventFieldBuilder() {
+        if (liveAnswersEventBuilder_ == null) {
+          if (!(eventCase_ == 5)) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
+          }
+          liveAnswersEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_,
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        eventCase_ = 5;
+        onChanged();;
+        return liveAnswersEventBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -2328,6 +3203,16 @@ public final class Events {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bigsciencequiz_ErrorEvent_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_LiveAnswersEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_LiveAnswersEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bigsciencequiz_GameEvent_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -2346,16 +3231,21 @@ public final class Events {
       "tion.proto\032\017gamestate.proto\"C\n\024GameState" +
       "ChangeEvent\022+\n\010newState\030\001 \001(\0132\031.bigscien" +
       "cequiz.GameState\"!\n\nErrorEvent\022\023\n\013descri" +
-      "ption\030\001 \001(\t\"\270\002\n\tGameEvent\022D\n\024gameStateCh" +
-      "angeEvent\030\001 \001(\0132$.bigsciencequiz.GameSta" +
-      "teChangeEventH\000\0220\n\nerrorEvent\030\002 \001(\0132\032.bi" +
-      "gsciencequiz.ErrorEventH\000\022R\n\030adminDevice" +
-      "sChangedEvent\030\003 \001(\0132..bigsciencequiz.adm",
-      "in.AdminDevicesChangedEventH\000\022V\n\032adminQu" +
-      "estionsChangedEvent\030\004 \001(\01320.bigsciencequ" +
-      "iz.admin.AdminQuestionsChangedEventH\000B\007\n" +
-      "\005eventB!\n\037club.eslcc.bigsciencequiz.prot" +
-      "ob\006proto3"
+      "ption\030\001 \001(\t\"\202\001\n\020LiveAnswersEvent\022>\n\007answ" +
+      "ers\030\001 \003(\0132-.bigsciencequiz.LiveAnswersEv" +
+      "ent.AnswersEntry\032.\n\014AnswersEntry\022\013\n\003key\030" +
+      "\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"\366\002\n\tGameEvent\022D" +
+      "\n\024gameStateChangeEvent\030\001 \001(\0132$.bigscienc",
+      "equiz.GameStateChangeEventH\000\0220\n\nerrorEve" +
+      "nt\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH\000\022R" +
+      "\n\030adminDevicesChangedEvent\030\003 \001(\0132..bigsc" +
+      "iencequiz.admin.AdminDevicesChangedEvent" +
+      "H\000\022V\n\032adminQuestionsChangedEvent\030\004 \001(\01320" +
+      ".bigsciencequiz.admin.AdminQuestionsChan" +
+      "gedEventH\000\022<\n\020liveAnswersEvent\030\005 \001(\0132 .b" +
+      "igsciencequiz.LiveAnswersEventH\000B\007\n\005even" +
+      "tB!\n\037club.eslcc.bigsciencequiz.protob\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2385,12 +3275,24 @@ public final class Events {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_ErrorEvent_descriptor,
         new java.lang.String[] { "Description", });
-    internal_static_bigsciencequiz_GameEvent_descriptor =
+    internal_static_bigsciencequiz_LiveAnswersEvent_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_bigsciencequiz_LiveAnswersEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_LiveAnswersEvent_descriptor,
+        new java.lang.String[] { "Answers", });
+    internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_descriptor =
+      internal_static_bigsciencequiz_LiveAnswersEvent_descriptor.getNestedTypes().get(0);
+    internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_bigsciencequiz_GameEvent_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_bigsciencequiz_GameEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_GameEvent_descriptor,
-        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "Event", });
+        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "LiveAnswersEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
     bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();

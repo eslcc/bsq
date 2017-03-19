@@ -25,43 +25,43 @@ import java.util.List;
 public class LoadTeamsCallback implements IStartupCallback {
     @Override
     public void onStartup() {
-        Jedis jedis = Redis.getJedis();
+        try (Jedis jedis = Redis.pool.getResource()) {
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource("teams.xml").getFile());
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("teams.xml").getFile());
+            try (FileInputStream fis = new FileInputStream(file)) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(fis);
 
-        try (FileInputStream fis = new FileInputStream(file)) {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(fis);
+                jedis.del("teams");
+                Pipeline pipe = jedis.pipelined();
+                NodeList elements = doc.getElementsByTagName("team");
+                for (int i = 0, len = elements.getLength(); i < len; i++) {
+                    Node el = elements.item(i);
 
-            jedis.del("teams");
-            Pipeline pipe = jedis.pipelined();
-            NodeList elements = doc.getElementsByTagName("team");
-            for (int i = 0, len = elements.getLength(); i < len; i++) {
-                Node el = elements.item(i);
+                    String teamNumber = el.getAttributes().getNamedItem("number").getTextContent();
+                    List<String> members = new ArrayList<>();
 
-                String teamNumber = el.getAttributes().getNamedItem("number").getTextContent();
-                List<String> members = new ArrayList<>();
-
-                NodeList children = el.getChildNodes();
-                for (int j = 0, clen = children.getLength(); j < clen; j++) {
-                    Node child = children.item(j);
-                    if (child.getNodeType() != Node.ELEMENT_NODE) {
-                        continue;
+                    NodeList children = el.getChildNodes();
+                    for (int j = 0, clen = children.getLength(); j < clen; j++) {
+                        Node child = children.item(j);
+                        if (child.getNodeType() != Node.ELEMENT_NODE) {
+                            continue;
+                        }
+                        members.add(child.getTextContent());
                     }
-                    members.add(child.getTextContent());
-                }
 
-                pipe.rpush("teams", teamNumber);
-                pipe.del("team_members_" + teamNumber);
-                for (String member : members) {
-                    pipe.rpush("team_members_" + teamNumber, member);
+                    pipe.rpush("teams", teamNumber);
+                    pipe.del("team_members_" + teamNumber);
+                    for (String member : members) {
+                        pipe.rpush("team_members_" + teamNumber, member);
+                    }
                 }
+                pipe.sync();
+            } catch (java.io.IOException | SAXException | ParserConfigurationException e) {
+                throw new RuntimeException(e);
             }
-            pipe.sync();
-        } catch (java.io.IOException | SAXException | ParserConfigurationException e) {
-            throw new RuntimeException(e);
         }
     }
 }
