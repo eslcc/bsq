@@ -171,7 +171,16 @@ class AppOverlayView extends RelativeLayout
 
         try
         {
-            mWebSocket = factory.createSocket("ws://" + address + "/socket");
+            try
+            {
+                mWebSocket = factory.createSocket("ws://" + address + "/socket");
+            }
+            catch(IllegalArgumentException e)
+            {
+                Toast.makeText(mContext, "Bad server IP", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             mWebSocket.connectAsynchronously();
 
             mWebSocket.addListener(new WebSocketAdapter()
@@ -463,14 +472,22 @@ class AppOverlayView extends RelativeLayout
     {
         if (response.getFailureReason() != Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS)
         {
-            if (response.getFailureReason() == Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.INVALID_STATE)
-            {
-                final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
-                confirmAnswerHint.setText(R.string.question_closed);
-            }
+            final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
 
-            else
-                showError(response.getFailureReason().toString(), mDisconnectAndClose);
+            switch(response.getFailureReason())
+            {
+                case INVALID_STATE:
+                    confirmAnswerHint.setText(R.string.question_closed);
+                    break;
+
+                case ALREADY_ANSWERED:
+                    confirmAnswerHint.setText(R.string.already_answered);
+                    break;
+
+                default:
+                    showError(response.getFailureReason().toString(), mDisconnectAndClose);
+                    break;
+            }
         }
     }
 
