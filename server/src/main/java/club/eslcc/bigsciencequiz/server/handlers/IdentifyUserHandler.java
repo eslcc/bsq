@@ -24,28 +24,39 @@ public class IdentifyUserHandler implements IRpcHandler {
             IdentifyUserResponse.Builder responseBuilder = IdentifyUserResponse.newBuilder();
 
             IdentifyUserRequest idR = request.getIdentifyUserRequest();
+            String teamId;
 
-            List<String> teams = jedis.lrange("teams", 0, -1);
-            List<String> teamNumbers = jedis.hvals("devices");
-            Optional<String> firstUnassigned = teams.stream().filter((team) -> !teamNumbers.contains(team)).findFirst();
-
-            if (firstUnassigned.isPresent()) {
-                List<String> members = jedis.lrange("team_members_" + firstUnassigned.get(), 0, -1);
-
-                jedis.hset("devices", idR.getDeviceId(), firstUnassigned.get());
-                SocketHandler.users.put(session, idR.getDeviceId());
-
-                User.Team.Builder teamBuilder = User.Team.newBuilder();
-                teamBuilder.setNumber(firstUnassigned.get());
-                teamBuilder.addAllMemberNames(members);
-
-                responseBuilder.setTeam(teamBuilder);
-                responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
+            if (jedis.hexists("devices", idR.getDeviceId())) {
+                teamId = jedis.hget("devices", idR.getDeviceId());
             } else {
-                responseBuilder.setFailureReason(IdentifyUserResponse.FailureReason.NO_FREE_TEAMS);
-                jedis.publish("admin_events", "no_free_teams:" + idR.getDeviceId());
+                List<String> teams = jedis.lrange("teams", 0, -1);
+                List<String> teamNumbers = jedis.hvals("devices"); // teamNumbers is devices that are already assigned
+                Optional<String> firstUnassigned = teams.stream().filter((team) -> !teamNumbers.contains(team)).findFirst();
+
+                if (firstUnassigned.isPresent()) {
+                    teamId = firstUnassigned.get();
+                } else {
+                    responseBuilder.setFailureReason(IdentifyUserResponse.FailureReason.NO_FREE_TEAMS);
+                    jedis.publish("admin_events", "no_free_teams:" + idR.getDeviceId());
+                    builder.setIdentifyUserResponse(responseBuilder);
+                    return builder.build();
+                }
             }
+
+            List<String> members = jedis.lrange("team_members_" + teamId, 0, -1);
+
+            jedis.hset("devices", idR.getDeviceId(), teamId);
+            SocketHandler.users.put(session, idR.getDeviceId());
+
+            User.Team.Builder teamBuilder = User.Team.newBuilder();
+            teamBuilder.setNumber(teamId);
+            teamBuilder.addAllMemberNames(members);
+
+            responseBuilder.setTeam(teamBuilder);
+            responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
+
             jedis.publish("admin_events", "identified_device_change");
+
             builder.setIdentifyUserResponse(responseBuilder);
             return builder.build();
         }
