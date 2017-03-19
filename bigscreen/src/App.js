@@ -4,6 +4,7 @@ import {protosLoaded, RpcRequest, GetGameStateRequest, GameState, BigscreenGetTe
 import './App.css';
 
 import Teams from './screens/Teams';
+import Question from './screens/Question';
 
 export const socket = new AdminSocket('bigscreen');
 
@@ -65,6 +66,10 @@ class App extends Component {
                 return <Teams teams={this.state.teams} />;
             case GameState.State.INTRO:
                 return <video src="/assets/intro.mp4" width={1920} height={1080} autoPlay className="introVideo" />;
+            case GameState.State.QUESTION_ANSWERING:
+                return <Question question={this.state.state.currentQuestion} revealAnswers={false} />;
+            case GameState.State.QUESTION_ANSWERS_REVEALED:
+                return <Question question={this.state.state.currentQuestion} revealAnswers />;
             default:
                 return <font color="red">wat</font>;
         }
