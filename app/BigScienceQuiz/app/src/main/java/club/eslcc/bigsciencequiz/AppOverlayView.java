@@ -10,12 +10,12 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -393,20 +393,48 @@ class AppOverlayView extends RelativeLayout
             @Override
             public void run()
             {
-                TextView category = (TextView) findViewById(R.id.question_category);
-                TextView questionText = (TextView) findViewById(R.id.question);
-                ListView answers = (ListView) findViewById(R.id.question_answers);
+                final TextView category = (TextView) findViewById(R.id.question_category);
+                final TextView questionText = (TextView) findViewById(R.id.question);
+                final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
+                final ListView answers = (ListView) findViewById(R.id.question_answers);
 
                 category.setText(question.getCategory());
                 questionText.setText(question.getQuestion());
 
-                ListAdapter adapter = new AnswerAdapter(
-                        mContext,
-                        R.layout.answer,
-                        ContextCompat.getColor(mContext, R.color.focused),
+                final AnswerAdapter adapter = new AnswerAdapter(
+                        LayoutInflater.from(mContext),
                         question.getAnswersList());
 
                 answers.setAdapter(adapter);
+
+                answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                {
+                    private View lastSelectionView = null;
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        if (lastSelectionView == null)
+                        {
+                            confirmAnswerHint.setVisibility(VISIBLE);
+                            view.findViewById(R.id.answer_button).setSelected(true);
+                            lastSelectionView = view;
+                        }
+
+                        else if (lastSelectionView != view)
+                        {
+                            lastSelectionView.findViewById(R.id.answer_button).setSelected(false);
+                            view.findViewById(R.id.answer_button).setSelected(true);
+                            lastSelectionView = view;
+                        }
+
+                        else
+                        {
+                            confirmAnswerHint.setText("You have confirmed your answer. Wait for all teams to answer.");
+                            adapter.disable();
+                        }
+                    }
+                });
             }
         });
     }
