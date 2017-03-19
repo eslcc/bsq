@@ -32,7 +32,8 @@ public class RedisHelpers {
             }
 
             if (userId != null && (!userId.equals("ADMIN")) && (!userId.equals("BIGSCREEN"))) {
-                String answer = jedis.hget("answers", userId);
+                String teamId = jedis.hget("devices", userId);
+                String answer = jedis.hget("answers", teamId);
                 if (answer != null) {
                     builder.setMyCurrentQuestionAnswer(Integer.parseInt(answer));
                 }
