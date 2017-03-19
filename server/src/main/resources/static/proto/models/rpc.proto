@@ -63,10 +63,11 @@ message AnswerQuestionRequest {
 
 message AnswerQuestionResponse {
     enum AnswerQuestionFailedReason {
-        NOT_IDENTIFIED = 0;
-        OUT_OF_RANGE = 1;
-        INVALID_STATE = 2;
-        ALREADY_ANSWERED = 3;
+        SUCCESS = 0;
+        NOT_IDENTIFIED = 1;
+        OUT_OF_RANGE = 2;
+        INVALID_STATE = 3;
+        ALREADY_ANSWERED = 4;
     }
     AnswerQuestionFailedReason failureReason = 1;
 }

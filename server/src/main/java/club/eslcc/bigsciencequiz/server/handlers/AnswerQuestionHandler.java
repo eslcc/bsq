@@ -42,6 +42,7 @@ public class AnswerQuestionHandler implements IRpcHandler {
                             jedis.hset("answers", teamId, itos(answer));
                             jedis.zincrby("answer_counts", 1, itos(answer));
                             jedis.publish("game_events", "live_answers");
+                            responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS);
                         }
                     }
                 }

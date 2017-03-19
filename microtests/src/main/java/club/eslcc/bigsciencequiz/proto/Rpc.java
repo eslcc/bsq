@@ -5680,40 +5680,48 @@ public final class Rpc {
     public enum AnswerQuestionFailedReason
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>NOT_IDENTIFIED = 0;</code>
+       * <code>SUCCESS = 0;</code>
        */
-      NOT_IDENTIFIED(0),
+      SUCCESS(0),
       /**
-       * <code>OUT_OF_RANGE = 1;</code>
+       * <code>NOT_IDENTIFIED = 1;</code>
        */
-      OUT_OF_RANGE(1),
+      NOT_IDENTIFIED(1),
       /**
-       * <code>INVALID_STATE = 2;</code>
+       * <code>OUT_OF_RANGE = 2;</code>
        */
-      INVALID_STATE(2),
+      OUT_OF_RANGE(2),
       /**
-       * <code>ALREADY_ANSWERED = 3;</code>
+       * <code>INVALID_STATE = 3;</code>
        */
-      ALREADY_ANSWERED(3),
+      INVALID_STATE(3),
+      /**
+       * <code>ALREADY_ANSWERED = 4;</code>
+       */
+      ALREADY_ANSWERED(4),
       UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>NOT_IDENTIFIED = 0;</code>
+       * <code>SUCCESS = 0;</code>
        */
-      public static final int NOT_IDENTIFIED_VALUE = 0;
+      public static final int SUCCESS_VALUE = 0;
       /**
-       * <code>OUT_OF_RANGE = 1;</code>
+       * <code>NOT_IDENTIFIED = 1;</code>
        */
-      public static final int OUT_OF_RANGE_VALUE = 1;
+      public static final int NOT_IDENTIFIED_VALUE = 1;
       /**
-       * <code>INVALID_STATE = 2;</code>
+       * <code>OUT_OF_RANGE = 2;</code>
        */
-      public static final int INVALID_STATE_VALUE = 2;
+      public static final int OUT_OF_RANGE_VALUE = 2;
       /**
-       * <code>ALREADY_ANSWERED = 3;</code>
+       * <code>INVALID_STATE = 3;</code>
        */
-      public static final int ALREADY_ANSWERED_VALUE = 3;
+      public static final int INVALID_STATE_VALUE = 3;
+      /**
+       * <code>ALREADY_ANSWERED = 4;</code>
+       */
+      public static final int ALREADY_ANSWERED_VALUE = 4;
 
 
       public final int getNumber() {
@@ -5734,10 +5742,11 @@ public final class Rpc {
 
       public static AnswerQuestionFailedReason forNumber(int value) {
         switch (value) {
-          case 0: return NOT_IDENTIFIED;
-          case 1: return OUT_OF_RANGE;
-          case 2: return INVALID_STATE;
-          case 3: return ALREADY_ANSWERED;
+          case 0: return SUCCESS;
+          case 1: return NOT_IDENTIFIED;
+          case 2: return OUT_OF_RANGE;
+          case 3: return INVALID_STATE;
+          case 4: return ALREADY_ANSWERED;
           default: return null;
         }
       }
@@ -5818,7 +5827,7 @@ public final class Rpc {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.NOT_IDENTIFIED.getNumber()) {
+      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS.getNumber()) {
         output.writeEnum(1, failureReason_);
       }
     }
@@ -5828,7 +5837,7 @@ public final class Rpc {
       if (size != -1) return size;
 
       size = 0;
-      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.NOT_IDENTIFIED.getNumber()) {
+      if (failureReason_ != club.eslcc.bigsciencequiz.proto.Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, failureReason_);
       }
@@ -13281,64 +13290,65 @@ public final class Rpc {
       "e\"4\n\035AutocompleteMemberNameRequest\022\023\n\013pa",
       "rtialName\030\001 \001(\t\"/\n\036AutocompleteMemberNam" +
       "eResponse\022\r\n\005names\030\001 \003(\t\")\n\025AnswerQuesti" +
-      "onRequest\022\020\n\010answerId\030\001 \001(\005\"\337\001\n\026AnswerQu" +
+      "onRequest\022\020\n\010answerId\030\001 \001(\005\"\354\001\n\026AnswerQu" +
       "estionResponse\022X\n\rfailureReason\030\001 \001(\0162A." +
       "bigsciencequiz.AnswerQuestionResponse.An" +
-      "swerQuestionFailedReason\"k\n\032AnswerQuesti" +
-      "onFailedReason\022\022\n\016NOT_IDENTIFIED\020\000\022\020\n\014OU" +
-      "T_OF_RANGE\020\001\022\021\n\rINVALID_STATE\020\002\022\024\n\020ALREA" +
-      "DY_ANSWERED\020\003\")\n\026UnknownRequestResponse\022" +
-      "\017\n\007request\030\001 \001(\t\"-\n\033UnauthorisedRequestR",
-      "esponse\022\016\n\006reason\030\001 \001(\t\"\'\n\024GenericErrorR" +
-      "esponse\022\017\n\007message\030\001 \001(\t\"\254\006\n\nRpcRequest\022" +
-      "B\n\023identifyUserRequest\030\001 \001(\0132#.bigscienc" +
-      "equiz.IdentifyUserRequestH\000\022<\n\020teamReady" +
-      "Request\030\002 \001(\0132 .bigsciencequiz.TeamReady" +
-      "RequestH\000\022B\n\023getGameStateRequest\030\003 \001(\0132#" +
-      ".bigsciencequiz.GetGameStateRequestH\000\022V\n" +
-      "\035autocompleteMemberNameRequest\030\004 \001(\0132-.b" +
-      "igsciencequiz.AutocompleteMemberNameRequ" +
-      "estH\000\022F\n\025answerQuestionRequest\030\005 \001(\0132%.b",
-      "igsciencequiz.AnswerQuestionRequestH\000\022R\n" +
-      "\030adminGetQuestionsRequest\030e \001(\0132..bigsci" +
-      "encequiz.admin.AdminGetQuestionsRequestH" +
-      "\000\022\\\n\035adminSetActiveQuestionRequest\030f \001(\013" +
-      "23.bigsciencequiz.admin.AdminSetActiveQu" +
-      "estionRequestH\000\022N\n\026adminResetStateReques" +
-      "t\030g \001(\0132,.bigsciencequiz.admin.AdminRese" +
-      "tStateRequestH\000\022R\n\030adminSetGameStateRequ" +
-      "est\030h \001(\0132..bigsciencequiz.admin.AdminSe" +
-      "tGameStateRequestH\000\022W\n\030bigscreenGetTeams",
-      "Request\030\311\001 \001(\01322.bigsciencequiz.bigscree" +
-      "n.BigscreenGetTeamsRequestH\000B\t\n\007request\"" +
-      "\251\010\n\013RpcResponse\022D\n\024identifyUserResponse\030" +
-      "\001 \001(\0132$.bigsciencequiz.IdentifyUserRespo" +
-      "nseH\000\022>\n\021teamReadyResponse\030\002 \001(\0132!.bigsc" +
-      "iencequiz.TeamReadyResponseH\000\022D\n\024getGame" +
-      "StateResponse\030\003 \001(\0132$.bigsciencequiz.Get" +
-      "GameStateResponseH\000\022X\n\036autocompleteMembe" +
-      "rNameResponse\030\004 \001(\0132..bigsciencequiz.Aut" +
-      "ocompleteMemberNameResponseH\000\022H\n\026answerQ",
-      "uestionResponse\030\005 \001(\0132&.bigsciencequiz.A" +
-      "nswerQuestionResponseH\000\022T\n\031adminGetQuest" +
-      "ionsResponse\030e \001(\0132/.bigsciencequiz.admi" +
-      "n.AdminGetQuestionsResponseH\000\022^\n\036adminSe" +
-      "tActiveQuestionResponse\030f \001(\01324.bigscien" +
-      "cequiz.admin.AdminSetActiveQuestionRespo" +
-      "nseH\000\022P\n\027adminResetStateResponse\030g \001(\0132-" +
-      ".bigsciencequiz.admin.AdminResetStateRes" +
-      "ponseH\000\022T\n\031adminSetGameStateResponse\030h \001" +
-      "(\0132/.bigsciencequiz.admin.AdminSetGameSt",
-      "ateResponseH\000\022Y\n\031bigscreenGetTeamsRespon" +
-      "se\030\311\001 \001(\01323.bigsciencequiz.bigscreen.Big" +
-      "screenGetTeamsResponseH\000\022E\n\024genericError" +
-      "Response\030\345\007 \001(\0132$.bigsciencequiz.Generic" +
-      "ErrorResponseH\000\022S\n\033unauthorisedRequestRe" +
-      "sponse\030\346\007 \001(\0132+.bigsciencequiz.Unauthori" +
-      "sedRequestResponseH\000\022I\n\026unknownRequestRe" +
-      "sponse\030\347\007 \001(\0132&.bigsciencequiz.UnknownRe" +
-      "questResponseH\000B\n\n\010responseB!\n\037club.eslc" +
-      "c.bigsciencequiz.protob\006proto3"
+      "swerQuestionFailedReason\"x\n\032AnswerQuesti" +
+      "onFailedReason\022\013\n\007SUCCESS\020\000\022\022\n\016NOT_IDENT" +
+      "IFIED\020\001\022\020\n\014OUT_OF_RANGE\020\002\022\021\n\rINVALID_STA" +
+      "TE\020\003\022\024\n\020ALREADY_ANSWERED\020\004\")\n\026UnknownReq" +
+      "uestResponse\022\017\n\007request\030\001 \001(\t\"-\n\033Unautho",
+      "risedRequestResponse\022\016\n\006reason\030\001 \001(\t\"\'\n\024" +
+      "GenericErrorResponse\022\017\n\007message\030\001 \001(\t\"\254\006" +
+      "\n\nRpcRequest\022B\n\023identifyUserRequest\030\001 \001(" +
+      "\0132#.bigsciencequiz.IdentifyUserRequestH\000" +
+      "\022<\n\020teamReadyRequest\030\002 \001(\0132 .bigscienceq" +
+      "uiz.TeamReadyRequestH\000\022B\n\023getGameStateRe" +
+      "quest\030\003 \001(\0132#.bigsciencequiz.GetGameStat" +
+      "eRequestH\000\022V\n\035autocompleteMemberNameRequ" +
+      "est\030\004 \001(\0132-.bigsciencequiz.AutocompleteM" +
+      "emberNameRequestH\000\022F\n\025answerQuestionRequ",
+      "est\030\005 \001(\0132%.bigsciencequiz.AnswerQuestio" +
+      "nRequestH\000\022R\n\030adminGetQuestionsRequest\030e" +
+      " \001(\0132..bigsciencequiz.admin.AdminGetQues" +
+      "tionsRequestH\000\022\\\n\035adminSetActiveQuestion" +
+      "Request\030f \001(\01323.bigsciencequiz.admin.Adm" +
+      "inSetActiveQuestionRequestH\000\022N\n\026adminRes" +
+      "etStateRequest\030g \001(\0132,.bigsciencequiz.ad" +
+      "min.AdminResetStateRequestH\000\022R\n\030adminSet" +
+      "GameStateRequest\030h \001(\0132..bigsciencequiz." +
+      "admin.AdminSetGameStateRequestH\000\022W\n\030bigs",
+      "creenGetTeamsRequest\030\311\001 \001(\01322.bigscience" +
+      "quiz.bigscreen.BigscreenGetTeamsRequestH" +
+      "\000B\t\n\007request\"\251\010\n\013RpcResponse\022D\n\024identify" +
+      "UserResponse\030\001 \001(\0132$.bigsciencequiz.Iden" +
+      "tifyUserResponseH\000\022>\n\021teamReadyResponse\030" +
+      "\002 \001(\0132!.bigsciencequiz.TeamReadyResponse" +
+      "H\000\022D\n\024getGameStateResponse\030\003 \001(\0132$.bigsc" +
+      "iencequiz.GetGameStateResponseH\000\022X\n\036auto" +
+      "completeMemberNameResponse\030\004 \001(\0132..bigsc" +
+      "iencequiz.AutocompleteMemberNameResponse",
+      "H\000\022H\n\026answerQuestionResponse\030\005 \001(\0132&.big" +
+      "sciencequiz.AnswerQuestionResponseH\000\022T\n\031" +
+      "adminGetQuestionsResponse\030e \001(\0132/.bigsci" +
+      "encequiz.admin.AdminGetQuestionsResponse" +
+      "H\000\022^\n\036adminSetActiveQuestionResponse\030f \001" +
+      "(\01324.bigsciencequiz.admin.AdminSetActive" +
+      "QuestionResponseH\000\022P\n\027adminResetStateRes" +
+      "ponse\030g \001(\0132-.bigsciencequiz.admin.Admin" +
+      "ResetStateResponseH\000\022T\n\031adminSetGameStat" +
+      "eResponse\030h \001(\0132/.bigsciencequiz.admin.A",
+      "dminSetGameStateResponseH\000\022Y\n\031bigscreenG" +
+      "etTeamsResponse\030\311\001 \001(\01323.bigsciencequiz." +
+      "bigscreen.BigscreenGetTeamsResponseH\000\022E\n" +
+      "\024genericErrorResponse\030\345\007 \001(\0132$.bigscienc" +
+      "equiz.GenericErrorResponseH\000\022S\n\033unauthor" +
+      "isedRequestResponse\030\346\007 \001(\0132+.bigscienceq" +
+      "uiz.UnauthorisedRequestResponseH\000\022I\n\026unk" +
+      "nownRequestResponse\030\347\007 \001(\0132&.bigscienceq" +
+      "uiz.UnknownRequestResponseH\000B\n\n\010response" +
+      "B!\n\037club.eslcc.bigsciencequiz.protob\006pro",
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
