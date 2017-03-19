@@ -1379,6 +1379,741 @@ public final class AdminEvents {
 
   }
 
+  public interface AdminQuestionsChangedEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.admin.AdminQuestionsChangedEvent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> 
+        getNewQuestionsList();
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question getNewQuestions(int index);
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    int getNewQuestionsCount();
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    java.util.List<? extends club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder> 
+        getNewQuestionsOrBuilderList();
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder getNewQuestionsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.admin.AdminQuestionsChangedEvent}
+   */
+  public  static final class AdminQuestionsChangedEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.admin.AdminQuestionsChangedEvent)
+      AdminQuestionsChangedEventOrBuilder {
+    // Use AdminQuestionsChangedEvent.newBuilder() to construct.
+    private AdminQuestionsChangedEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminQuestionsChangedEvent() {
+      newQuestions_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AdminQuestionsChangedEvent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                newQuestions_ = new java.util.ArrayList<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              newQuestions_.add(
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          newQuestions_ = java.util.Collections.unmodifiableList(newQuestions_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.class, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder.class);
+    }
+
+    public static final int NEWQUESTIONS_FIELD_NUMBER = 1;
+    private java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> newQuestions_;
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    public java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> getNewQuestionsList() {
+      return newQuestions_;
+    }
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    public java.util.List<? extends club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder> 
+        getNewQuestionsOrBuilderList() {
+      return newQuestions_;
+    }
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    public int getNewQuestionsCount() {
+      return newQuestions_.size();
+    }
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question getNewQuestions(int index) {
+      return newQuestions_.get(index);
+    }
+    /**
+     * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder getNewQuestionsOrBuilder(
+        int index) {
+      return newQuestions_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < newQuestions_.size(); i++) {
+        output.writeMessage(1, newQuestions_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < newQuestions_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, newQuestions_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent other = (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) obj;
+
+      boolean result = true;
+      result = result && getNewQuestionsList()
+          .equals(other.getNewQuestionsList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getNewQuestionsCount() > 0) {
+        hash = (37 * hash) + NEWQUESTIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getNewQuestionsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.admin.AdminQuestionsChangedEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.admin.AdminQuestionsChangedEvent)
+        club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.class, club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getNewQuestionsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (newQuestionsBuilder_ == null) {
+          newQuestions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          newQuestionsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent build() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent buildPartial() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent result = new club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent(this);
+        int from_bitField0_ = bitField0_;
+        if (newQuestionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            newQuestions_ = java.util.Collections.unmodifiableList(newQuestions_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.newQuestions_ = newQuestions_;
+        } else {
+          result.newQuestions_ = newQuestionsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent other) {
+        if (other == club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent.getDefaultInstance()) return this;
+        if (newQuestionsBuilder_ == null) {
+          if (!other.newQuestions_.isEmpty()) {
+            if (newQuestions_.isEmpty()) {
+              newQuestions_ = other.newQuestions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureNewQuestionsIsMutable();
+              newQuestions_.addAll(other.newQuestions_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.newQuestions_.isEmpty()) {
+            if (newQuestionsBuilder_.isEmpty()) {
+              newQuestionsBuilder_.dispose();
+              newQuestionsBuilder_ = null;
+              newQuestions_ = other.newQuestions_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              newQuestionsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getNewQuestionsFieldBuilder() : null;
+            } else {
+              newQuestionsBuilder_.addAllMessages(other.newQuestions_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> newQuestions_ =
+        java.util.Collections.emptyList();
+      private void ensureNewQuestionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          newQuestions_ = new java.util.ArrayList<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question>(newQuestions_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder> newQuestionsBuilder_;
+
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> getNewQuestionsList() {
+        if (newQuestionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(newQuestions_);
+        } else {
+          return newQuestionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public int getNewQuestionsCount() {
+        if (newQuestionsBuilder_ == null) {
+          return newQuestions_.size();
+        } else {
+          return newQuestionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question getNewQuestions(int index) {
+        if (newQuestionsBuilder_ == null) {
+          return newQuestions_.get(index);
+        } else {
+          return newQuestionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder setNewQuestions(
+          int index, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question value) {
+        if (newQuestionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNewQuestionsIsMutable();
+          newQuestions_.set(index, value);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder setNewQuestions(
+          int index, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder builderForValue) {
+        if (newQuestionsBuilder_ == null) {
+          ensureNewQuestionsIsMutable();
+          newQuestions_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          newQuestionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder addNewQuestions(club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question value) {
+        if (newQuestionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNewQuestionsIsMutable();
+          newQuestions_.add(value);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder addNewQuestions(
+          int index, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question value) {
+        if (newQuestionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNewQuestionsIsMutable();
+          newQuestions_.add(index, value);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder addNewQuestions(
+          club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder builderForValue) {
+        if (newQuestionsBuilder_ == null) {
+          ensureNewQuestionsIsMutable();
+          newQuestions_.add(builderForValue.build());
+          onChanged();
+        } else {
+          newQuestionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder addNewQuestions(
+          int index, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder builderForValue) {
+        if (newQuestionsBuilder_ == null) {
+          ensureNewQuestionsIsMutable();
+          newQuestions_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          newQuestionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder addAllNewQuestions(
+          java.lang.Iterable<? extends club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question> values) {
+        if (newQuestionsBuilder_ == null) {
+          ensureNewQuestionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, newQuestions_);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder clearNewQuestions() {
+        if (newQuestionsBuilder_ == null) {
+          newQuestions_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public Builder removeNewQuestions(int index) {
+        if (newQuestionsBuilder_ == null) {
+          ensureNewQuestionsIsMutable();
+          newQuestions_.remove(index);
+          onChanged();
+        } else {
+          newQuestionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder getNewQuestionsBuilder(
+          int index) {
+        return getNewQuestionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder getNewQuestionsOrBuilder(
+          int index) {
+        if (newQuestionsBuilder_ == null) {
+          return newQuestions_.get(index);  } else {
+          return newQuestionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public java.util.List<? extends club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder> 
+           getNewQuestionsOrBuilderList() {
+        if (newQuestionsBuilder_ != null) {
+          return newQuestionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(newQuestions_);
+        }
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder addNewQuestionsBuilder() {
+        return getNewQuestionsFieldBuilder().addBuilder(
+            club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder addNewQuestionsBuilder(
+          int index) {
+        return getNewQuestionsFieldBuilder().addBuilder(
+            index, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .bigsciencequiz.Question newQuestions = 1;</code>
+       */
+      public java.util.List<club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder> 
+           getNewQuestionsBuilderList() {
+        return getNewQuestionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder> 
+          getNewQuestionsFieldBuilder() {
+        if (newQuestionsBuilder_ == null) {
+          newQuestionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.Question.Builder, club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder>(
+                  newQuestions_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          newQuestions_ = null;
+        }
+        return newQuestionsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.admin.AdminQuestionsChangedEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.admin.AdminQuestionsChangedEvent)
+    private static final club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminQuestionsChangedEvent>
+        PARSER = new com.google.protobuf.AbstractParser<AdminQuestionsChangedEvent>() {
+      public AdminQuestionsChangedEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AdminQuestionsChangedEvent(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminQuestionsChangedEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminQuestionsChangedEvent> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.admin.AdminEvents.AdminQuestionsChangedEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_descriptor;
   private static final 
@@ -1389,6 +2124,11 @@ public final class AdminEvents {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_Device_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1399,12 +2139,14 @@ public final class AdminEvents {
   static {
     java.lang.String[] descriptorData = {
       "\n\022admin_events.proto\022\024bigsciencequiz.adm" +
-      "in\"\233\001\n\030AdminDevicesChangedEvent\022F\n\007devic" +
-      "es\030\001 \003(\01325.bigsciencequiz.admin.AdminDev" +
-      "icesChangedEvent.Device\0327\n\006Device\022\020\n\010dev" +
-      "iceId\030\001 \001(\t\022\014\n\004team\030\002 \001(\005\022\r\n\005ready\030\003 \001(\010" +
-      "B\'\n%club.eslcc.bigsciencequiz.proto.admi" +
-      "nb\006proto3"
+      "in\032\016question.proto\"\233\001\n\030AdminDevicesChang" +
+      "edEvent\022F\n\007devices\030\001 \003(\01325.bigsciencequi" +
+      "z.admin.AdminDevicesChangedEvent.Device\032" +
+      "7\n\006Device\022\020\n\010deviceId\030\001 \001(\t\022\014\n\004team\030\002 \001(" +
+      "\005\022\r\n\005ready\030\003 \001(\010\"L\n\032AdminQuestionsChange" +
+      "dEvent\022.\n\014newQuestions\030\001 \003(\0132\030.bigscienc" +
+      "equiz.QuestionB\'\n%club.eslcc.bigscienceq" +
+      "uiz.proto.adminb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1417,6 +2159,7 @@ public final class AdminEvents {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor(),
         }, assigner);
     internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1430,6 +2173,13 @@ public final class AdminEvents {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_Device_descriptor,
         new java.lang.String[] { "DeviceId", "Team", "Ready", });
+    internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor,
+        new java.lang.String[] { "NewQuestions", });
+    club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

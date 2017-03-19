@@ -13,5 +13,9 @@
     <string name="team_number">0</string>
     <string name="team_members_label">Team Members:</string>
     <string name="no_internet">No Internet</string>
-
+    <string name="confirmed_answer">You have confirmed your answer. Wait for all teams to answer, please.</string>
+    <string name="question_closed">You cannot answer anymore, the question has already been closed.</string>
+    <string name="press_to_confirm_answer">Press the answer again to confirm.</string>
+    <string name="correct_answer_hint">Correct Answer!</string>
+    <string name="wrong_answer_hint">Wrong Answer!</string>
 </resources>

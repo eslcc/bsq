@@ -67,6 +67,11 @@ class AnswerAdapter extends BaseAdapter
         return mEnabled;
     }
 
+    int getAnswerId(int position)
+    {
+        return mAnswers.get(position).getId();
+    }
+
     void disable()
     {
         mEnabled = false;

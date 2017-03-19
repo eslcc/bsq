@@ -6,7 +6,24 @@
     <color name="background_color">#0A0023</color>
     <color name="circle_fill">#0a0023</color>
     <color name="circle_stroke">#FFFFFF</color>
-    <color name="pressed">#ffc400</color>
-    <color name="focused">#fdd835</color>
-    <color name="defocused">#757575</color>
+
+    <color name="wrong_button_stroke">#b71c1c</color>
+    <color name="wrong_button_start">#d50000</color>
+    <color name="wrong_button_end">#d32f2f</color>
+
+    <color name="right_button_stroke">#33691e</color>
+    <color name="right_button_start">#2e7d32</color>
+    <color name="right_button_end">#43a047</color>
+
+    <color name="pressed_button_stroke">#ffa000</color>
+    <color name="pressed_button_start">#f9a825</color>
+    <color name="pressed_button_end">#ffc107</color>
+
+    <color name="focused_button_stroke">#f9a825</color>
+    <color name="focused_button_start">#ffeb3b</color>
+    <color name="focused_button_end">#fdd835</color>
+
+    <color name="defocused_button_stroke">#616161</color>
+    <color name="defocused_button_start">#757575</color>
+    <color name="defocused_button_end">#757575</color>
 </resources>

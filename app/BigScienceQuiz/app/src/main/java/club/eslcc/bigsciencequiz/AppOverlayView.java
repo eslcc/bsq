@@ -42,9 +42,11 @@ class AppOverlayView extends RelativeLayout
 {
     private Context mContext;
     private WebSocket mWebSocket;
-
-
     private ViewFlipper mViewFlipper;
+    private QuestionOuterClass.Question mQuestion;
+    private boolean mSelectedAnswerIsCorrect;
+    private View mSelectedAnswer;
+    private View mCorrectAnswer;
 
     private void changeToLayout(final int layoutId, final Runnable runnable)
     {
@@ -57,19 +59,6 @@ class AppOverlayView extends RelativeLayout
 
                 if (runnable != null)
                     runnable.run();
-            }
-        });
-    }
-
-    private void showError(final OnClickListener listener)
-    {
-        changeToLayout(R.id.error_layout, new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                TextView sadFace = (TextView) findViewById(R.id.sad_face);
-                sadFace.setOnClickListener(listener);
             }
         });
     }
@@ -274,11 +263,17 @@ class AppOverlayView extends RelativeLayout
             case GAMESTATECHANGEEVENT:
                 switch (event.getGameStateChangeEvent().getNewState().getState())
                 {
-                    case QUESTION_ANSWERING:
                     case QUESTION_LIVEANSWERS:
                     case QUESTION_CLOSED:
+                        break;
+
                     case QUESTION_ANSWERS_REVEALED:
-                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion());
+                        handleAnswersRevealed();
+                        break;
+
+                    case QUESTION_ANSWERING:
+                        mQuestion = event.getGameStateChangeEvent().getNewState().getCurrentQuestion();
+                        handleQuestionEvent();
                         break;
 
                     case READY:
@@ -286,7 +281,7 @@ class AppOverlayView extends RelativeLayout
                         break;
 
                     default:
-                        showError(mDisconnectAndClose);
+                        showError("Unknown NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState(), mDisconnectAndClose);
                         System.out.println("Got NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
                         System.out.println("Content: " + event.getGameStateChangeEvent().getNewState());
                         System.out.println("Binary: " + Arrays.toString(event.getGameStateChangeEvent().getNewState().toByteArray()));
@@ -295,7 +290,7 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             default:
-                showError(mDisconnectAndClose);
+                showError("Unknown Game Event of type " + event.getEventCase(), mDisconnectAndClose);
                 System.out.println("Got GameEventThing of type " + event.getEventCase());
                 System.out.println("Content: " + event);
                 System.out.println("Binary: " + Arrays.toString(event.toByteArray()));
@@ -312,11 +307,15 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             case TEAMREADYRESPONSE:
-                handleTeamReadyResponse(response.getTeamReadyResponse());
+                changeToLayout(R.id.waiting_layout, null);
+                break;
+
+            case ANSWERQUESTIONRESPONSE:
+                handleAnswerQuestionResponse(response.getAnswerQuestionResponse());
                 break;
 
             default:
-                showError(mDisconnectAndClose);
+                showError("Unknown RPC Response of type " + response.getResponseCase(), mDisconnectAndClose);
                 System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
                 System.out.println("Content: " + response);
                 System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
@@ -376,17 +375,10 @@ class AppOverlayView extends RelativeLayout
                     });
                 }
             });
-
-
         }
     }
 
-    private void handleTeamReadyResponse(Rpc.TeamReadyResponse response)
-    {
-        changeToLayout(R.id.waiting_layout, null);
-    }
-
-    private void handleQuestionEvent(final QuestionOuterClass.Question question)
+    private void handleQuestionEvent()
     {
         changeToLayout(R.id.question_layout, new Runnable()
         {
@@ -398,43 +390,111 @@ class AppOverlayView extends RelativeLayout
                 final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
                 final ListView answers = (ListView) findViewById(R.id.question_answers);
 
-                category.setText(question.getCategory());
-                questionText.setText(question.getQuestion());
+                category.setText(mQuestion.getCategory());
+                questionText.setText(mQuestion.getQuestion());
 
                 final AnswerAdapter adapter = new AnswerAdapter(
                         LayoutInflater.from(mContext),
-                        question.getAnswersList());
+                        mQuestion.getAnswersList());
 
                 answers.setAdapter(adapter);
 
                 answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
                 {
-                    private View lastSelectionView = null;
+                    private int lastSelectionView = -1;
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                     {
-                        if (lastSelectionView == null)
+                        if (lastSelectionView == -1)
                         {
+                            confirmAnswerHint.setText(R.string.press_to_confirm_answer);
                             confirmAnswerHint.setVisibility(VISIBLE);
                             view.findViewById(R.id.answer_button).setSelected(true);
-                            lastSelectionView = view;
+                            lastSelectionView = position;
                         }
 
-                        else if (lastSelectionView != view)
+                        else if (lastSelectionView != position)
                         {
-                            lastSelectionView.findViewById(R.id.answer_button).setSelected(false);
+                            parent.getChildAt(lastSelectionView).findViewById(R.id.answer_button).setSelected(false);
                             view.findViewById(R.id.answer_button).setSelected(true);
-                            lastSelectionView = view;
+                            lastSelectionView = position;
                         }
 
                         else
                         {
-                            confirmAnswerHint.setText("You have confirmed your answer. Wait for all teams to answer.");
+                            mSelectedAnswer = view.findViewById(R.id.answer_button);
+
+                            if (mQuestion.getAnswersList().get(position).getCorrect())
+                                mSelectedAnswerIsCorrect = true;
+
+                            else
+                            {
+                                mSelectedAnswerIsCorrect = false;
+
+                                for (int i = 0; i < mQuestion.getAnswersList().size(); ++i)
+                                {
+                                    if (i == position)
+                                        continue;
+
+                                    if (mQuestion.getAnswersList().get(i).getCorrect())
+                                        mCorrectAnswer = parent.getChildAt(i).findViewById(R.id.answer_button);
+                                }
+                            }
+
+                            confirmAnswerHint.setText(R.string.confirmed_answer);
+
                             adapter.disable();
+
+                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
+                            Rpc.AnswerQuestionRequest.Builder builder = Rpc.AnswerQuestionRequest.newBuilder();
+                            builder.setAnswerId(adapter.getAnswerId(position));
+                            wrapperBuilder.setAnswerQuestionRequest(builder);
+                            byte[] data = wrapperBuilder.build().toByteArray();
+                            mWebSocket.sendBinary(data);
                         }
                     }
                 });
+            }
+        });
+    }
+
+    private void handleAnswerQuestionResponse(Rpc.AnswerQuestionResponse response)
+    {
+        if (response.getFailureReason() != Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS)
+        {
+            if (response.getFailureReason() == Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.INVALID_STATE)
+            {
+                final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
+                confirmAnswerHint.setText(R.string.question_closed);
+            }
+
+            else
+                showError(response.getFailureReason().toString(), mDisconnectAndClose);
+        }
+    }
+
+    private void handleAnswersRevealed()
+    {
+        new Handler(Looper.getMainLooper()).post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
+
+                if (mSelectedAnswerIsCorrect)
+                {
+                    ((AnswerButton) mSelectedAnswer).setStateRight();
+                    confirmAnswerHint.setText(R.string.correct_answer_hint);
+                }
+
+                else
+                {
+                    ((AnswerButton) mSelectedAnswer).setStateWrong();
+                    ((AnswerButton) mCorrectAnswer).setStateRight();
+                    confirmAnswerHint.setText(R.string.wrong_answer_hint);
+                }
             }
         });
     }
