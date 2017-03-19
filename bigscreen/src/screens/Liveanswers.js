@@ -17,7 +17,7 @@ const COLORS = [
     '#FFC107',
     '#E91E63',
     '#00BCD4',
-    '#4CAF50'
+    '#8BC34A'
 ];
 
 export default class Liveanswers extends Component {

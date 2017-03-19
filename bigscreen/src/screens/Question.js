@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import './Question.css';
 
 const Question = ({ question, revealAnswers }) => (
-    <div className="question">
+    <div className={`question ${revealAnswers ? 'revealed' : 'not-revealed'}`}>
         <h2 className="question-category">{question.category}</h2>
         <h1 className="question-title">{question.question}</h1>
         <div className="question-answers">

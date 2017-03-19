@@ -17,6 +17,18 @@
 .question-answer {
     padding: 1em;
     margin: 0.5em 0;
-    background-color: #FFA000;
     font-size: 36px;
+}
+
+.question.not-revealed .question-answer {
+    background-color: #FFA000;
+}
+
+.question.revealed .question-answer {
+    background-color: #fafafa;
+    color: #212121;
+}
+
+.question.revealed .question-answer.correct {
+    background-color: #8BC34A;
 }
