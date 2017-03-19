@@ -48,12 +48,12 @@ export default class Liveanswers extends Component {
     }
 
     renderKnobs() {
-        return this.state.order.map(answer => {
+        return this.state.order.map((answer, index) => {
             const knobSettings = {
                 value: (this.state.liveanswers[answer] / this.state.total) * 100 || 0,
                 onChange: Function.prototype,
                 bgColor: '#fafafa',
-                fgColor: COLORS[answer]
+                fgColor: COLORS[index]
             };
             return (
                 <div key={answer} className="liveanswer">
