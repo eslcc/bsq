@@ -10,10 +10,7 @@ import redis.clients.jedis.JedisPubSub;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
@@ -35,6 +32,9 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
+        System.out.println("Sent event: " + event.getEventCase());
+        System.out.println("Content: " + event);
+        System.out.println("Binary: " + Arrays.toString(data));
     }
 
     private void sendAdminEvent(Events.GameEvent event) {
@@ -47,6 +47,9 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
+        System.out.println("Sent ADMIN event: " + event.getEventCase());
+        System.out.println("Content: " + event);
+        System.out.println("Binary: " + Arrays.toString(data));
     }
 
     private void sendBigscreenEvent(Events.GameEvent event) {
@@ -59,9 +62,13 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
+        System.out.println("Sent BIGSCREEN event: " + event.getEventCase());
+        System.out.println("Content: " + event);
+        System.out.println("Binary: " + Arrays.toString(data));
     }
 
     private void handleGameStateChange() {
+        final boolean[] logged = {false}; // Java 8 is weird.
         SocketHandler.users.keySet().stream().filter(Session::isOpen).forEach(session -> {
             Events.GameEvent.Builder builder = Events.GameEvent.newBuilder();
             Events.GameStateChangeEvent.Builder gsceB = Events.GameStateChangeEvent.newBuilder();
@@ -70,6 +77,12 @@ public class RpcPubSub extends JedisPubSub {
             Events.GameEvent event = builder.build();
             byte[] data = EventHelpers.addEventFlag(event.toByteArray());
             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
+            if (!logged[0]) {
+                System.out.println("Sent event: " + event.getEventCase());
+                System.out.println("Content: " + event);
+                System.out.println("Binary: " + Arrays.toString(data));
+                logged[0] = true;
+            }
         });
     }
 
