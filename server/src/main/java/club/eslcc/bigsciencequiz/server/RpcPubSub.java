@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
+import static club.eslcc.bigsciencequiz.server.SocketHandler.logLock;
 
 
 /**
@@ -32,9 +33,11 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
-        System.out.println("Sent event: " + event.getEventCase());
-        System.out.println("Content: " + event);
-        System.out.println("Binary: " + Arrays.toString(data));
+        synchronized (logLock) {
+            System.out.println("Sent event: " + event.getEventCase());
+            System.out.println("Content: " + event);
+            System.out.println("Binary: " + Arrays.toString(data));
+        }
     }
 
     private void sendAdminEvent(Events.GameEvent event) {
@@ -47,9 +50,11 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
-        System.out.println("Sent ADMIN event: " + event.getEventCase());
-        System.out.println("Content: " + event);
-        System.out.println("Binary: " + Arrays.toString(data));
+        synchronized (logLock) {
+            System.out.println("Sent ADMIN event: " + event.getEventCase());
+            System.out.println("Content: " + event);
+            System.out.println("Binary: " + Arrays.toString(data));
+        }
     }
 
     private void sendBigscreenEvent(Events.GameEvent event) {
@@ -62,9 +67,11 @@ public class RpcPubSub extends JedisPubSub {
                             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
                         }
                 );
-        System.out.println("Sent BIGSCREEN event: " + event.getEventCase());
-        System.out.println("Content: " + event);
-        System.out.println("Binary: " + Arrays.toString(data));
+        synchronized (logLock) {
+            System.out.println("Sent BIGSCREEN event: " + event.getEventCase());
+            System.out.println("Content: " + event);
+            System.out.println("Binary: " + Arrays.toString(data));
+        }
     }
 
     private void handleGameStateChange() {
@@ -78,9 +85,11 @@ public class RpcPubSub extends JedisPubSub {
             byte[] data = EventHelpers.addEventFlag(event.toByteArray());
             session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
             if (!logged[0]) {
-                System.out.println("Sent event: " + event.getEventCase());
-                System.out.println("Content: " + event);
-                System.out.println("Binary: " + Arrays.toString(data));
+                synchronized (logLock) {
+                    System.out.println("Sent event: " + event.getEventCase());
+                    System.out.println("Content: " + event);
+                    System.out.println("Binary: " + Arrays.toString(data));
+                }
                 logged[0] = true;
             }
         });

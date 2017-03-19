@@ -25,6 +25,8 @@ public class SocketHandler {
     private static Jedis pubSubJedis = Redis.getNewJedis();
     private static volatile boolean subscribed = false;
 
+    public static final Object logLock = new Object();
+
     private static Map<RpcRequest.RequestCase, IRpcHandler> handlers = new HashMap<>();
 
     static {
@@ -91,10 +93,12 @@ public class SocketHandler {
                 response = builder.build();
             }
 
-            System.out.println("Sent response: " + response.getResponseCase());
-            System.out.println("Content: " + response);
-            System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
             session.getRemote().sendBytes(response.toByteString().asReadOnlyByteBuffer());
+            synchronized (logLock) {
+                System.out.println("Sent response: " + response.getResponseCase());
+                System.out.println("Content: " + response);
+                System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
