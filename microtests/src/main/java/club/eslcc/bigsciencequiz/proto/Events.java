@@ -3259,7 +3259,7 @@ public final class Events {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor(),
-          bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor(),
+          club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor(),
         }, assigner);
@@ -3294,7 +3294,7 @@ public final class Events {
         internal_static_bigsciencequiz_GameEvent_descriptor,
         new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "LiveAnswersEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
-    bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor();
+    club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
   }

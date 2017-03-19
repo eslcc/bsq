@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz.server;
 
 import club.eslcc.bigsciencequiz.proto.Events;
+import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.admin.AdminEvents;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -93,6 +94,10 @@ public class RpcPubSub extends JedisPubSub {
                 logged[0] = true;
             }
         });
+        Gamestate.GameState state = RedisHelpers.getGameState(null);
+        if (state.getState() == Gamestate.GameState.State.QUESTION_LIVEANSWERS) {
+            handleLiveanswers();
+        }
     }
 
     private void handleAdminDevices() {
@@ -178,6 +183,12 @@ public class RpcPubSub extends JedisPubSub {
                         handleLiveanswers();
                 }
                 break;
+            case "bigscreen_events":
+                switch(message) {
+                    case "show_liveanswers":
+                        handleLiveanswers();
+                        break;
+                }
             case "admin_events":
                 switch (message) {
                     case "identified_device_change":

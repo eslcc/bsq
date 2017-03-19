@@ -36,7 +36,7 @@ export default class Liveanswers extends Component {
     }
 
     refreshOrder(count = 4) {
-        const order = shuffleArray(Array.apply(null, {length: count}).map(Number.call, Number));
+        const order = shuffleArray(Array.apply(null, {length: count}).map(Number.call, Number).map(n => n + 1));
         this.setState({order});
     }
 

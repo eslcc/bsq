@@ -6,5 +6,6 @@
 }
 
 .liveanswer {
-    display: inline-block
+    display: inline-block;
+    margin: 2em;
 }
