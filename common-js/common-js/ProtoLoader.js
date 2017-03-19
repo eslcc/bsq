@@ -3,7 +3,7 @@ import protobuf, { Root } from 'protobufjs';
 
 class MyRoot extends Root {
     resolvePath(origin, target) {
-        console.dir([origin, target, relativePathToAbsolute(target)]);
+        // console.dir([origin, target, relativePathToAbsolute(target)]);
         if (target.indexOf("/proto/models/") === -1) {
             return relativePathToAbsolute("/proto/models/" + target);
         }
@@ -32,12 +32,15 @@ const TYPES = {
     GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
     AdminDevicesChangedEvent: 'bigsciencequiz.admin.AdminDevicesChangedEvent',
     AdminQuestionsChangedEvent: 'bigsciencequiz.admin.AdminQuestionsChangedEvent',
+    BigscreenGetTeamsRequest: 'bigsciencequiz.bigscreen.BigscreenGetTeamsRequest',
+    BigscreenGetTeamsResponse: 'bigsciencequiz.bigscreen.BigscreenGetTeamsResponse',
 };
 
 
 const PROTOS = [
     "/proto/models/rpc.proto",
-    "/proto/models/admin_rpc.proto"
+    "/proto/models/admin_rpc.proto",
+    "/proto/models/bigscreen_rpc.proto",
 ];
 
 const promises = PROTOS.map(

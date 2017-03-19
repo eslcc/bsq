@@ -6,6 +6,7 @@ import "gamestate.proto";
 import "user.proto";
 import "events.proto";
 import "admin_rpc.proto";
+import "bigscreen_rpc.proto";
 
 option java_package = "club.eslcc.bigsciencequiz.proto";
 
@@ -93,6 +94,7 @@ message RpcRequest {
         bigsciencequiz.admin.AdminSetActiveQuestionRequest adminSetActiveQuestionRequest = 102;
         bigsciencequiz.admin.AdminResetStateRequest adminResetStateRequest = 103;
         bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;
+        bigsciencequiz.bigscreen.BigscreenGetTeamsRequest bigscreenGetTeamsRequest = 201;
     }
 }
 
@@ -107,6 +109,7 @@ message RpcResponse {
         bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
         bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;
         bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;
+        bigsciencequiz.bigscreen.BigscreenGetTeamsResponse bigscreenGetTeamsResponse = 201;
         GenericErrorResponse genericErrorResponse = 997;
         UnauthorisedRequestResponse unauthorisedRequestResponse = 998;
         UnknownRequestResponse unknownRequestResponse = 999;

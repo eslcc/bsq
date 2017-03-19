@@ -1,11 +1,13 @@
 import React from 'react';
-import AdminSocket from './lib/AdminSocket';
-import { protosLoaded, RpcRequest, GetGameStateRequest } from './lib/ProtoLoader';
+import AdminSocket from './common-js/AdminSocket';
+import { protosLoaded, RpcRequest, GetGameStateRequest } from './common-js/ProtoLoader';
 
 import GameState from './GameState';
 import Questions from './Questions';
 import ReadyClients from './ReadyClients';
 import Errors from './Errors';
+
+export const socket = new AdminSocket('admin');
 
 export default class AdminInterface extends React.Component {
     state = {
@@ -19,14 +21,14 @@ export default class AdminInterface extends React.Component {
     componentDidMount() {
         protosLoaded.then(() => {
             this.setState({rootsLoaded: true});
-            AdminSocket.open();
-            window.as = AdminSocket;
+            socket.open();
+            window.as = socket;
 
-            AdminSocket.registerResponseHandler('getGameStateResponse', this._onGetGameState.bind(this));
-            AdminSocket.registerEventHandler('gameStateChangeEvent', this._onStateChange.bind(this));
+            socket.registerResponseHandler('getGameStateResponse', this._onGetGameState.bind(this));
+            socket.registerEventHandler('gameStateChangeEvent', this._onStateChange.bind(this));
             const message = RpcRequest.create();
             message.getGameStateRequest = GetGameStateRequest.create();
-            AdminSocket.sendMessage(message);
+            socket.sendMessage(message);
         });
     }
 

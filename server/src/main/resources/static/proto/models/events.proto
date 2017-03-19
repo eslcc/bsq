@@ -4,6 +4,7 @@ package bigsciencequiz;
 option java_package = "club.eslcc.bigsciencequiz.proto";
 
 import "admin_events.proto";
+import "bigscreen_events.proto";
 import "question.proto";
 import "gamestate.proto";
 

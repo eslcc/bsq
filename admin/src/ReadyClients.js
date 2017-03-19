@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { RpcRequest, AdminSetGameStateRequest, GameState, protosLoaded } from './lib/ProtoLoader';
-import AdminSocket from './lib/AdminSocket';
+import { RpcRequest, AdminSetGameStateRequest, GameState, protosLoaded } from './common-js/ProtoLoader';
+import {socket as AdminSocket} from './AdminInterface';
 
 export default class ReadyClients extends Component {
     state = {

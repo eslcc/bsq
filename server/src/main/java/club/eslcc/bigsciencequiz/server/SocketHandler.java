@@ -1,9 +1,6 @@
 package club.eslcc.bigsciencequiz.server;
 
-import club.eslcc.bigsciencequiz.server.handlers.AdminHandlers;
-import club.eslcc.bigsciencequiz.server.handlers.GetGameStateHandler;
-import club.eslcc.bigsciencequiz.server.handlers.IdentifyUserHandler;
-import club.eslcc.bigsciencequiz.server.handlers.TeamReadyHandler;
+import club.eslcc.bigsciencequiz.server.handlers.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -12,17 +9,12 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static club.eslcc.bigsciencequiz.proto.Rpc.*;
 import static club.eslcc.bigsciencequiz.proto.Rpc.RpcRequest.RequestCase.*;
-import static club.eslcc.bigsciencequiz.proto.Events.*;
 
 /**
  * Created by marks on 10/03/2017.
@@ -43,6 +35,7 @@ public class SocketHandler {
         handlers.put(ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
         handlers.put(TEAMREADYREQUEST, new TeamReadyHandler());
         handlers.put(ADMINSETGAMESTATEREQUEST, new AdminHandlers.SetGameStateHandler());
+        handlers.put(BIGSCREENGETTEAMSREQUEST, new BigscreenHandlers.GetTeamsHandler());
     }
 
     private static void subscribe() {
@@ -59,6 +52,9 @@ public class SocketHandler {
         if (session.getUpgradeRequest().getParameterMap().containsKey("admin")) {
             users.put(session, "ADMIN");
             logger.log(Level.INFO, "Admin connected!");
+        } else if (session.getUpgradeRequest().getParameterMap().containsKey("bigscreen")) {
+            users.put(session, "BIGSCREEN");
+            logger.log(Level.INFO, "Bigscreen connected!");
         } else {
             users.put(session, null);
         }

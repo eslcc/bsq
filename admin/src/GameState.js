@@ -1,13 +1,13 @@
 import React from 'react';
-import AdminSocket from './lib/AdminSocket';
-import {getKeyByValue} from './lib/helpers';
+import {socket as AdminSocket} from './AdminInterface';
+import {getKeyByValue} from './common-js/helpers';
 import {
     RpcRequest,
     GetGameStateRequest,
     AdminResetStateRequest,
     AdminSetGameStateRequest,
     GameState
-} from './lib/ProtoLoader';
+} from './common-js/ProtoLoader';
 
 export default class GameStateComponent extends React.Component {
     _resetState() {

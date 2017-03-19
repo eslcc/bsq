@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminSocket from './lib/AdminSocket';
-import * as rpc from './lib/ProtoLoader';
+import {socket as AdminSocket} from './AdminInterface';
+import * as rpc from './common-js/ProtoLoader';
 
 export default class Questions extends React.Component {
     state = {

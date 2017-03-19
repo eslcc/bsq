@@ -2342,19 +2342,20 @@ public final class Events {
   static {
     java.lang.String[] descriptorData = {
       "\n\014events.proto\022\016bigsciencequiz\032\022admin_ev" +
-      "ents.proto\032\016question.proto\032\017gamestate.pr" +
-      "oto\"C\n\024GameStateChangeEvent\022+\n\010newState\030" +
-      "\001 \001(\0132\031.bigsciencequiz.GameState\"!\n\nErro" +
-      "rEvent\022\023\n\013description\030\001 \001(\t\"\270\002\n\tGameEven" +
-      "t\022D\n\024gameStateChangeEvent\030\001 \001(\0132$.bigsci" +
-      "encequiz.GameStateChangeEventH\000\0220\n\nerror" +
-      "Event\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH" +
-      "\000\022R\n\030adminDevicesChangedEvent\030\003 \001(\0132..bi" +
-      "gsciencequiz.admin.AdminDevicesChangedEv",
-      "entH\000\022V\n\032adminQuestionsChangedEvent\030\004 \001(" +
-      "\01320.bigsciencequiz.admin.AdminQuestionsC" +
-      "hangedEventH\000B\007\n\005eventB!\n\037club.eslcc.big" +
-      "sciencequiz.protob\006proto3"
+      "ents.proto\032\026bigscreen_events.proto\032\016ques" +
+      "tion.proto\032\017gamestate.proto\"C\n\024GameState" +
+      "ChangeEvent\022+\n\010newState\030\001 \001(\0132\031.bigscien" +
+      "cequiz.GameState\"!\n\nErrorEvent\022\023\n\013descri" +
+      "ption\030\001 \001(\t\"\270\002\n\tGameEvent\022D\n\024gameStateCh" +
+      "angeEvent\030\001 \001(\0132$.bigsciencequiz.GameSta" +
+      "teChangeEventH\000\0220\n\nerrorEvent\030\002 \001(\0132\032.bi" +
+      "gsciencequiz.ErrorEventH\000\022R\n\030adminDevice" +
+      "sChangedEvent\030\003 \001(\0132..bigsciencequiz.adm",
+      "in.AdminDevicesChangedEventH\000\022V\n\032adminQu" +
+      "estionsChangedEvent\030\004 \001(\01320.bigsciencequ" +
+      "iz.admin.AdminQuestionsChangedEventH\000B\007\n" +
+      "\005eventB!\n\037club.eslcc.bigsciencequiz.prot" +
+      "ob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2368,6 +2369,7 @@ public final class Events {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor(),
+          bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor(),
         }, assigner);
@@ -2390,6 +2392,7 @@ public final class Events {
         internal_static_bigsciencequiz_GameEvent_descriptor,
         new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
+    bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
   }
