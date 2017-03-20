@@ -214,61 +214,81 @@ class AppOverlayView extends RelativeLayout
 
         try
         {
-            try
-            {
-                mWebSocket = factory.createSocket("ws://" + address + "/socket");
-            }
-            catch(IllegalArgumentException e)
-            {
-                Toast.makeText(mContext, "Bad server IP", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            mWebSocket.addListener(new WebSocketAdapter()
-            {
-                @Override
-                public void onUnexpectedError(WebSocket websocket, WebSocketException cause) throws Exception
-                {
-                    super.onUnexpectedError(websocket, cause);
-                    Sentry.captureException(cause);
-                    cause.printStackTrace();
-                    showError(cause.getLocalizedMessage());
-                }
-
-                @Override
-                public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
-                {
-                    super.onConnected(websocket, headers);
-
-                    if (!mConnected)
-                    {
-                        mConnected = true;
-                        onConnectToServer();
-                    }
-                }
-
-                @Override
-                public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
-                {
-                    super.onBinaryMessage(websocket, binary);
-                    onReceivedMessage(binary);
-                }
-
-                @Override
-                public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception
-                {
-                    super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
-                    System.out.println("Disconnected");
-                    reconnect();
-                }
-            });
-
-            mWebSocket.connectAsynchronously();
+            mWebSocket = factory.createSocket("ws://" + address + "/socket");
+        } catch (IllegalArgumentException e)
+        {
+            Toast.makeText(mContext, "Bad server IP", Toast.LENGTH_LONG).show();
+            return;
         } catch (IOException e)
         {
             e.printStackTrace();
             showError(e.getLocalizedMessage());
+            return;
         }
+
+        mWebSocket.addListener(new WebSocketAdapter()
+        {
+            @Override
+            public void onUnexpectedError(WebSocket websocket, WebSocketException cause) throws Exception
+            {
+                super.onUnexpectedError(websocket, cause);
+                Sentry.captureException(cause);
+                cause.printStackTrace();
+                showError(cause.getLocalizedMessage());
+            }
+
+            @Override
+            public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
+            {
+                super.onConnected(websocket, headers);
+
+                if (!mConnected)
+                {
+                    mConnected = true;
+                    onConnectToServer();
+                }
+            }
+
+            @Override
+            public void onBinaryMessage(WebSocket websocket, byte[] binary) throws Exception
+            {
+                super.onBinaryMessage(websocket, binary);
+                onReceivedMessage(binary);
+            }
+
+            @Override
+            public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception
+            {
+                super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
+                System.out.println("Disconnected");
+                reconnect();
+            }
+        });
+/*
+            // Prepare an ExecutorService.
+            ExecutorService es = Executors.newSingleThreadExecutor();
+
+            // Connect to the server asynchronously.
+            Future<WebSocket> future = mWebSocket.connect(es);
+
+            try
+            {
+                System.out.println("BEGIN CONNECT");
+                // Wait for the opening handshake to complete.
+                future.get();
+                System.out.println("END CONNECT");
+            }
+            catch (ExecutionException e)
+            {
+                if (e.getCause() instanceof WebSocketException)
+                {
+                }
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+*/
+        mWebSocket.connectAsynchronously();
     }
 
     @SuppressLint("HardwareIds")
@@ -300,6 +320,7 @@ class AppOverlayView extends RelativeLayout
             } catch (InvalidProtocolBufferException e)
             {
                 e.printStackTrace();
+                Sentry.captureException(e, e.getLocalizedMessage());
             }
         }
 
@@ -311,6 +332,7 @@ class AppOverlayView extends RelativeLayout
             } catch (InvalidProtocolBufferException e)
             {
                 e.printStackTrace();
+                Sentry.captureException(e, e.getLocalizedMessage());
             }
         }
     }
@@ -574,7 +596,9 @@ class AppOverlayView extends RelativeLayout
                         currentAnswer = answersListView.getChildAt(i);
                 }
 
-                if (currentAnswer == null || correctAnswerId == -1)
+                if (currentAnswer == null
+                        || correctAnswerId == -1
+                        || currentAnswerIsCorrect && correctAnswer == null)
                     showError("Could not find current or correct answer");
 
                 else
