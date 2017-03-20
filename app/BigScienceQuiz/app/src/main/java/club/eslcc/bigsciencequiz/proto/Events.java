@@ -1751,6 +1751,736 @@ public final class Events {
 
   }
 
+  public interface ReconnectEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.ReconnectEvent)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.ReconnectEvent}
+   */
+  public  static final class ReconnectEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.ReconnectEvent)
+      ReconnectEventOrBuilder {
+    // Use ReconnectEvent.newBuilder() to construct.
+    private ReconnectEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ReconnectEvent() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private ReconnectEvent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_ReconnectEvent_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_ReconnectEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.class, club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent other = (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.ReconnectEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.ReconnectEvent)
+        club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_ReconnectEvent_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_ReconnectEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.class, club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_ReconnectEvent_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent build() {
+        club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent buildPartial() {
+        club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent result = new club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent other) {
+        if (other == club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.ReconnectEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.ReconnectEvent)
+    private static final club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ReconnectEvent>
+        PARSER = new com.google.protobuf.AbstractParser<ReconnectEvent>() {
+      public ReconnectEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ReconnectEvent(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ReconnectEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ReconnectEvent> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RemoteShutdownEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.RemoteShutdownEvent)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.RemoteShutdownEvent}
+   */
+  public  static final class RemoteShutdownEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.RemoteShutdownEvent)
+      RemoteShutdownEventOrBuilder {
+    // Use RemoteShutdownEvent.newBuilder() to construct.
+    private RemoteShutdownEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RemoteShutdownEvent() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private RemoteShutdownEvent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_RemoteShutdownEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.class, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent other = (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.RemoteShutdownEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.RemoteShutdownEvent)
+        club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_RemoteShutdownEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.class, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent build() {
+        club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent buildPartial() {
+        club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent result = new club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent other) {
+        if (other == club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.RemoteShutdownEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.RemoteShutdownEvent)
+    private static final club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RemoteShutdownEvent>
+        PARSER = new com.google.protobuf.AbstractParser<RemoteShutdownEvent>() {
+      public RemoteShutdownEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new RemoteShutdownEvent(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoteShutdownEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoteShutdownEvent> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GameEventOrBuilder extends
       // @@protoc_insertion_point(interface_extends:bigsciencequiz.GameEvent)
       com.google.protobuf.MessageOrBuilder {
@@ -1799,6 +2529,24 @@ public final class Events {
      * <code>.bigsciencequiz.LiveAnswersEvent liveAnswersEvent = 5;</code>
      */
     club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEventOrBuilder getLiveAnswersEventOrBuilder();
+
+    /**
+     * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getReconnectEvent();
+    /**
+     * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder getReconnectEventOrBuilder();
+
+    /**
+     * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getRemoteShutdownEvent();
+    /**
+     * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+     */
+    club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder getRemoteShutdownEventOrBuilder();
 
     public club.eslcc.bigsciencequiz.proto.Events.GameEvent.EventCase getEventCase();
   }
@@ -1911,6 +2659,34 @@ public final class Events {
               eventCase_ = 5;
               break;
             }
+            case 50: {
+              club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder subBuilder = null;
+              if (eventCase_ == 6) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_).toBuilder();
+              }
+              event_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_);
+                event_ = subBuilder.buildPartial();
+              }
+              eventCase_ = 6;
+              break;
+            }
+            case 58: {
+              club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder subBuilder = null;
+              if (eventCase_ == 7) {
+                subBuilder = ((club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_).toBuilder();
+              }
+              event_ =
+                  input.readMessage(club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_);
+                event_ = subBuilder.buildPartial();
+              }
+              eventCase_ = 7;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1943,6 +2719,8 @@ public final class Events {
       ADMINDEVICESCHANGEDEVENT(3),
       ADMINQUESTIONSCHANGEDEVENT(4),
       LIVEANSWERSEVENT(5),
+      RECONNECTEVENT(6),
+      REMOTESHUTDOWNEVENT(7),
       EVENT_NOT_SET(0);
       private final int value;
       private EventCase(int value) {
@@ -1963,6 +2741,8 @@ public final class Events {
           case 3: return ADMINDEVICESCHANGEDEVENT;
           case 4: return ADMINQUESTIONSCHANGEDEVENT;
           case 5: return LIVEANSWERSEVENT;
+          case 6: return RECONNECTEVENT;
+          case 7: return REMOTESHUTDOWNEVENT;
           case 0: return EVENT_NOT_SET;
           default: return null;
         }
@@ -2078,6 +2858,46 @@ public final class Events {
       return club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent.getDefaultInstance();
     }
 
+    public static final int RECONNECTEVENT_FIELD_NUMBER = 6;
+    /**
+     * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getReconnectEvent() {
+      if (eventCase_ == 6) {
+         return (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder getReconnectEventOrBuilder() {
+      if (eventCase_ == 6) {
+         return (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+    }
+
+    public static final int REMOTESHUTDOWNEVENT_FIELD_NUMBER = 7;
+    /**
+     * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getRemoteShutdownEvent() {
+      if (eventCase_ == 7) {
+         return (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+    }
+    /**
+     * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+     */
+    public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder getRemoteShutdownEventOrBuilder() {
+      if (eventCase_ == 7) {
+         return (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_;
+      }
+      return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -2105,6 +2925,12 @@ public final class Events {
       if (eventCase_ == 5) {
         output.writeMessage(5, (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_);
       }
+      if (eventCase_ == 6) {
+        output.writeMessage(6, (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_);
+      }
+      if (eventCase_ == 7) {
+        output.writeMessage(7, (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_);
+      }
     }
 
     public int getSerializedSize() {
@@ -2131,6 +2957,14 @@ public final class Events {
       if (eventCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, (club.eslcc.bigsciencequiz.proto.Events.LiveAnswersEvent) event_);
+      }
+      if (eventCase_ == 6) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_);
+      }
+      if (eventCase_ == 7) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_);
       }
       memoizedSize = size;
       return size;
@@ -2172,6 +3006,14 @@ public final class Events {
           result = result && getLiveAnswersEvent()
               .equals(other.getLiveAnswersEvent());
           break;
+        case 6:
+          result = result && getReconnectEvent()
+              .equals(other.getReconnectEvent());
+          break;
+        case 7:
+          result = result && getRemoteShutdownEvent()
+              .equals(other.getRemoteShutdownEvent());
+          break;
         case 0:
         default:
       }
@@ -2205,6 +3047,14 @@ public final class Events {
         case 5:
           hash = (37 * hash) + LIVEANSWERSEVENT_FIELD_NUMBER;
           hash = (53 * hash) + getLiveAnswersEvent().hashCode();
+          break;
+        case 6:
+          hash = (37 * hash) + RECONNECTEVENT_FIELD_NUMBER;
+          hash = (53 * hash) + getReconnectEvent().hashCode();
+          break;
+        case 7:
+          hash = (37 * hash) + REMOTESHUTDOWNEVENT_FIELD_NUMBER;
+          hash = (53 * hash) + getRemoteShutdownEvent().hashCode();
           break;
         case 0:
         default:
@@ -2386,6 +3236,20 @@ public final class Events {
             result.event_ = liveAnswersEventBuilder_.build();
           }
         }
+        if (eventCase_ == 6) {
+          if (reconnectEventBuilder_ == null) {
+            result.event_ = event_;
+          } else {
+            result.event_ = reconnectEventBuilder_.build();
+          }
+        }
+        if (eventCase_ == 7) {
+          if (remoteShutdownEventBuilder_ == null) {
+            result.event_ = event_;
+          } else {
+            result.event_ = remoteShutdownEventBuilder_.build();
+          }
+        }
         result.eventCase_ = eventCase_;
         onBuilt();
         return result;
@@ -2447,6 +3311,14 @@ public final class Events {
           }
           case LIVEANSWERSEVENT: {
             mergeLiveAnswersEvent(other.getLiveAnswersEvent());
+            break;
+          }
+          case RECONNECTEVENT: {
+            mergeReconnectEvent(other.getReconnectEvent());
+            break;
+          }
+          case REMOTESHUTDOWNEVENT: {
+            mergeRemoteShutdownEvent(other.getRemoteShutdownEvent());
             break;
           }
           case EVENT_NOT_SET: {
@@ -3143,6 +4015,266 @@ public final class Events {
         onChanged();;
         return liveAnswersEventBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent, club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder> reconnectEventBuilder_;
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent getReconnectEvent() {
+        if (reconnectEventBuilder_ == null) {
+          if (eventCase_ == 6) {
+            return (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+        } else {
+          if (eventCase_ == 6) {
+            return reconnectEventBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public Builder setReconnectEvent(club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent value) {
+        if (reconnectEventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+          onChanged();
+        } else {
+          reconnectEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public Builder setReconnectEvent(
+          club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder builderForValue) {
+        if (reconnectEventBuilder_ == null) {
+          event_ = builderForValue.build();
+          onChanged();
+        } else {
+          reconnectEventBuilder_.setMessage(builderForValue.build());
+        }
+        eventCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public Builder mergeReconnectEvent(club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent value) {
+        if (reconnectEventBuilder_ == null) {
+          if (eventCase_ == 6 &&
+              event_ != club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance()) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.newBuilder((club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            event_ = value;
+          }
+          onChanged();
+        } else {
+          if (eventCase_ == 6) {
+            reconnectEventBuilder_.mergeFrom(value);
+          }
+          reconnectEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public Builder clearReconnectEvent() {
+        if (reconnectEventBuilder_ == null) {
+          if (eventCase_ == 6) {
+            eventCase_ = 0;
+            event_ = null;
+            onChanged();
+          }
+        } else {
+          if (eventCase_ == 6) {
+            eventCase_ = 0;
+            event_ = null;
+          }
+          reconnectEventBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder getReconnectEventBuilder() {
+        return getReconnectEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder getReconnectEventOrBuilder() {
+        if ((eventCase_ == 6) && (reconnectEventBuilder_ != null)) {
+          return reconnectEventBuilder_.getMessageOrBuilder();
+        } else {
+          if (eventCase_ == 6) {
+            return (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.ReconnectEvent reconnectEvent = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent, club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder> 
+          getReconnectEventFieldBuilder() {
+        if (reconnectEventBuilder_ == null) {
+          if (!(eventCase_ == 6)) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.getDefaultInstance();
+          }
+          reconnectEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent, club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.ReconnectEventOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.Events.ReconnectEvent) event_,
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        eventCase_ = 6;
+        onChanged();;
+        return reconnectEventBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder> remoteShutdownEventBuilder_;
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent getRemoteShutdownEvent() {
+        if (remoteShutdownEventBuilder_ == null) {
+          if (eventCase_ == 7) {
+            return (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+        } else {
+          if (eventCase_ == 7) {
+            return remoteShutdownEventBuilder_.getMessage();
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public Builder setRemoteShutdownEvent(club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent value) {
+        if (remoteShutdownEventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+          onChanged();
+        } else {
+          remoteShutdownEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public Builder setRemoteShutdownEvent(
+          club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder builderForValue) {
+        if (remoteShutdownEventBuilder_ == null) {
+          event_ = builderForValue.build();
+          onChanged();
+        } else {
+          remoteShutdownEventBuilder_.setMessage(builderForValue.build());
+        }
+        eventCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public Builder mergeRemoteShutdownEvent(club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent value) {
+        if (remoteShutdownEventBuilder_ == null) {
+          if (eventCase_ == 7 &&
+              event_ != club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance()) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.newBuilder((club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            event_ = value;
+          }
+          onChanged();
+        } else {
+          if (eventCase_ == 7) {
+            remoteShutdownEventBuilder_.mergeFrom(value);
+          }
+          remoteShutdownEventBuilder_.setMessage(value);
+        }
+        eventCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public Builder clearRemoteShutdownEvent() {
+        if (remoteShutdownEventBuilder_ == null) {
+          if (eventCase_ == 7) {
+            eventCase_ = 0;
+            event_ = null;
+            onChanged();
+          }
+        } else {
+          if (eventCase_ == 7) {
+            eventCase_ = 0;
+            event_ = null;
+          }
+          remoteShutdownEventBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder getRemoteShutdownEventBuilder() {
+        return getRemoteShutdownEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      public club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder getRemoteShutdownEventOrBuilder() {
+        if ((eventCase_ == 7) && (remoteShutdownEventBuilder_ != null)) {
+          return remoteShutdownEventBuilder_.getMessageOrBuilder();
+        } else {
+          if (eventCase_ == 7) {
+            return (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_;
+          }
+          return club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.bigsciencequiz.RemoteShutdownEvent remoteShutdownEvent = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder> 
+          getRemoteShutdownEventFieldBuilder() {
+        if (remoteShutdownEventBuilder_ == null) {
+          if (!(eventCase_ == 7)) {
+            event_ = club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.getDefaultInstance();
+          }
+          remoteShutdownEventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent.Builder, club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEventOrBuilder>(
+                  (club.eslcc.bigsciencequiz.proto.Events.RemoteShutdownEvent) event_,
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        eventCase_ = 7;
+        onChanged();;
+        return remoteShutdownEventBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -3213,6 +4345,16 @@ public final class Events {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_ReconnectEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_ReconnectEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_RemoteShutdownEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bigsciencequiz_GameEvent_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -3234,18 +4376,22 @@ public final class Events {
       "ption\030\001 \001(\t\"\202\001\n\020LiveAnswersEvent\022>\n\007answ" +
       "ers\030\001 \003(\0132-.bigsciencequiz.LiveAnswersEv" +
       "ent.AnswersEntry\032.\n\014AnswersEntry\022\013\n\003key\030" +
-      "\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"\366\002\n\tGameEvent\022D" +
-      "\n\024gameStateChangeEvent\030\001 \001(\0132$.bigscienc",
-      "equiz.GameStateChangeEventH\000\0220\n\nerrorEve" +
-      "nt\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH\000\022R" +
-      "\n\030adminDevicesChangedEvent\030\003 \001(\0132..bigsc" +
-      "iencequiz.admin.AdminDevicesChangedEvent" +
-      "H\000\022V\n\032adminQuestionsChangedEvent\030\004 \001(\01320" +
-      ".bigsciencequiz.admin.AdminQuestionsChan" +
-      "gedEventH\000\022<\n\020liveAnswersEvent\030\005 \001(\0132 .b" +
-      "igsciencequiz.LiveAnswersEventH\000B\007\n\005even" +
-      "tB!\n\037club.eslcc.bigsciencequiz.protob\006pr" +
-      "oto3"
+      "\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"\020\n\016ReconnectEve" +
+      "nt\"\025\n\023RemoteShutdownEvent\"\364\003\n\tGameEvent\022",
+      "D\n\024gameStateChangeEvent\030\001 \001(\0132$.bigscien" +
+      "cequiz.GameStateChangeEventH\000\0220\n\nerrorEv" +
+      "ent\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH\000\022" +
+      "R\n\030adminDevicesChangedEvent\030\003 \001(\0132..bigs" +
+      "ciencequiz.admin.AdminDevicesChangedEven" +
+      "tH\000\022V\n\032adminQuestionsChangedEvent\030\004 \001(\0132" +
+      "0.bigsciencequiz.admin.AdminQuestionsCha" +
+      "ngedEventH\000\022<\n\020liveAnswersEvent\030\005 \001(\0132 ." +
+      "bigsciencequiz.LiveAnswersEventH\000\0228\n\016rec" +
+      "onnectEvent\030\006 \001(\0132\036.bigsciencequiz.Recon",
+      "nectEventH\000\022B\n\023remoteShutdownEvent\030\007 \001(\013" +
+      "2#.bigsciencequiz.RemoteShutdownEventH\000B" +
+      "\007\n\005eventB!\n\037club.eslcc.bigsciencequiz.pr" +
+      "otob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3259,7 +4405,7 @@ public final class Events {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor(),
-          bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor(),
+          club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor(),
         }, assigner);
@@ -3287,14 +4433,26 @@ public final class Events {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_LiveAnswersEvent_AnswersEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
-    internal_static_bigsciencequiz_GameEvent_descriptor =
+    internal_static_bigsciencequiz_ReconnectEvent_descriptor =
       getDescriptor().getMessageTypes().get(3);
+    internal_static_bigsciencequiz_ReconnectEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_ReconnectEvent_descriptor,
+        new java.lang.String[] { });
+    internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_bigsciencequiz_RemoteShutdownEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_RemoteShutdownEvent_descriptor,
+        new java.lang.String[] { });
+    internal_static_bigsciencequiz_GameEvent_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_bigsciencequiz_GameEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_GameEvent_descriptor,
-        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "LiveAnswersEvent", "Event", });
+        new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "LiveAnswersEvent", "ReconnectEvent", "RemoteShutdownEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
-    bigsciencequiz.bigscreen.BigscreenEvents.getDescriptor();
+    club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
   }

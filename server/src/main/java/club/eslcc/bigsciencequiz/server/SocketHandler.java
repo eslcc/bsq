@@ -73,16 +73,18 @@ public class SocketHandler {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutdown hook running");
-            Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
-            Events.ReconnectEvent.Builder builder = Events.ReconnectEvent.newBuilder();
-            wrapped.setReconnectEvent(builder);
-            Events.GameEvent event = wrapped.build();
-            byte[] data = EventHelpers.addEventFlag(event.toByteArray());
-            try {
-                session.getRemote().sendBytes(ByteBuffer.wrap(data));
-            } catch (IOException e) {
-                System.out.println("Error during shutdown!");
-                e.printStackTrace();
+            if (session.isOpen()) {
+                Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+                Events.ReconnectEvent.Builder builder = Events.ReconnectEvent.newBuilder();
+                wrapped.setReconnectEvent(builder);
+                Events.GameEvent event = wrapped.build();
+                byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+                try {
+                    session.getRemote().sendBytes(ByteBuffer.wrap(data));
+                } catch (IOException e) {
+                    System.out.println("Error during shutdown!");
+                    e.printStackTrace();
+                }
             }
         }));
     }
