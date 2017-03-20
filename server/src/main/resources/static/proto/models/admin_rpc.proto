@@ -37,3 +37,9 @@ message AdminSetGameStateRequest {
 message AdminSetGameStateResponse {
     GameState newState = 1;
 }
+
+message AdminShutdownDeviceRequest {
+    string deviceId = 1;
+}
+
+message AdminShutdownDeviceResponse {}

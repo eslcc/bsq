@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import { RpcRequest, AdminSetGameStateRequest, GameState, protosLoaded } from './common-js/ProtoLoader';
+import {
+    RpcRequest,
+    AdminSetGameStateRequest,
+    GameState,
+    protosLoaded,
+    AdminShutdownDeviceRequest
+} from './common-js/ProtoLoader';
 import {socket as AdminSocket} from './AdminInterface';
 
 export default class ReadyClients extends Component {
@@ -16,6 +22,13 @@ export default class ReadyClients extends Component {
         this.setState({
             tablets: event.devices,
         });
+    }
+
+    shutdown(deviceId) {
+        const message = RpcRequest.create();
+        message.adminShutdownDeviceRequest = AdminShutdownDeviceRequest.create();
+        message.adminShutdownDeviceRequest.deviceId = deviceId;
+        AdminSocket.sendMessage(message);
     }
 
     async startQuiz() {
@@ -42,7 +55,7 @@ export default class ReadyClients extends Component {
                     {this.state.displayList ? 'Hide List' : 'Display List'}
                 </button>
                 <button
-                    disabled={!(this.props.dangerZone || (readyClients === totalClients))}
+                    disabled={!(this.props.dangerZone || (readyClients === totalClients && this.props.state === GameState.State.NOTREADY))}
                     onClick={this.startQuiz}
                 >
                     Start Quiz
@@ -54,6 +67,10 @@ export default class ReadyClients extends Component {
                             <li key={tablet.deviceId} className={tablet.ready && 'ready'}>
                                 <b>Device: </b> {tablet.deviceId}; <b>Team: </b> {tablet.team || 'NONE'};
                                 <b>Ready: </b> {!!tablet.ready ? tablet.ready.toString() : 'no'}
+                                <button onClick={() => this.shutdown(tablet.deviceId)}
+                                        disabled={!this.props.dangerZone}
+                                >Close App
+                                </button>
                             </li>
                         ))}
                     </ul>

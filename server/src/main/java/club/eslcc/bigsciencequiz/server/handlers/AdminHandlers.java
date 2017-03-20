@@ -123,4 +123,18 @@ public class AdminHandlers {
             }
         }
     }
+
+    public static class ShutdownHandler implements IRpcHandler {
+        @Override
+        public RpcResponse handle(String currentUserId, RpcRequest wrapped, Session session) {
+            AdminShutdownDeviceRequest request = wrapped.getAdminShutdownDeviceRequest();
+            try (Jedis jedis = Redis.pool.getResource()) {
+                jedis.publish("device_shutdown", request.getDeviceId());
+                RpcResponse.Builder builder = RpcResponse.newBuilder();
+                AdminShutdownDeviceResponse.Builder responseBuilder = AdminShutdownDeviceResponse.newBuilder();
+                builder.setAdminShutdownDeviceResponse(responseBuilder);
+                return builder.build();
+            }
+        }
+    }
 }

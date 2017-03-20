@@ -4046,6 +4046,874 @@ public final class AdminRpc {
 
   }
 
+  public interface AdminShutdownDeviceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.admin.AdminShutdownDeviceRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string deviceId = 1;</code>
+     */
+    java.lang.String getDeviceId();
+    /**
+     * <code>string deviceId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getDeviceIdBytes();
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.admin.AdminShutdownDeviceRequest}
+   */
+  public  static final class AdminShutdownDeviceRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.admin.AdminShutdownDeviceRequest)
+      AdminShutdownDeviceRequestOrBuilder {
+    // Use AdminShutdownDeviceRequest.newBuilder() to construct.
+    private AdminShutdownDeviceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminShutdownDeviceRequest() {
+      deviceId_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AdminShutdownDeviceRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              deviceId_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.Builder.class);
+    }
+
+    public static final int DEVICEID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object deviceId_;
+    /**
+     * <code>string deviceId = 1;</code>
+     */
+    public java.lang.String getDeviceId() {
+      java.lang.Object ref = deviceId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deviceId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string deviceId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDeviceIdBytes() {
+      java.lang.Object ref = deviceId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deviceId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getDeviceIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, deviceId_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getDeviceIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, deviceId_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest other = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest) obj;
+
+      boolean result = true;
+      result = result && getDeviceId()
+          .equals(other.getDeviceId());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DEVICEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDeviceId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.admin.AdminShutdownDeviceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.admin.AdminShutdownDeviceRequest)
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        deviceId_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest build() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest buildPartial() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest result = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest(this);
+        result.deviceId_ = deviceId_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest other) {
+        if (other == club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest.getDefaultInstance()) return this;
+        if (!other.getDeviceId().isEmpty()) {
+          deviceId_ = other.deviceId_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object deviceId_ = "";
+      /**
+       * <code>string deviceId = 1;</code>
+       */
+      public java.lang.String getDeviceId() {
+        java.lang.Object ref = deviceId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          deviceId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string deviceId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDeviceIdBytes() {
+        java.lang.Object ref = deviceId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          deviceId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string deviceId = 1;</code>
+       */
+      public Builder setDeviceId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        deviceId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string deviceId = 1;</code>
+       */
+      public Builder clearDeviceId() {
+        
+        deviceId_ = getDefaultInstance().getDeviceId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string deviceId = 1;</code>
+       */
+      public Builder setDeviceIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        deviceId_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.admin.AdminShutdownDeviceRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.admin.AdminShutdownDeviceRequest)
+    private static final club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminShutdownDeviceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<AdminShutdownDeviceRequest>() {
+      public AdminShutdownDeviceRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AdminShutdownDeviceRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminShutdownDeviceRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminShutdownDeviceRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AdminShutdownDeviceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:bigsciencequiz.admin.AdminShutdownDeviceResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code bigsciencequiz.admin.AdminShutdownDeviceResponse}
+   */
+  public  static final class AdminShutdownDeviceResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:bigsciencequiz.admin.AdminShutdownDeviceResponse)
+      AdminShutdownDeviceResponseOrBuilder {
+    // Use AdminShutdownDeviceResponse.newBuilder() to construct.
+    private AdminShutdownDeviceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AdminShutdownDeviceResponse() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AdminShutdownDeviceResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse)) {
+        return super.equals(obj);
+      }
+      club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse other = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code bigsciencequiz.admin.AdminShutdownDeviceResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:bigsciencequiz.admin.AdminShutdownDeviceResponse)
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.class, club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.Builder.class);
+      }
+
+      // Construct using club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse getDefaultInstanceForType() {
+        return club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.getDefaultInstance();
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse build() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse buildPartial() {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse result = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse) {
+          return mergeFrom((club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse other) {
+        if (other == club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:bigsciencequiz.admin.AdminShutdownDeviceResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:bigsciencequiz.admin.AdminShutdownDeviceResponse)
+    private static final club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse();
+    }
+
+    public static club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AdminShutdownDeviceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<AdminShutdownDeviceResponse>() {
+      public AdminShutdownDeviceResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AdminShutdownDeviceResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AdminShutdownDeviceResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AdminShutdownDeviceResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public club.eslcc.bigsciencequiz.proto.admin.AdminRpc.AdminShutdownDeviceResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bigsciencequiz_admin_AdminGetQuestionsRequest_descriptor;
   private static final 
@@ -4086,6 +4954,16 @@ public final class AdminRpc {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4108,9 +4986,11 @@ public final class AdminRpc {
       "tate\"M\n\030AdminSetGameStateRequest\0221\n\010newS" +
       "tate\030\001 \001(\0162\037.bigsciencequiz.GameState.St" +
       "ate\"H\n\031AdminSetGameStateResponse\022+\n\010newS" +
-      "tate\030\001 \001(\0132\031.bigsciencequiz.GameStateB\'\n" +
-      "%club.eslcc.bigsciencequiz.proto.adminb\006" +
-      "proto3"
+      "tate\030\001 \001(\0132\031.bigsciencequiz.GameState\".\n" +
+      "\032AdminShutdownDeviceRequest\022\020\n\010deviceId\030" +
+      "\001 \001(\t\"\035\n\033AdminShutdownDeviceResponseB\'\n%" +
+      "club.eslcc.bigsciencequiz.proto.adminb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4174,6 +5054,18 @@ public final class AdminRpc {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_admin_AdminSetGameStateResponse_descriptor,
         new java.lang.String[] { "NewState", });
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_admin_AdminShutdownDeviceRequest_descriptor,
+        new java.lang.String[] { "DeviceId", });
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bigsciencequiz_admin_AdminShutdownDeviceResponse_descriptor,
+        new java.lang.String[] { });
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
   }

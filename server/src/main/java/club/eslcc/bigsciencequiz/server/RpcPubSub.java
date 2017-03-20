@@ -174,6 +174,9 @@ public class RpcPubSub extends JedisPubSub {
     @Override
     public void onMessage(String channel, String message) {
         switch (channel) {
+            case "device_shutdown":
+                handleShutdown(message);
+                break;
             case "game_events":
                 switch (message) {
                     case "game_state_change":
@@ -206,6 +209,20 @@ public class RpcPubSub extends JedisPubSub {
                             System.out.println("WHAT: " + message);
                         }
                 }
+        }
+    }
+
+    private void handleShutdown(String deviceId) {
+        Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+        Events.RemoteShutdownEvent.Builder builder = Events.RemoteShutdownEvent.newBuilder();
+        wrapped.setRemoteShutdownEvent(builder);
+        Events.GameEvent event = wrapped.build();
+        byte[] data = event.toByteArray();
+        Session session = RpcHelpers.getKeyByValue(SocketHandler.users, deviceId);
+        try {
+            session.getRemote().sendBytes(ByteBuffer.wrap(data));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

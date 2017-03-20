@@ -38,6 +38,7 @@ public class SocketHandler {
         handlers.put(ANSWERQUESTIONREQUEST, new AnswerQuestionHandler());
         handlers.put(ADMINSETGAMESTATEREQUEST, new AdminHandlers.SetGameStateHandler());
         handlers.put(BIGSCREENGETTEAMSREQUEST, new BigscreenHandlers.GetTeamsHandler());
+        handlers.put(ADMINSHUTDOWNDEVICEREQUEST, new AdminHandlers.ShutdownHandler());
     }
 
     private static void subscribe() {

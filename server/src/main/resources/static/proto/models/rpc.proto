@@ -96,6 +96,7 @@ message RpcRequest {
         bigsciencequiz.admin.AdminSetActiveQuestionRequest adminSetActiveQuestionRequest = 102;
         bigsciencequiz.admin.AdminResetStateRequest adminResetStateRequest = 103;
         bigsciencequiz.admin.AdminSetGameStateRequest adminSetGameStateRequest = 104;
+        bigsciencequiz.admin.AdminShutdownDeviceRequest adminShutdownDeviceRequest = 105;
         bigsciencequiz.bigscreen.BigscreenGetTeamsRequest bigscreenGetTeamsRequest = 201;
     }
 }
@@ -111,6 +112,7 @@ message RpcResponse {
         bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
         bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;
         bigsciencequiz.admin.AdminSetGameStateResponse adminSetGameStateResponse = 104;
+        bigsciencequiz.admin.AdminShutdownDeviceResponse adminShutdownDeviceResponse = 105;
         bigsciencequiz.bigscreen.BigscreenGetTeamsResponse bigscreenGetTeamsResponse = 201;
         GenericErrorResponse genericErrorResponse = 997;
         UnauthorisedRequestResponse unauthorisedRequestResponse = 998;
