@@ -217,7 +217,7 @@ public class RpcPubSub extends JedisPubSub {
         Events.RemoteShutdownEvent.Builder builder = Events.RemoteShutdownEvent.newBuilder();
         wrapped.setRemoteShutdownEvent(builder);
         Events.GameEvent event = wrapped.build();
-        byte[] data = event.toByteArray();
+        byte[] data = EventHelpers.addEventFlag(event.toByteArray());
         Session session = RpcHelpers.getKeyByValue(SocketHandler.users, deviceId);
         try {
             session.getRemote().sendBytes(ByteBuffer.wrap(data));
