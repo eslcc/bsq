@@ -1,5 +1,6 @@
 package club.eslcc.bigsciencequiz.server;
 
+import club.eslcc.bigsciencequiz.proto.Events;
 import club.eslcc.bigsciencequiz.server.handlers.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
@@ -9,6 +10,8 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +70,20 @@ public class SocketHandler {
             t.start();
             subscribed = true;
         }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
+            Events.ReconnectEvent.Builder builder = Events.ReconnectEvent.newBuilder();
+            wrapped.setReconnectEvent(builder);
+            Events.GameEvent event = wrapped.build();
+            byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+            try {
+                session.getRemote().sendBytes(ByteBuffer.wrap(data));
+            } catch (IOException e) {
+                System.out.println("Error during shutdown!");
+                e.printStackTrace();
+            }
+        }));
     }
 
     @OnWebSocketClose
