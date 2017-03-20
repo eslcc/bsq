@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import club.eslcc.bigsciencequiz.proto.Events;
+import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.Rpc;
 
@@ -43,10 +44,7 @@ class AppOverlayView extends RelativeLayout
     private Context mContext;
     private WebSocket mWebSocket;
     private ViewFlipper mViewFlipper;
-    private QuestionOuterClass.Question mQuestion;
-    private boolean mSelectedAnswerIsCorrect;
-    private View mSelectedAnswer;
-    private View mCorrectAnswer;
+    private Gamestate.GameState mLastGameState;
 
     private void changeToLayout(final int layoutId, final Runnable runnable)
     {
@@ -270,19 +268,20 @@ class AppOverlayView extends RelativeLayout
         switch (event.getEventCase())
         {
             case GAMESTATECHANGEEVENT:
-                switch (event.getGameStateChangeEvent().getNewState().getState())
+                mLastGameState = event.getGameStateChangeEvent().getNewState();
+
+                switch (mLastGameState.getState())
                 {
                     case QUESTION_LIVEANSWERS:
                     case QUESTION_CLOSED:
                         break;
 
                     case QUESTION_ANSWERS_REVEALED:
-                        handleAnswersRevealed();
+                        handleAnswersRevealed(mLastGameState);
                         break;
 
                     case QUESTION_ANSWERING:
-                        mQuestion = event.getGameStateChangeEvent().getNewState().getCurrentQuestion();
-                        handleQuestionEvent();
+                        handleQuestionEvent(mLastGameState.getCurrentQuestion());
                         break;
 
                     case READY:
@@ -387,7 +386,7 @@ class AppOverlayView extends RelativeLayout
         }
     }
 
-    private void handleQuestionEvent()
+    private void handleQuestionEvent(final QuestionOuterClass.Question question)
     {
         changeToLayout(R.id.question_layout, new Runnable()
         {
@@ -399,12 +398,12 @@ class AppOverlayView extends RelativeLayout
                 final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
                 final ListView answers = (ListView) findViewById(R.id.question_answers);
 
-                category.setText(mQuestion.getCategory());
-                questionText.setText(mQuestion.getQuestion());
+                category.setText(question.getCategory());
+                questionText.setText(question.getQuestion());
 
                 final AnswerAdapter adapter = new AnswerAdapter(
                         LayoutInflater.from(mContext),
-                        mQuestion.getAnswersList());
+                        question.getAnswersList());
 
                 answers.setAdapter(adapter);
 
@@ -432,25 +431,6 @@ class AppOverlayView extends RelativeLayout
 
                         else
                         {
-                            mSelectedAnswer = view.findViewById(R.id.answer_button);
-
-                            if (mQuestion.getAnswersList().get(position).getCorrect())
-                                mSelectedAnswerIsCorrect = true;
-
-                            else
-                            {
-                                mSelectedAnswerIsCorrect = false;
-
-                                for (int i = 0; i < mQuestion.getAnswersList().size(); ++i)
-                                {
-                                    if (i == position)
-                                        continue;
-
-                                    if (mQuestion.getAnswersList().get(i).getCorrect())
-                                        mCorrectAnswer = parent.getChildAt(i).findViewById(R.id.answer_button);
-                                }
-                            }
-
                             confirmAnswerHint.setText(R.string.confirmed_answer);
 
                             adapter.disable();
@@ -482,6 +462,7 @@ class AppOverlayView extends RelativeLayout
 
                 case ALREADY_ANSWERED:
                     confirmAnswerHint.setText(R.string.already_answered);
+                    handleAnswersRevealed(mLastGameState);
                     break;
 
                 default:
@@ -491,26 +472,60 @@ class AppOverlayView extends RelativeLayout
         }
     }
 
-    private void handleAnswersRevealed()
+    private void handleAnswersRevealed(final Gamestate.GameState gameState)
     {
         new Handler(Looper.getMainLooper()).post(new Runnable()
         {
             @Override
             public void run()
             {
+                View currentAnswer = null;
+                View correctAnswer = null;
+                boolean currentAnswerIsCorrect = false;
+
+                int currentAnswerId = gameState.getMyCurrentQuestionAnswer();
+                int correctAnswerId = -1;
+
+                List<QuestionOuterClass.Question.Answer> answersList =
+                        gameState.getCurrentQuestion().getAnswersList();
+
+                final ListView answersListView = (ListView) findViewById(R.id.question_answers);
                 final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
 
-                if (mSelectedAnswerIsCorrect)
+                for (int i = 0; i < answersList.size(); ++i)
                 {
-                    ((AnswerButton) mSelectedAnswer).setStateRight();
-                    confirmAnswerHint.setText(R.string.correct_answer_hint);
+                    if (answersList.get(i).getCorrect())
+                    {
+                        correctAnswerId = answersList.get(i).getId();
+
+                        if (currentAnswerId == correctAnswerId)
+                            currentAnswerIsCorrect = true;
+
+                        else
+                            correctAnswer = answersListView.getChildAt(i);
+                    }
+
+                    if (currentAnswerId == answersList.get(i).getId())
+                        currentAnswer = answersListView.getChildAt(i);
                 }
+
+                if (currentAnswer == null || correctAnswerId == -1)
+                    showError("Could not find current or correct answer", mDisconnectAndClose);
 
                 else
                 {
-                    ((AnswerButton) mSelectedAnswer).setStateWrong();
-                    ((AnswerButton) mCorrectAnswer).setStateRight();
-                    confirmAnswerHint.setText(R.string.wrong_answer_hint);
+                    if (currentAnswerIsCorrect)
+                    {
+                        ((AnswerButton) currentAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        confirmAnswerHint.setText(R.string.correct_answer_hint);
+                    }
+
+                    else
+                    {
+                        ((AnswerButton) currentAnswer.findViewById(R.id.answer_button)).setStateWrong();
+                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        confirmAnswerHint.setText(R.string.wrong_answer_hint);
+                    }
                 }
             }
         });
