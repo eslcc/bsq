@@ -16,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,7 @@ public class LoadTeamsCallback implements IStartupCallback {
     @Override
     public void onStartup() {
         try (Jedis jedis = Redis.pool.getResource()) {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("teams.xml").getFile());
-
-            try (FileInputStream fis = new FileInputStream(file)) {
+            try (InputStream fis = getClass().getResourceAsStream("/teams.xml")) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(fis);
