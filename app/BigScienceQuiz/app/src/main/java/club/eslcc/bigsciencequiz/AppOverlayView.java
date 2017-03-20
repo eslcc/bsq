@@ -189,7 +189,6 @@ class AppOverlayView extends RelativeLayout
                     {
                         mReconnectAttempts = 0;
                         reconnect();
-                        dialog.dismiss();
                     }
                 });
 
@@ -291,6 +290,7 @@ class AppOverlayView extends RelativeLayout
                     waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     waitDialog.setIndeterminate(true);
                     waitDialog.setMessage("Please wait while reconnecting to server");
+                    waitDialog.setCancelable(false);
 
                     if (waitDialog.getWindow() != null)
                         waitDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
@@ -370,7 +370,7 @@ class AppOverlayView extends RelativeLayout
             public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
             {
                 super.onConnectError(websocket, exception);
-                Sentry.captureException(exception);
+                Sentry.captureException(exception, exception.getLocalizedMessage());
 
                 System.out.println("Connect error");
                 mReconnectAttempts++;
