@@ -43,7 +43,7 @@ public class SocketHandler {
 
     private static void subscribe() {
         JedisPubSub handler = new RpcPubSub();
-        pubSubJedis.subscribe(handler, "game_events", "admin_events", "bigscreen_events", "system_messages");
+        pubSubJedis.subscribe(handler, "game_events", "admin_events", "bigscreen_events", "system_messages", "device_shutdown");
     }
 
     @OnWebSocketConnect
