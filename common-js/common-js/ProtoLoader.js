@@ -29,11 +29,14 @@ const TYPES = {
     AdminSetGameStateResponse: 'bigsciencequiz.admin.AdminSetGameStateResponse',
     GameState: 'bigsciencequiz.GameState',
     GameEvent: 'bigsciencequiz.GameEvent',
+    ReconnectEvent: 'bigsciencequiz.ReconnectEvent',
+    RemoteShutdownEvent: 'bigsciencequiz.RemoteShutdownEvent',
     GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
     AdminDevicesChangedEvent: 'bigsciencequiz.admin.AdminDevicesChangedEvent',
     AdminQuestionsChangedEvent: 'bigsciencequiz.admin.AdminQuestionsChangedEvent',
     BigscreenGetTeamsRequest: 'bigsciencequiz.bigscreen.BigscreenGetTeamsRequest',
     BigscreenGetTeamsResponse: 'bigsciencequiz.bigscreen.BigscreenGetTeamsResponse',
+    AdminShutdownDeviceRequest: 'bigsciencequiz.admin.AdminShutdownDeviceRequest',
 };
 
 

@@ -55,6 +55,11 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        String serverSentryDsn = System.getenv("SENTRY_DSN");
+        if (serverSentryDsn != null) {
+
+        }
+
         runCallbacks();
         staticFiles.location("static/");
         staticFiles.header("Access-Control-Allow-Origin", "*");
