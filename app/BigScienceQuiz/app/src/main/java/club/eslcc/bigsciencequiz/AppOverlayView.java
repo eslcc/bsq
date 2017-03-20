@@ -1,6 +1,7 @@
 package club.eslcc.bigsciencequiz;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -23,16 +24,19 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.joshdholtz.sentry.Sentry;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
+import com.neovisionaries.ws.client.WebSocketFrame;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import club.eslcc.bigsciencequiz.proto.Events;
 import club.eslcc.bigsciencequiz.proto.Gamestate;
@@ -43,6 +47,7 @@ class AppOverlayView extends RelativeLayout
 {
     private Context mContext;
     private WebSocket mWebSocket;
+    private boolean mConnected;
     private ViewFlipper mViewFlipper;
     private Gamestate.GameState mLastGameState;
 
@@ -61,8 +66,22 @@ class AppOverlayView extends RelativeLayout
         });
     }
 
-    private void showError(final CharSequence error, final OnClickListener listener)
+    private OnClickListener mClose = new OnClickListener()
     {
+        @Override
+        public void onClick(View v)
+        {
+            if (mConnected)
+                mWebSocket.disconnect();
+
+            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+        }
+    };
+
+    private void showError(final CharSequence error)
+    {
+        Sentry.captureMessage(error.toString());
+
         changeToLayout(R.id.error_layout, new Runnable()
         {
             @Override
@@ -71,12 +90,12 @@ class AppOverlayView extends RelativeLayout
                 TextView text = (TextView) findViewById(R.id.error_text);
                 TextView sadFace = (TextView) findViewById(R.id.sad_face);
                 text.setText(error);
-                sadFace.setOnClickListener(listener);
+                sadFace.setOnClickListener(mClose);
             }
         });
     }
 
-    private void showError(final int errorResource, final OnClickListener listener)
+    private void showError(final int errorResource)
     {
         changeToLayout(R.id.error_layout, new Runnable()
         {
@@ -86,29 +105,10 @@ class AppOverlayView extends RelativeLayout
                 TextView text = (TextView) findViewById(R.id.error_text);
                 TextView sadFace = (TextView) findViewById(R.id.sad_face);
                 text.setText(errorResource);
-                sadFace.setOnClickListener(listener);
+                sadFace.setOnClickListener(mClose);
             }
         });
     }
-
-    private OnClickListener mClose = new OnClickListener()
-    {
-        @Override
-        public void onClick(View v)
-        {
-            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-        }
-    };
-
-    private OnClickListener mDisconnectAndClose = new OnClickListener()
-    {
-        @Override
-        public void onClick(View v)
-        {
-            mWebSocket.disconnect();
-            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-        }
-    };
 
     public AppOverlayView(Context context)
     {
@@ -130,6 +130,7 @@ class AppOverlayView extends RelativeLayout
 
     public void setup()
     {
+        mConnected = false;
         mViewFlipper = (ViewFlipper) findViewById(R.id.current_view);
 
         ConnectivityManager connectivityManager
@@ -137,7 +138,7 @@ class AppOverlayView extends RelativeLayout
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (activeNetworkInfo == null || !activeNetworkInfo.isConnectedOrConnecting())
-            showError(R.string.no_internet, mClose);
+            showError(R.string.no_internet);
 
         else
         {
@@ -162,10 +163,54 @@ class AppOverlayView extends RelativeLayout
         }
     }
 
+    private void reconnect()
+    {
+        if (mConnected)
+        {
+            mWebSocket.disconnect();
+
+            final ProgressDialog waitDialog = new ProgressDialog(mContext);
+            waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            waitDialog.setIndeterminate(true);
+            waitDialog.setMessage("Please wait while reconnecting to server");
+
+            new Handler(Looper.getMainLooper()).post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    waitDialog.show();
+                    int min = 3000;
+                    int max = 6000;
+
+                    Random r = new Random();
+                    int randomDelay = r.nextInt(max - min + 1) + min;
+
+                    new Handler().postDelayed(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            {
+                                mWebSocket.recreate().connectAsynchronously();
+                            } catch (IOException e)
+                            {
+                                e.printStackTrace();
+                                showError(e.getLocalizedMessage());
+                            }
+                            waitDialog.dismiss();
+                        }
+                    }, randomDelay);
+                }
+            });
+        }
+    }
+
     private void connectToServer(String address)
     {
         WebSocketFactory factory = new WebSocketFactory();
-        factory.setConnectionTimeout(3000);
+        factory.setConnectionTimeout(5000);
 
         try
         {
@@ -179,23 +224,27 @@ class AppOverlayView extends RelativeLayout
                 return;
             }
 
-            mWebSocket.connectAsynchronously();
-
             mWebSocket.addListener(new WebSocketAdapter()
             {
                 @Override
-                public void onConnectError(WebSocket websocket, final WebSocketException exception) throws Exception
+                public void onUnexpectedError(WebSocket websocket, WebSocketException cause) throws Exception
                 {
-                    super.onConnectError(websocket, exception);
-                    showError(exception.getLocalizedMessage(), mClose);
-                    exception.printStackTrace();
+                    super.onUnexpectedError(websocket, cause);
+                    Sentry.captureException(cause);
+                    cause.printStackTrace();
+                    showError(cause.getLocalizedMessage());
                 }
 
                 @Override
                 public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
                 {
                     super.onConnected(websocket, headers);
-                    onConnectToServer();
+
+                    if (!mConnected)
+                    {
+                        mConnected = true;
+                        onConnectToServer();
+                    }
                 }
 
                 @Override
@@ -206,16 +255,19 @@ class AppOverlayView extends RelativeLayout
                 }
 
                 @Override
-                public void onError(WebSocket websocket, final WebSocketException cause) throws Exception
+                public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception
                 {
-                    super.onError(websocket, cause);
-                    showError(cause.getLocalizedMessage(), mDisconnectAndClose);
-                    cause.printStackTrace();
+                    super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
+                    System.out.println("Disconnected");
+                    reconnect();
                 }
             });
+
+            mWebSocket.connectAsynchronously();
         } catch (IOException e)
         {
             e.printStackTrace();
+            showError(e.getLocalizedMessage());
         }
     }
 
@@ -289,7 +341,7 @@ class AppOverlayView extends RelativeLayout
                         break;
 
                     default:
-                        showError("Unknown NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState(), mDisconnectAndClose);
+                        showError("Unknown NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
                         System.out.println("Got NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
                         System.out.println("Content: " + event.getGameStateChangeEvent().getNewState());
                         System.out.println("Binary: " + Arrays.toString(event.getGameStateChangeEvent().getNewState().toByteArray()));
@@ -297,8 +349,19 @@ class AppOverlayView extends RelativeLayout
                 }
                 break;
 
+            case REMOTESHUTDOWNEVENT:
+                if (mConnected)
+                    mWebSocket.disconnect();
+
+                mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+                break;
+
+            case RECONNECTEVENT:
+                reconnect();
+                break;
+
             default:
-                showError("Unknown Game Event of type " + event.getEventCase(), mDisconnectAndClose);
+                showError("Unknown Game Event of type " + event.getEventCase());
                 System.out.println("Got GameEventThing of type " + event.getEventCase());
                 System.out.println("Content: " + event);
                 System.out.println("Binary: " + Arrays.toString(event.toByteArray()));
@@ -323,7 +386,7 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             default:
-                showError("Unknown RPC Response of type " + response.getResponseCase(), mDisconnectAndClose);
+                showError("Unknown RPC Response of type " + response.getResponseCase());
                 System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
                 System.out.println("Content: " + response);
                 System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
@@ -334,10 +397,12 @@ class AppOverlayView extends RelativeLayout
     private void handleIdentifyUserResponse(final Rpc.IdentifyUserResponse response)
     {
         if (!response.hasTeam())
-            showError(response.getFailureReason().toString(), mDisconnectAndClose);
+            showError(response.getFailureReason().toString());
 
         else
         {
+            Sentry.init(mContext, response.getSentryDsn(), true);
+
             changeToLayout(R.id.team_select_layout, new Runnable()
             {
                 @Override
@@ -466,7 +531,7 @@ class AppOverlayView extends RelativeLayout
                     break;
 
                 default:
-                    showError(response.getFailureReason().toString(), mDisconnectAndClose);
+                    showError(response.getFailureReason().toString());
                     break;
             }
         }
@@ -510,7 +575,7 @@ class AppOverlayView extends RelativeLayout
                 }
 
                 if (currentAnswer == null || correctAnswerId == -1)
-                    showError("Could not find current or correct answer", mDisconnectAndClose);
+                    showError("Could not find current or correct answer");
 
                 else
                 {
