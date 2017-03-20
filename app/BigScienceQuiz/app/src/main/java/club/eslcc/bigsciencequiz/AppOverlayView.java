@@ -187,9 +187,9 @@ class AppOverlayView extends RelativeLayout
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        dialog.dismiss();
                         mReconnectAttempts = 0;
                         reconnect();
+                        dialog.dismiss();
                     }
                 });
 
@@ -375,7 +375,7 @@ class AppOverlayView extends RelativeLayout
                 System.out.println("Connect error");
                 mReconnectAttempts++;
 
-                if (mReconnectAttempts < 1)
+                if (mReconnectAttempts < 5)
                     reconnect();
 
                 else
@@ -512,7 +512,13 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             case RECONNECTEVENT:
-                reconnect();
+                mReconnectAttempts++;
+
+                if (mReconnectAttempts < 5)
+                    reconnect();
+
+                else
+                    reconnectDialog();
                 break;
 
             default:
