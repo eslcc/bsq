@@ -24,6 +24,7 @@ message IdentifyUserResponse {
     FailureReason failureReason = 1;
     Team team = 2;
     GameState state = 3;
+    string sentryDsn = 4;
 }
 
 message TeamReadyRequest {

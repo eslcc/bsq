@@ -4,7 +4,7 @@ services:
     image: redis
     command: redis-server --appendonly yes
     volumes:
-     - ./live/redis-data/:/data
+     - redis-data:/data
     healthcheck:
       test: "redis-cli ping"
   app:
@@ -13,6 +13,9 @@ services:
           redis:
             condition: service_healthy
     ports:
-      - "8080:8080"
+      - "80:8080"
     environment:
       - REDIS_HOST=redis
+      - PROD=true
+volumes:
+  redis-data:
