@@ -598,7 +598,7 @@ class AppOverlayView extends RelativeLayout
 
                 if (currentAnswer == null
                         || correctAnswerId == -1
-                        || currentAnswerIsCorrect && correctAnswer == null)
+                        || !currentAnswerIsCorrect && correctAnswer == null)
                     showError("Could not find current or correct answer");
 
                 else
