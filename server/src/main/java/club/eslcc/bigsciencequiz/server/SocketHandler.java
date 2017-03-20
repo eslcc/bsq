@@ -72,6 +72,7 @@ public class SocketHandler {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutdown hook running");
             Events.GameEvent.Builder wrapped = Events.GameEvent.newBuilder();
             Events.ReconnectEvent.Builder builder = Events.ReconnectEvent.newBuilder();
             wrapped.setReconnectEvent(builder);

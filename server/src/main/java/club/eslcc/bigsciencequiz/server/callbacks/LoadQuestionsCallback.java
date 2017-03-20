@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
@@ -25,11 +26,7 @@ public class LoadQuestionsCallback implements IStartupCallback {
     @Override
     public void onStartup() {
         try (Jedis jedis = Redis.pool.getResource()) {
-
-            ClassLoader classLoader = getClass().getClassLoader();
-            File file = new File(classLoader.getResource("questions.xml").getFile());
-
-            try (FileInputStream fis = new FileInputStream(file)) {
+            try (InputStream fis = getClass().getResourceAsStream("/questions.xml")) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = factory.newDocumentBuilder();
                 Document doc = documentBuilder.parse(fis);
