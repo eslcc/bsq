@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -57,9 +58,14 @@ class AppOverlayView extends RelativeLayout
     private Gamestate.GameState mLastGameState;
     private int mReconnectAttempts;
 
+    private void runOnUiThread(Runnable runnable)
+    {
+        new Handler(Looper.getMainLooper()).post(runnable);
+    }
+
     private void changeToLayout(final int layoutId, final Runnable runnable)
     {
-        new Handler(Looper.getMainLooper()).post(new Runnable()
+        runOnUiThread(new Runnable()
         {
             @Override
             public void run()
@@ -103,6 +109,8 @@ class AppOverlayView extends RelativeLayout
 
     private void showError(final int errorResource)
     {
+        Sentry.captureMessage(mContext.getString(errorResource));
+
         changeToLayout(R.id.error_layout, new Runnable()
         {
             @Override
@@ -114,6 +122,178 @@ class AppOverlayView extends RelativeLayout
                 sadFace.setOnClickListener(mClose);
             }
         });
+    }
+
+    private void closeDialog(final AlertDialog alertToDismiss)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        builder.setTitle("Need organiser authorisation");
+        builder.setMessage("Please enter pin to close the app");
+        builder.setCancelable(true);
+
+        final EditText input = new EditText(mContext);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", null);
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        final AlertDialog alert = builder.create();
+
+        if (alert.getWindow() != null)
+            alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
+        alert.setOnShowListener(new DialogInterface.OnShowListener()
+        {
+            @Override
+            public void onShow(final DialogInterface dialog)
+            {
+                Button b = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                b.setOnClickListener(new OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        if (!input.getText().toString().equals("424974"))
+                            Toast.makeText(mContext, "Wrong pin", Toast.LENGTH_SHORT).show();
+
+                        else
+                        {
+                            mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+                            alert.dismiss();
+
+                            if (alertToDismiss != null)
+                                alertToDismiss.dismiss();
+                        }
+                    }
+                });
+            }
+        });
+
+        alert.show();
+    }
+
+    private void reconnectDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        builder.setTitle("Failed to connect");
+        builder.setMessage("Would you like to try reconnecting?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                mReconnectAttempts = 0;
+                reconnect();
+            }
+        });
+
+        builder.setNegativeButton("No, close app", null);
+
+        final AlertDialog alert = builder.create();
+
+        if (alert.getWindow() != null)
+            alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
+        alert.setOnShowListener(new DialogInterface.OnShowListener()
+        {
+            @Override
+            public void onShow(DialogInterface dialog)
+            {
+                Button b = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+                b.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        closeDialog(alert);
+                    }
+                });
+            }
+        });
+
+        alert.show();
+    }
+
+    private void reconnect()
+    {
+        if (mConnected)
+        {
+            System.out.println("Terminated websocket connection");
+            mWebSocket.disconnect();
+
+            final ProgressDialog waitDialog = new ProgressDialog(mContext);
+            waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            waitDialog.setIndeterminate(true);
+            waitDialog.setMessage("Please wait while reconnecting to server");
+            waitDialog.setCancelable(false);
+
+            if (waitDialog.getWindow() != null)
+                waitDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
+            waitDialog.show();
+            int min = 3000;
+            int max = 6000;
+
+            Random r = new Random();
+            int randomDelay = r.nextInt(max - min + 1) + min;
+
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        System.out.println("Reconnecting");
+                        mWebSocket.recreate().connectAsynchronously();
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                        showError(e.getLocalizedMessage());
+                    }
+                    waitDialog.dismiss();
+                }
+            }, randomDelay);
+        }
+    }
+
+    void attemptReconnecting()
+    {
+        mReconnectAttempts++;
+
+        if (mReconnectAttempts < 5)
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    reconnect();
+                }
+            });
+
+        else
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    reconnectDialog();
+                }
+            });
     }
 
     public AppOverlayView(Context context)
@@ -155,7 +335,8 @@ class AppOverlayView extends RelativeLayout
                 public void run()
                 {
                     final TextInputEditText serverIP = (TextInputEditText) findViewById(R.id.server_ip);
-                    final Button startButton = (Button) findViewById(R.id.start_button);
+                    final AppCompatButton startButton = (AppCompatButton) findViewById(R.id.start_button);
+                    final AppCompatButton closeButton = (AppCompatButton) findViewById(R.id.close_button);
 
                     startButton.setOnClickListener(new OnClickListener()
                     {
@@ -165,163 +346,11 @@ class AppOverlayView extends RelativeLayout
                             connectToServer(serverIP.getText().toString());
                         }
                     });
+
+                    closeButton.setOnClickListener(mClose);
                 }
             });
         }
-    }
-
-    private void reconnectDialog()
-    {
-        new Handler(Looper.getMainLooper()).post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
-                builder.setTitle("Failed to connect");
-                builder.setMessage("Would you like to try reconnecting?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        mReconnectAttempts = 0;
-                        reconnect();
-                    }
-                });
-
-                builder.setNegativeButton("No, close app", null);
-
-                final AlertDialog alert = builder.create();
-
-                if (alert.getWindow() != null)
-                    alert.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-
-                alert.setOnShowListener(new DialogInterface.OnShowListener()
-                {
-                    @Override
-                    public void onShow(DialogInterface dialog)
-                    {
-                        Button b = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-                        b.setOnClickListener(new View.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                AlertDialog.Builder builder2 = new AlertDialog.Builder(mContext);
-
-                                builder2.setTitle("Need organiser authorisation");
-                                builder2.setMessage("Please enter pin to close the app");
-                                builder2.setCancelable(true);
-
-                                final EditText input = new EditText(mContext);
-                                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                                builder2.setView(input);
-
-                                builder2.setPositiveButton("OK", null);
-
-                                builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                                final AlertDialog alert2 = builder2.create();
-
-                                if (alert2.getWindow() != null)
-                                    alert2.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-
-                                alert2.setOnShowListener(new DialogInterface.OnShowListener()
-                                {
-                                    @Override
-                                    public void onShow(final DialogInterface dialog)
-                                    {
-                                        Button b = alert2.getButton(AlertDialog.BUTTON_POSITIVE);
-
-                                        b.setOnClickListener(new OnClickListener()
-                                        {
-                                            @Override
-                                            public void onClick(View v)
-                                            {
-                                                if (!input.getText().toString().equals("424974"))
-                                                    Toast.makeText(mContext, "Wrong pin", Toast.LENGTH_SHORT).show();
-
-                                                else
-                                                {
-                                                    mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-                                                    alert2.dismiss();
-                                                    alert.dismiss();
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-
-                                alert2.show();
-                            }
-                        });
-                    }
-                });
-
-                alert.show();
-            }
-        });
-    }
-
-    private void reconnect()
-    {
-        new Handler(Looper.getMainLooper()).post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (mConnected)
-                {
-                    System.out.println("Terminated websocket connection");
-                    mWebSocket.disconnect();
-
-                    final ProgressDialog waitDialog = new ProgressDialog(mContext);
-                    waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    waitDialog.setIndeterminate(true);
-                    waitDialog.setMessage("Please wait while reconnecting to server");
-                    waitDialog.setCancelable(false);
-
-                    if (waitDialog.getWindow() != null)
-                        waitDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-
-                    waitDialog.show();
-                    int min = 3000;
-                    int max = 6000;
-
-                    Random r = new Random();
-                    int randomDelay = r.nextInt(max - min + 1) + min;
-
-                    new Handler().postDelayed(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            try
-                            {
-                                System.out.println("Reconnecting");
-                                mWebSocket.recreate().connectAsynchronously();
-                            } catch (IOException e)
-                            {
-                                e.printStackTrace();
-                                showError(e.getLocalizedMessage());
-                            }
-                            waitDialog.dismiss();
-                        }
-                    }, randomDelay);
-                }
-            }
-        });
     }
 
     private void connectToServer(String address)
@@ -371,15 +400,7 @@ class AppOverlayView extends RelativeLayout
             {
                 super.onConnectError(websocket, exception);
                 Sentry.captureException(exception, exception.getLocalizedMessage());
-
-                System.out.println("Connect error");
-                mReconnectAttempts++;
-
-                if (mReconnectAttempts < 5)
-                    reconnect();
-
-                else
-                    reconnectDialog();
+                attemptReconnecting();
             }
 
             @Override
@@ -394,33 +415,10 @@ class AppOverlayView extends RelativeLayout
             {
                 super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
                 System.out.println("Disconnected");
-                reconnect();
+                attemptReconnecting();
             }
         });
-/*
-            // Prepare an ExecutorService.
-            ExecutorService es = Executors.newSingleThreadExecutor();
 
-            // Connect to the server asynchronously.
-            Future<WebSocket> future = mWebSocket.connect(es);
-
-            try
-            {
-                System.out.println("BEGIN CONNECT");
-                // Wait for the opening handshake to complete.
-                future.get();
-                System.out.println("END CONNECT");
-            }
-            catch (ExecutionException e)
-            {
-                if (e.getCause() instanceof WebSocketException)
-                {
-                }
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-*/
         mWebSocket.connectAsynchronously();
     }
 
@@ -512,13 +510,7 @@ class AppOverlayView extends RelativeLayout
                 break;
 
             case RECONNECTEVENT:
-                mReconnectAttempts++;
-
-                if (mReconnectAttempts < 5)
-                    reconnect();
-
-                else
-                    reconnectDialog();
+                attemptReconnecting();
                 break;
 
             default:
@@ -700,7 +692,7 @@ class AppOverlayView extends RelativeLayout
 
     private void handleAnswersRevealed(final Gamestate.GameState gameState)
     {
-        new Handler(Looper.getMainLooper()).post(new Runnable()
+        runOnUiThread(new Runnable()
         {
             @Override
             public void run()

@@ -19,4 +19,5 @@
     <string name="correct_answer_hint">Correct Answer!</string>
     <string name="wrong_answer_hint">Wrong Answer!</string>
     <string name="already_answered">You have already answered this question.</string>
+    <string name="close">Close</string>
 </resources>

@@ -66,4 +66,15 @@
         android:layout_below="@+id/text_layout"
         android:text="@string/start"/>
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/start_button"
+        android:layout_alignLeft="@+id/start_button"
+        android:layout_alignRight="@+id/start_button"
+        android:layout_alignStart="@+id/start_button"
+        android:layout_below="@+id/bsq_logo"
+        android:text="@string/close"/>
+
 </android.support.percent.PercentRelativeLayout>
