@@ -7,6 +7,7 @@ services:
      - redis-data:/data
     healthcheck:
       test: "redis-cli ping"
+
   app:
     build: server
     depends_on:
@@ -17,5 +18,59 @@ services:
     environment:
       - REDIS_HOST=redis
       - PROD=true
+
+  sentry_redis:
+    image: redis
+
+  sentry_postgres:
+    image: postgres
+    environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DBNAME: sentry
+          POSTGRES_DBUSER: sentry
+          POSTGRES_DBPASS: sentry
+    volumes:
+     - postgres-data:/var/lib/postgresql/data
+
+  sentry:
+    image: sentry:latest
+    depends_on:
+     - sentry_redis
+     - sentry_postgres
+    environment:
+      SENTRY_SECRET_KEY: gasdivh8934h895f23
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: sentry_redis
+
+  sentry_cron:
+    image: sentry:latest
+    depends_on:
+     - sentry_redis
+     - sentry_postgres
+    command: "sentry run cron"
+    environment:
+      SENTRY_SECRET_KEY: gasdivh8934h895f23
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: sentry_redis
+
+  sentry_worker:
+    image: sentry:latest
+    depends_on:
+     - sentry_redis
+     - sentry_postgres
+    command: "sentry run worker"
+    environment:
+      SENTRY_SECRET_KEY: gasdivh8934h895f23
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: sentry_redis
+
 volumes:
   redis-data:
+  postgres-data:

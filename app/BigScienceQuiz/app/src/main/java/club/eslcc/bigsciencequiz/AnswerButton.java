@@ -3,7 +3,7 @@ package club.eslcc.bigsciencequiz;
 import android.content.Context;
 import android.util.AttributeSet;
 
-class AnswerButton extends android.support.v7.widget.AppCompatButton
+public class AnswerButton extends android.support.v7.widget.AppCompatButton
 {
     private static final int[] mStates =
             {

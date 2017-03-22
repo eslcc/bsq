@@ -55,6 +55,11 @@ public class IdentifyUserHandler implements IRpcHandler {
             responseBuilder.setTeam(teamBuilder);
             responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
 
+            String sentryDsn = System.getenv("SENTRY_CLIENT_DSN");
+            if (sentryDsn != null) {
+                responseBuilder.setSentryDsn(sentryDsn);
+            }
+
             jedis.publish("admin_events", "identified_device_change");
 
             builder.setIdentifyUserResponse(responseBuilder);

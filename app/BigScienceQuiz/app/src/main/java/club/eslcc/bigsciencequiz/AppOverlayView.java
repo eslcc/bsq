@@ -49,7 +49,7 @@ import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.Rpc;
 
-class AppOverlayView extends RelativeLayout
+public class AppOverlayView extends RelativeLayout
 {
     private Context mContext;
     private WebSocket mWebSocket;
