@@ -618,6 +618,7 @@ class AppOverlayView extends RelativeLayout
 
                 category.setText(question.getCategory());
                 questionText.setText(question.getQuestion());
+                confirmAnswerHint.setVisibility(INVISIBLE);
 
                 final AnswerAdapter adapter = new AnswerAdapter(
                         LayoutInflater.from(mContext),
