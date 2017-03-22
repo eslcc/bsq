@@ -18,6 +18,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - PROD=true
+      - "SENTRY_CLIENT_DSN=http://3848409b47364f118ed326725093dd27@34.205.76.96:9000/2"
 
   sentry_redis:
     image: redis
@@ -38,6 +39,8 @@ services:
     depends_on:
      - sentry_redis
      - sentry_postgres
+    ports:
+      - "9000:9000"
     environment:
       SENTRY_SECRET_KEY: gasdivh8934h895f23
       SENTRY_POSTGRES_HOST: sentry_postgres

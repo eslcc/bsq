@@ -452,6 +452,7 @@ public class AppOverlayView extends RelativeLayout
             {
                 e.printStackTrace();
                 Sentry.captureException(e, e.getLocalizedMessage());
+                showError(e.getLocalizedMessage());
             }
         }
 
@@ -464,6 +465,7 @@ public class AppOverlayView extends RelativeLayout
             {
                 e.printStackTrace();
                 Sentry.captureException(e, e.getLocalizedMessage());
+                showError(e.getLocalizedMessage());
             }
         }
     }
