@@ -71,15 +71,12 @@ public class SocketHandler {
             subscribed = true;
         }
 
-<<<<<<< HEAD
         if (session.getUpgradeRequest().getParameterMap().containsKey("admin")) {
             try (Jedis jedis = Redis.pool.getResource()) {
                 jedis.publish("admin_events", "identified_device_change");
             }
         }
 
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutdown hook running");
             if (session.isOpen()) {
@@ -100,15 +97,11 @@ public class SocketHandler {
 
     @OnWebSocketClose
     public void disconnect(Session session, int status, String reason) {
-<<<<<<< HEAD
         try (Jedis jedis = Redis.pool.getResource()) {
             jedis.sadd("disconnected_clients", users.get(session));
             jedis.publish("admin_events", "identified_device_change");
         }
         users.remove(session);
-=======
-//        users.remove(session);
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     }
 
     @OnWebSocketMessage

@@ -56,18 +56,12 @@ public class IdentifyUserHandler implements IRpcHandler {
             responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
 
             String sentryDsn = System.getenv("SENTRY_CLIENT_DSN");
-<<<<<<< HEAD
             System.out.println("SDSN: " + sentryDsn);
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
             if (sentryDsn != null) {
                 responseBuilder.setSentryDsn(sentryDsn);
             }
 
-<<<<<<< HEAD
             jedis.srem("disconnected_clients", idR.getDeviceId());
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
             jedis.publish("admin_events", "identified_device_change");
 
             builder.setIdentifyUserResponse(responseBuilder);

@@ -1,6 +1,0 @@
-version: '2'
-services:
-    app_blue:
-      build: ./app
-      environment:
-        SENTRY_DSN: "http://0a74bfd71a9f42dfa702ce980117733c:2dc376ac4da045f78cfa15b970500ca4@sentry:9000/2"

@@ -39,22 +39,14 @@ export default class ReadyClients extends Component {
         AdminSocket.sendMessage(message);
     }
 
-<<<<<<< HEAD
     renderTablet(tablet) {
         return (
             <div>
-                <b>Device: </b> {tablet.deviceId}; <b>Team: </b> {tablet.team || 'NONE'};
-                <b>Ready: </b> {!!tablet.ready ? tablet.ready.toString() : 'no'}
-                <button onClick={() => this.shutdown(tablet.deviceId)}
-                        disabled={!this.props.dangerZone}
-                >Close App
-                </button>
+                
             </div>
-        );
+        )
     }
 
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     render() {
         const readyClients = this.state.tablets.reduce((prev, curr) => prev + (curr.ready ? 1 : 0), 0);
         const totalClients = this.state.tablets.length;
@@ -81,16 +73,7 @@ export default class ReadyClients extends Component {
                     <ul className="devices">
                         {this.state.tablets.map(tablet => (
                             <li key={tablet.deviceId} className={tablet.ready && 'ready'}>
-<<<<<<< HEAD
-                                {tablet.disconnected ? <s>{this.renderTablet(tablet)}</s> : this.renderTablet(tablet)}
-=======
-                                <b>Device: </b> {tablet.deviceId}; <b>Team: </b> {tablet.team || 'NONE'};
-                                <b>Ready: </b> {!!tablet.ready ? tablet.ready.toString() : 'no'}
-                                <button onClick={() => this.shutdown(tablet.deviceId)}
-                                        disabled={!this.props.dangerZone}
-                                >Close App
-                                </button>
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
+
                             </li>
                         ))}
                     </ul>
