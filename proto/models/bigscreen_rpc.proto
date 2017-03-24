@@ -1,0 +1,12 @@
+syntax = "proto3";
+package bigsciencequiz.bigscreen;
+
+option java_package = "club.eslcc.bigsciencequiz.proto.bigscreen";
+
+import "user.proto";
+
+message BigscreenGetTeamsRequest {}
+
+message BigscreenGetTeamsResponse {
+    repeated bigsciencequiz.Team teams = 1;
+}

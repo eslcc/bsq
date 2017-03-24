@@ -1,0 +1,41 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+option java_package = "club.eslcc.bigsciencequiz.proto";
+
+import "admin_events.proto";
+import "bigscreen_events.proto";
+import "question.proto";
+import "gamestate.proto";
+
+message GameStateChangeEvent {
+    GameState newState = 1;
+}
+
+message ErrorEvent {
+    string description = 1;
+}
+
+message LiveAnswersEvent {
+    map<int32, int32> answers = 1;
+}
+
+message ReconnectEvent {
+
+}
+
+message RemoteShutdownEvent {
+
+}
+
+message GameEvent {
+    oneof event {
+        GameStateChangeEvent gameStateChangeEvent = 1;
+        ErrorEvent errorEvent = 2;
+        bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 3;
+        bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;
+        LiveAnswersEvent liveAnswersEvent = 5;
+        ReconnectEvent reconnectEvent = 6;
+        RemoteShutdownEvent remoteShutdownEvent = 7;
+    }
+}

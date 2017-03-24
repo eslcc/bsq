@@ -1,0 +1,45 @@
+syntax = "proto3";
+package bigsciencequiz.admin;
+
+option java_package = "club.eslcc.bigsciencequiz.proto.admin";
+
+import "gamestate.proto";
+import "question.proto";
+
+message AdminGetQuestionsRequest {
+
+}
+
+message AdminGetQuestionsResponse {
+    repeated bigsciencequiz.Question questions = 1;
+}
+
+message AdminSetActiveQuestionRequest {
+    int32 questionId = 1;
+}
+
+message AdminSetActiveQuestionResponse {
+    GameState newState = 1;
+}
+
+message AdminResetStateRequest {
+
+}
+
+message AdminResetStateResponse {
+    GameState newState = 1;
+}
+
+message AdminSetGameStateRequest {
+    GameState.State newState = 1;
+}
+
+message AdminSetGameStateResponse {
+    GameState newState = 1;
+}
+
+message AdminShutdownDeviceRequest {
+    string deviceId = 1;
+}
+
+message AdminShutdownDeviceResponse {}

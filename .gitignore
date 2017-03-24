@@ -1,0 +1,5 @@
+/.gtm/
+**/workspace.xml
+protoc.exe
+
+!node_modules/ # explicitly mark this as not-ignored

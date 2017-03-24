@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket Test</title>
+</head>
+<body>
+<pre id="messages">
+</pre>
+
+<input type="text" id="param" placeholder="Request Parameter">
+<button onclick="sendProto('test')">Send Test Proto</button>
+<button onclick="sendProto('ready')">Send TeamReadyRequest</button>
+<button onclick="sendProto('answer')">Send AnswerQuestionRequest</button>
+
+<button onclick="send()">Send</button>
+<div id="status"></div>
+
+<script src="https://unpkg.com/protobufjs@6.6.3/dist/protobuf.js"></script>
+<script type="text/javascript" charset="utf-8">
+    function setStatus(status) {
+        const el = document.createElement('small');
+        el.innerText = status;
+        const statusEl = document.getElementById('status');
+        statusEl.appendChild(el);
+        statusEl.appendChild(document.createElement('br'));
+    }
+
+    setStatus('Loading protobufs...');
+
+    const root = new protobuf.Root();
+
+    const promises = [
+        "/proto/models/rpc.proto",
+        "/proto/models/events.proto",
+    ].map(file => protobuf.load(file, root));
+
+    const types = {
+        RpcRequest: 'bigsciencequiz.RpcRequest',
+        RpcResponse: 'bigsciencequiz.RpcResponse',
+        IdentifyUserRequest: 'bigsciencequiz.IdentifyUserRequest',
+        IdentifyUserResponse: 'bigsciencequiz.IdentifyUserResponse',
+        AutocompleteMemberNameRequest: 'bigsciencequiz.AutocompleteMemberNameRequest',
+        AutocompleteMemberNameResponse: 'bigsciencequiz.AutocompleteMemberNameResponse',
+        GetGameStateRequest: 'bigsciencequiz.GetGameStateRequest',
+        GetGameStateResponse: 'bigsciencequiz.GetGameStateResponse',
+        UnknownRequestResponse: 'bigsciencequiz.UnknownRequestResponse',
+        GameState: 'bigsciencequiz.GameState',
+        GameEvent: 'bigsciencequiz.GameEvent',
+        GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
+        TeamReadyRequest: 'bigsciencequiz.TeamReadyRequest',
+        TeamReadyResponse: 'bigsciencequiz.TeamReadyResponse',
+        AnswerQuestionRequest: 'bigsciencequiz.AnswerQuestionRequest',
+        TeamReadyResponse: 'bigsciencequiz.TeamReadyResponse',
+    };
+
+    Promise.all(promises).then(() => {
+        setStatus('Loaded proto files, loading types...');
+        Object.keys(types).forEach(name => {
+            window[name] = root.lookup(types[name]);
+        });
+        setStatus('Protobuf load complete.');
+        const socket = new WebSocket(`ws://${window.location.host}/socket`);
+        socket.binaryType = 'arraybuffer';
+        socket.onmessage = function (msg) {
+            if (msg.data === 'wat') {
+                setStatus('received wat!');
+            } else {
+                const data = new Uint8Array(msg.data);
+                console.log(`Received ${data}`);
+                if (data[0] === 0xFF && data[1] === 0xFF && data[2] === 0xFF && data[3] === 0xFF) {
+                    const eventBuffer = data.slice(4);
+                    const event = GameEvent.decode(eventBuffer);
+                    console.log(`decoded GameEvent ${event.event}`);
+                    console.dir(event.toJSON());
+                } else {
+                    const response = RpcResponse.decode(data);
+                    console.log(`decoded RpcResponse ${response.response}`);
+                    console.dir(response.toJSON());
+                }
+            }
+        };
+        window.sendProto = (which) => {
+            switch (which) {
+                case 'test':
+                    var message = RpcRequest.create();
+                    message.identifyUserRequest = IdentifyUserRequest.create();
+                    message.identifyUserRequest.deviceId = document.getElementById('param').value;
+                    var data = RpcRequest.encode(message).finish();
+                    socket.send(data);
+                    setStatus(`sent ${which}`);
+                    break;
+                case 'ready':
+                    var message = RpcRequest.create();
+                    message.teamReadyRequest = TeamReadyRequest.create();
+                    message.teamReadyRequest.teamName = document.getElementById('param').value;
+                    var data = RpcRequest.encode(message).finish();
+                    socket.send(data);
+                    setStatus(`sent ${which}`);
+                    break;
+                case 'answer':
+                    var message = RpcRequest.create();
+                    message.answerQuestionRequest = AnswerQuestionRequest.create();
+                    message.answerQuestionRequest.answerId = parseInt(document.getElementById('param').value, 10);
+                    var data = RpcRequest.encode(message).finish();
+                    socket.send(data);
+                    setStatus(`sent ${which}`);
+                    break;
+                default:
+                    setStatus(`WTF: no proto ${which}`);
+            }
+        }
+    })
+</script>
+</body>
+</html>

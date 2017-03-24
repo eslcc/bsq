@@ -1,0 +1,11 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+option java_package = "club.eslcc.bigsciencequiz.proto";
+
+message Team {
+    string number = 1;
+    repeated string memberNames = 2;
+    string teamName = 3;
+    int32 score = 4;
+}

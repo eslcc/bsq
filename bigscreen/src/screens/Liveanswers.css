@@ -1,0 +1,11 @@
+.liveanswers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.liveanswer {
+    display: inline-block;
+    margin: 2em;
+}

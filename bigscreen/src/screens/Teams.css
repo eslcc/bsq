@@ -1,0 +1,57 @@
+.slider-frame, .slider-list {
+    height: 100vh !important;
+}
+
+.slider-slide {
+    height: 100% !important;
+}
+
+.team-container {
+    display: flex;
+    height: 100%;
+}
+
+.team {
+    text-align: center;
+}
+
+.team ul {
+    list-style-type: none;
+}
+
+.team ul li {
+    margin: 0.5em 0;
+    font-size: 24px;
+}
+
+.team-number {
+    font-size: 48px;
+}
+
+.team-1 {
+    display: block;
+    width: 50%;
+    height: 50%;
+}
+
+.team-2 {
+    display: block;
+    width: 50%;
+    height: 50%;
+    left: 50%;
+}
+
+.team-3 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+}
+
+.team-4 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+}

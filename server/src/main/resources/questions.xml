@@ -1,0 +1,18 @@
+<questions>
+    <question id="1" scored="false" class="senior">
+        <category>Test</category>
+        <text>Is this a test question that will not be scored?</text>
+        <answer id="1" correct="true">Yes</answer>
+        <answer id="2">No</answer>
+        <answer id="3">Carrot</answer>
+        <answer id="4">turnip</answer>
+    </question>
+    <question id="2" scored="true" class="junior">
+        <category>Potato</category>
+        <text>Is this a question?</text>
+        <answer id="1" correct="true">Potato</answer>
+        <answer id="2">Potato</answer>
+        <answer id="3">Potato</answer>
+        <answer id="4">Potato</answer>
+    </question>
+</questions>

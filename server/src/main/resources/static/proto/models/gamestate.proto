@@ -1,0 +1,23 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+import "question.proto";
+
+option java_package = "club.eslcc.bigsciencequiz.proto";
+
+message GameState {
+    enum State {
+        NOTREADY = 0;
+        INTRO = 1;
+        READY = 2;
+        STARTING = 3;
+        QUESTION_ANSWERING = 4;
+        QUESTION_LIVEANSWERS = 5;
+        QUESTION_CLOSED = 6;
+        QUESTION_ANSWERS_REVEALED = 7;
+        LEADERBOARD = 8;
+    }
+    State state = 1;
+    Question currentQuestion = 2;
+    int32 myCurrentQuestionAnswer = 3;
+}

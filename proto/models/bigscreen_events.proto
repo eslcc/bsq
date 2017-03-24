@@ -1,0 +1,4 @@
+syntax = "proto3";
+package bigsciencequiz.bigscreen;
+
+option java_package = "club.eslcc.bigsciencequiz.proto.bigscreen";

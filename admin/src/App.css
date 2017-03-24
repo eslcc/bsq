@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+}
+
+ul.devices {
+  font-family: monospace;
+}
+
+li:not(.ready) {
+  list-style-type: circle;
+}

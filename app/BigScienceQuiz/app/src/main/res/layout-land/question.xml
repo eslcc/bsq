@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/question_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_space_margin"
+        android:layout_marginStart="@dimen/small_space_margin"
+        android:layout_marginTop="@dimen/small_space_margin"
+        android:text="Category"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/small_space_margin"
+        android:text="Question"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/confirm_answer_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question"
+        android:layout_centerHorizontal="true"/>
+
+    <ListView
+        android:id="@+id/question_answers"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/confirm_answer_hint"
+        android:layout_marginEnd="@dimen/space_margin"
+        android:layout_marginLeft="@dimen/space_margin"
+        android:layout_marginRight="@dimen/space_margin"
+        android:layout_marginStart="@dimen/space_margin"
+        android:choiceMode="singleChoice"
+        android:cacheColorHint="@android:color/transparent"
+        app:layout_heightPercent="60%"/>
+
+</android.support.percent.PercentRelativeLayout>
