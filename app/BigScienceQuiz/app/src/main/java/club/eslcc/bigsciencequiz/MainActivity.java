@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
 
         mInstance = this;
         mExit = false;
@@ -58,18 +61,7 @@ public class MainActivity extends AppCompatActivity
         kl.disableKeyguard();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-        disableStatusBar();
-
-        setContentView(R.layout.activity_main);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState)
-    {
-        super.onPostCreate(savedInstanceState);
-
-        mAppOverlayIntent = new Intent(getApplicationContext(), AppOverlayService.class);
-        startService(mAppOverlayIntent);
+        getOverlayPermission();
     }
 
     @Override
@@ -140,17 +132,58 @@ public class MainActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == OVERLAY_PERMISSION_REQ_CODE)
+        {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+            {
+                if (!Settings.canDrawOverlays(this))
+                {
+                    Toast.makeText(this, "Pls gib permission", Toast.LENGTH_LONG).show();
+
+                    Intent launchIntent = new Intent(this, MainActivity.class);
+                    PendingIntent restartIntent = PendingIntent.getActivity(this,
+                            PENDING_INTENT_ID, launchIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, restartIntent);
+                    finishAffinity();
+                    Runtime.getRuntime().exit(0);
+                }
+
+                else
+                    drawOverlays();
+            }
+
+            else
+                drawOverlays();
+        }
+    }
+
+    private void drawOverlays()
+    {
+        mStatusBarOverlayIntent = new Intent(this, StatusBarOverlayService.class);
+        startService(mStatusBarOverlayIntent);
+
+        mAppOverlayIntent = new Intent(getApplicationContext(), AppOverlayService.class);
+        startService(mAppOverlayIntent);
+    }
+
+    private void getOverlayPermission()
+    {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
         {
-            if (requestCode == OVERLAY_PERMISSION_REQ_CODE)
+            if (!Settings.canDrawOverlays(this))
             {
-                if (Settings.canDrawOverlays(this))
-                {
-                    mStatusBarOverlayIntent = new Intent(this, StatusBarOverlayService.class);
-                    startService(mStatusBarOverlayIntent);
-                }
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
             }
+
+            else
+                drawOverlays();
         }
+
+        else
+            drawOverlays();
     }
 
     // Obtain wakelock to wake up the screen if it's turned off
@@ -203,31 +236,6 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
-    }
-
-    // Cannot prevent the status bar being there, but can prevent the dropdown
-    private void disableStatusBar()
-    {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-        {
-            if (!Settings.canDrawOverlays(this))
-            {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-            }
-
-            else
-            {
-                mStatusBarOverlayIntent = new Intent(this, StatusBarOverlayService.class);
-                startService(mStatusBarOverlayIntent);
-            }
-        }
-
-        else
-        {
-            mStatusBarOverlayIntent = new Intent(this, StatusBarOverlayService.class);
-            startService(mStatusBarOverlayIntent);
-        }
     }
 
     // If app crashes, it will restart
