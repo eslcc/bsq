@@ -127,6 +127,24 @@ public class AppOverlayView extends RelativeLayout
         });
     }
 
+    private void showError(final Throwable e)
+    {
+        e.printStackTrace();
+        Sentry.captureException(e, e.getLocalizedMessage());
+
+        changeToLayout(R.id.error_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TextView text = (TextView) findViewById(R.id.error_text);
+                TextView sadFace = (TextView) findViewById(R.id.sad_face);
+                text.setText(e.getLocalizedMessage());
+                sadFace.setOnClickListener(mClose);
+            }
+        });
+    }
+
     private void closeDialog(final AlertDialog alertToDismiss)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -263,8 +281,7 @@ public class AppOverlayView extends RelativeLayout
                         mWebSocket.recreate().connectAsynchronously();
                     } catch (IOException e)
                     {
-                        e.printStackTrace();
-                        showError(e.getLocalizedMessage());
+                        showError(e);
                     }
                     waitDialog.dismiss();
                 }
@@ -286,7 +303,7 @@ public class AppOverlayView extends RelativeLayout
                 }
             });
 
-        else
+        else if (mReconnectAttempts == 5)
             runOnUiThread(new Runnable()
             {
                 @Override
@@ -313,6 +330,51 @@ public class AppOverlayView extends RelativeLayout
     {
         super(context, attrs, defStyleAttr);
         mContext = context;
+    }
+
+    @SuppressLint("HardwareIds")
+    private void sendIdentifyUserRequest()
+    {
+        Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
+        Rpc.IdentifyUserRequest.Builder requestBuilder = Rpc.IdentifyUserRequest.newBuilder();
+
+        requestBuilder.setDeviceId(Settings.Secure.getString(
+                getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+
+        builder.setIdentifyUserRequest(requestBuilder);
+
+        byte[] data = builder.build().toByteArray();
+        mWebSocket.sendBinary(data);
+    }
+
+    private void sendTeamReadyRequest(String name)
+    {
+        //TODO Filter names maybe
+        Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
+        Rpc.TeamReadyRequest.Builder builder = Rpc.TeamReadyRequest.newBuilder();
+        builder.setTeamName(name);
+        wrapperBuilder.setTeamReadyRequest(builder);
+        byte[] data = wrapperBuilder.build().toByteArray();
+        mWebSocket.sendBinary(data);
+    }
+
+    private void sendAnswerQuestionRequest(int answerId)
+    {
+        Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
+        Rpc.AnswerQuestionRequest.Builder builder = Rpc.AnswerQuestionRequest.newBuilder();
+        builder.setAnswerId(answerId);
+        wrapperBuilder.setAnswerQuestionRequest(builder);
+        byte[] data = wrapperBuilder.build().toByteArray();
+        mWebSocket.sendBinary(data);
+    }
+
+    private void sendGameStateRequest()
+    {
+        Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
+        Rpc.GetGameStateRequest.Builder requestBuilder = Rpc.GetGameStateRequest.newBuilder();
+        builder.setGetGameStateRequest(requestBuilder);
+        byte[] data = builder.build().toByteArray();
+        mWebSocket.sendBinary(data);
     }
 
     public void setup()
@@ -368,8 +430,7 @@ public class AppOverlayView extends RelativeLayout
             return;
         } catch (IOException e)
         {
-            e.printStackTrace();
-            showError(e.getLocalizedMessage());
+            showError(e);
             return;
         }
 
@@ -379,9 +440,7 @@ public class AppOverlayView extends RelativeLayout
             public void onUnexpectedError(WebSocket websocket, WebSocketException cause) throws Exception
             {
                 super.onUnexpectedError(websocket, cause);
-                Sentry.captureException(cause);
-                cause.printStackTrace();
-                showError(cause.getLocalizedMessage());
+                showError(cause);
             }
 
             @Override
@@ -392,8 +451,11 @@ public class AppOverlayView extends RelativeLayout
                 if (!mConnected)
                 {
                     mConnected = true;
-                    onConnectToServer();
+                    sendIdentifyUserRequest();
                 }
+
+                else
+                    sendGameStateRequest();
             }
 
             @Override
@@ -425,21 +487,6 @@ public class AppOverlayView extends RelativeLayout
         });
 
         mWebSocket.connectAsynchronously();
-    }
-
-    @SuppressLint("HardwareIds")
-    private void onConnectToServer()
-    {
-        Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-        Rpc.IdentifyUserRequest.Builder requestBuilder = Rpc.IdentifyUserRequest.newBuilder();
-
-        requestBuilder.setDeviceId(Settings.Secure.getString(
-                getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-
-        builder.setIdentifyUserRequest(requestBuilder);
-
-        byte[] data = builder.build().toByteArray();
-        mWebSocket.sendBinary(data);
     }
 
     private void onReceivedMessage(byte[] binary)
@@ -541,6 +588,10 @@ public class AppOverlayView extends RelativeLayout
                 handleAnswerQuestionResponse(response.getAnswerQuestionResponse());
                 break;
 
+            case GETGAMESTATERESPONSE:
+                handleGameStateResponse(response.getGetGameStateResponse().getState());
+                break;
+
             default:
                 Sentry.addBreadcrumb("Unknown RPCResponse content", String.valueOf(response));
                 Sentry.addBreadcrumb("Unknown RPCResponse binary", Arrays.toString(response.toByteArray()));
@@ -586,19 +637,10 @@ public class AppOverlayView extends RelativeLayout
                             String name = teamName.getText().toString().trim();
 
                             if (name.isEmpty())
-                            {
                                 Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
-                                return;
-                            }
 
-                            //TODO Filter names maybe
-
-                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
-                            Rpc.TeamReadyRequest.Builder builder = Rpc.TeamReadyRequest.newBuilder();
-                            builder.setTeamName(name);
-                            wrapperBuilder.setTeamReadyRequest(builder);
-                            byte[] data = wrapperBuilder.build().toByteArray();
-                            mWebSocket.sendBinary(data);
+                            else
+                                sendTeamReadyRequest(name);
                         }
                     });
                 }
@@ -653,15 +695,8 @@ public class AppOverlayView extends RelativeLayout
                         else
                         {
                             confirmAnswerHint.setText(R.string.confirmed_answer);
-
                             adapter.disable();
-
-                            Rpc.RpcRequest.Builder wrapperBuilder = Rpc.RpcRequest.newBuilder();
-                            Rpc.AnswerQuestionRequest.Builder builder = Rpc.AnswerQuestionRequest.newBuilder();
-                            builder.setAnswerId(adapter.getAnswerId(position));
-                            wrapperBuilder.setAnswerQuestionRequest(builder);
-                            byte[] data = wrapperBuilder.build().toByteArray();
-                            mWebSocket.sendBinary(data);
+                            sendAnswerQuestionRequest(adapter.getAnswerId(position));
                         }
                     }
                 });
@@ -758,5 +793,11 @@ public class AppOverlayView extends RelativeLayout
                 }
             }
         });
+    }
+
+    private void handleGameStateResponse(final Gamestate.GameState gameState)
+    {
+        if (gameState.hasCurrentQuestion())
+            handleQuestionEvent(gameState.getCurrentQuestion());
     }
 }
