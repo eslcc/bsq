@@ -21,6 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/question_category"
         android:layout_centerHorizontal="true"
+        android:layout_marginEnd="@dimen/small_space_margin"
+        android:layout_marginLeft="@dimen/small_space_margin"
+        android:layout_marginRight="@dimen/small_space_margin"
+        android:layout_marginStart="@dimen/small_space_margin"
         android:layout_marginTop="@dimen/small_space_margin"
         android:text="Question"
         android:textSize="24sp"/>

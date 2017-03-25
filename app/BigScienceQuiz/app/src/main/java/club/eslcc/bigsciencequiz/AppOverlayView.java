@@ -130,7 +130,7 @@ public class AppOverlayView extends RelativeLayout
     private void showError(final Throwable e)
     {
         e.printStackTrace();
-        Sentry.captureException(e, e.getLocalizedMessage());
+        Sentry.captureException(e);
 
         changeToLayout(R.id.error_layout, new Runnable()
         {

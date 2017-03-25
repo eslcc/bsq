@@ -257,8 +257,7 @@ public class MainActivity extends AppCompatActivity
             AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
             mDefaultUEH.uncaughtException(thread, ex);
-
-            System.exit(2);
+            Runtime.getRuntime().exit(2);
         }
     }
 }
