@@ -84,7 +84,10 @@ public class AppOverlayView extends RelativeLayout
         public void onClick(View v)
         {
             if (mConnected)
+            {
+                mConnected = false;
                 mWebSocket.disconnect();
+            }
 
             mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
         }
@@ -232,7 +235,6 @@ public class AppOverlayView extends RelativeLayout
     {
         if (mConnected)
         {
-            System.out.println("Terminated websocket connection");
             mWebSocket.disconnect();
 
             final ProgressDialog waitDialog = new ProgressDialog(mContext);
@@ -258,7 +260,6 @@ public class AppOverlayView extends RelativeLayout
                 {
                     try
                     {
-                        System.out.println("Reconnecting");
                         mWebSocket.recreate().connectAsynchronously();
                     } catch (IOException e)
                     {
@@ -414,8 +415,12 @@ public class AppOverlayView extends RelativeLayout
             public void onDisconnected(WebSocket websocket, WebSocketFrame serverCloseFrame, WebSocketFrame clientCloseFrame, boolean closedByServer) throws Exception
             {
                 super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
-                System.out.println("Disconnected");
-                attemptReconnecting();
+
+                if (mConnected)
+                {
+                    Sentry.captureMessage("Client disconnected when it shouldn't have, reconnecting");
+                    attemptReconnecting();
+                }
             }
         });
 
@@ -452,7 +457,6 @@ public class AppOverlayView extends RelativeLayout
             {
                 e.printStackTrace();
                 Sentry.captureException(e, e.getLocalizedMessage());
-                showError(e.getLocalizedMessage());
             }
         }
 
@@ -465,7 +469,6 @@ public class AppOverlayView extends RelativeLayout
             {
                 e.printStackTrace();
                 Sentry.captureException(e, e.getLocalizedMessage());
-                showError(e.getLocalizedMessage());
             }
         }
     }
@@ -496,10 +499,9 @@ public class AppOverlayView extends RelativeLayout
                         break;
 
                     default:
+                        Sentry.addBreadcrumb("Unknown NewGameState content", String.valueOf(event.getGameStateChangeEvent().getNewState()));
+                        Sentry.addBreadcrumb("Unknown NewGameState binary", Arrays.toString(event.getGameStateChangeEvent().getNewState().toByteArray()));
                         showError("Unknown NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
-                        System.out.println("Got NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
-                        System.out.println("Content: " + event.getGameStateChangeEvent().getNewState());
-                        System.out.println("Binary: " + Arrays.toString(event.getGameStateChangeEvent().getNewState().toByteArray()));
                         break;
                 }
                 break;
@@ -516,10 +518,9 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             default:
-                showError("Unknown Game Event of type " + event.getEventCase());
-                System.out.println("Got GameEventThing of type " + event.getEventCase());
-                System.out.println("Content: " + event);
-                System.out.println("Binary: " + Arrays.toString(event.toByteArray()));
+                Sentry.addBreadcrumb("Unknown GameEvent content", String.valueOf(event));
+                Sentry.addBreadcrumb("Unknown GameEvent binary", Arrays.toString(event.toByteArray()));
+                showError("Unknown GameEvent of type " + event.getEventCase());
                 break;
         }
     }
@@ -541,10 +542,9 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             default:
-                showError("Unknown RPC Response of type " + response.getResponseCase());
-                System.out.println("Got RpcResponseThing of type " + response.getResponseCase());
-                System.out.println("Content: " + response);
-                System.out.println("Binary: " + Arrays.toString(response.toByteArray()));
+                Sentry.addBreadcrumb("Unknown RPCResponse content", String.valueOf(response));
+                Sentry.addBreadcrumb("Unknown RPCResponse binary", Arrays.toString(response.toByteArray()));
+                showError("Unknown RPCResponse of type " + response.getResponseCase());
                 break;
         }
     }
@@ -705,7 +705,7 @@ public class AppOverlayView extends RelativeLayout
                 boolean currentAnswerIsCorrect = false;
 
                 int currentAnswerId = gameState.getMyCurrentQuestionAnswer();
-                int correctAnswerId = -1;
+                int correctAnswerId = 0;
 
                 List<QuestionOuterClass.Question.Answer> answersList =
                         gameState.getCurrentQuestion().getAnswersList();
@@ -730,14 +730,20 @@ public class AppOverlayView extends RelativeLayout
                         currentAnswer = answersListView.getChildAt(i);
                 }
 
-                if (currentAnswer == null
-                        || correctAnswerId == -1
-                        || !currentAnswerIsCorrect && correctAnswer == null)
-                    showError("Could not find current or correct answer");
+                if (correctAnswerId == 0 || correctAnswer == null)
+                    showError("Question had no correct answer?");
 
                 else
                 {
-                    if (currentAnswerIsCorrect)
+                    if (currentAnswerId == 0 || currentAnswer == null)
+                    {
+                        ((AnswerAdapter) answersListView.getAdapter()).disable();
+                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        confirmAnswerHint.setText(R.string.not_answered);
+                        confirmAnswerHint.setVisibility(VISIBLE);
+                    }
+
+                    else if (currentAnswerIsCorrect)
                     {
                         ((AnswerButton) currentAnswer.findViewById(R.id.answer_button)).setStateRight();
                         confirmAnswerHint.setText(R.string.correct_answer_hint);
