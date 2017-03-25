@@ -10,6 +10,7 @@ message AdminDevicesChangedEvent {
         string deviceId = 1;
         int32 team = 2;
         bool ready = 3;
+        bool disconnected = 4;
     }
     repeated Device devices = 1;
 }
