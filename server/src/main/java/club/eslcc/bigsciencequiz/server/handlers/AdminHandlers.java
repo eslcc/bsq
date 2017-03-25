@@ -104,13 +104,15 @@ public class AdminHandlers {
 
                 switch (wrapped.getNewState()) {
                     case QUESTION_ANSWERS_REVEALED:
-                        Map<String, String> teams = jedis.hgetAll("answers");
-                        int correctAnswer = RedisHelpers.getGameState(null).getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
+                        if (RedisHelpers.getGameState(null).getCurrentQuestion().getScored()) {
+                            Map<String, String> teams = jedis.hgetAll("answers");
+                            int correctAnswer = RedisHelpers.getGameState(null).getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
 
-                        for (String team: teams.keySet()) {
-                            int answer = stoi(teams.get(team));
-                            if (answer == correctAnswer) {
-                                jedis.zincrby("scores", 3, team);
+                            for (String team: teams.keySet()) {
+                                int answer = stoi(teams.get(team));
+                                if (answer == correctAnswer) {
+                                    jedis.zincrby("scores", 3, team);
+                                }
                             }
                         }
                 }
