@@ -102,11 +102,12 @@ public class AdminHandlers {
                 jedis.hset("state", "state", wrapped.getNewState().toString());
                 jedis.publish("game_events", "game_state_change");
 
+                GameState state = RedisHelpers.getGameState(null);
                 switch (wrapped.getNewState()) {
                     case QUESTION_ANSWERS_REVEALED:
-                        if (RedisHelpers.getGameState(null).getCurrentQuestion().getScored()) {
+                        if (state.getCurrentQuestion().getScored()) {
                             Map<String, String> teams = jedis.hgetAll("answers");
-                            int correctAnswer = RedisHelpers.getGameState(null).getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
+                            int correctAnswer = state.getCurrentQuestion().getAnswersList().stream().filter(Question.Answer::getCorrect).findFirst().get().getId();
 
                             for (String team: teams.keySet()) {
                                 int answer = stoi(teams.get(team));
@@ -119,7 +120,7 @@ public class AdminHandlers {
 
                 RpcResponse.Builder builder = RpcResponse.newBuilder();
                 AdminSetGameStateResponse.Builder responseBuilder = AdminSetGameStateResponse.newBuilder();
-                responseBuilder.setNewState(RedisHelpers.getGameState(null));
+                responseBuilder.setNewState(state);
                 builder.setAdminSetGameStateResponse(responseBuilder);
                 return builder.build();
             }
