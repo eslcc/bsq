@@ -8,11 +8,7 @@
     <string name="server_ip_text">Enter server IP:PORT</string>
     <string name="start">START</string>
     <string name="bsq_logo">BSQ Logo</string>
-<<<<<<< HEAD
-    <string name="default_server_ip">192.168.178.45:8080</string>
-=======
     <string name="default_server_ip">192.168.1.1:8080</string>
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     <string name="team_hint">Choose your team name</string>
     <string name="team_number">0</string>
     <string name="team_members_label">Team Members:</string>

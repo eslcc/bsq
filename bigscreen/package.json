@@ -14,10 +14,7 @@
     "ncp": "^2.0.0",
     "react-scripts": "0.9.5"
   },
-<<<<<<< HEAD
   "homepage": "/bigscreen",
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && ncp build ../server/src/main/resources/static/bigscreen",
