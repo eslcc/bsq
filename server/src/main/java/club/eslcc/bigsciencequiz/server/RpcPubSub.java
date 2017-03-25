@@ -110,7 +110,7 @@ public class RpcPubSub extends JedisPubSub {
                             .setDeviceId(id)
                             .setReady(readyDevices.contains(id))
                             .setTeam(stoi(deviceTeams.get(id)))
-                            .setDisconnected(jedis.s)
+                            .setDisconnected(jedis.sismember("disconnected_devices", id))
                             .build()
             ).collect(Collectors.toList());
 
