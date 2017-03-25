@@ -140,14 +140,11 @@ public final class AdminEvents {
        * <code>bool ready = 3;</code>
        */
       boolean getReady();
-<<<<<<< HEAD
 
       /**
        * <code>bool disconnected = 4;</code>
        */
       boolean getDisconnected();
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     }
     /**
      * Protobuf type {@code bigsciencequiz.admin.AdminDevicesChangedEvent.Device}
@@ -164,10 +161,7 @@ public final class AdminEvents {
         deviceId_ = "";
         team_ = 0;
         ready_ = false;
-<<<<<<< HEAD
         disconnected_ = false;
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
       }
 
       @java.lang.Override
@@ -211,14 +205,11 @@ public final class AdminEvents {
                 ready_ = input.readBool();
                 break;
               }
-<<<<<<< HEAD
               case 32: {
 
                 disconnected_ = input.readBool();
                 break;
               }
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
             }
           }
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -294,7 +285,6 @@ public final class AdminEvents {
         return ready_;
       }
 
-<<<<<<< HEAD
       public static final int DISCONNECTED_FIELD_NUMBER = 4;
       private boolean disconnected_;
       /**
@@ -304,8 +294,6 @@ public final class AdminEvents {
         return disconnected_;
       }
 
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
@@ -327,12 +315,9 @@ public final class AdminEvents {
         if (ready_ != false) {
           output.writeBool(3, ready_);
         }
-<<<<<<< HEAD
         if (disconnected_ != false) {
           output.writeBool(4, disconnected_);
         }
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
       }
 
       public int getSerializedSize() {
@@ -351,13 +336,10 @@ public final class AdminEvents {
           size += com.google.protobuf.CodedOutputStream
             .computeBoolSize(3, ready_);
         }
-<<<<<<< HEAD
         if (disconnected_ != false) {
           size += com.google.protobuf.CodedOutputStream
             .computeBoolSize(4, disconnected_);
         }
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
         memoizedSize = size;
         return size;
       }
@@ -380,11 +362,8 @@ public final class AdminEvents {
             == other.getTeam());
         result = result && (getReady()
             == other.getReady());
-<<<<<<< HEAD
         result = result && (getDisconnected()
             == other.getDisconnected());
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
         return result;
       }
 
@@ -402,12 +381,9 @@ public final class AdminEvents {
         hash = (37 * hash) + READY_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getReady());
-<<<<<<< HEAD
         hash = (37 * hash) + DISCONNECTED_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getDisconnected());
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -532,11 +508,8 @@ public final class AdminEvents {
 
           ready_ = false;
 
-<<<<<<< HEAD
           disconnected_ = false;
 
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
           return this;
         }
 
@@ -562,10 +535,7 @@ public final class AdminEvents {
           result.deviceId_ = deviceId_;
           result.team_ = team_;
           result.ready_ = ready_;
-<<<<<<< HEAD
           result.disconnected_ = disconnected_;
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
           onBuilt();
           return result;
         }
@@ -617,12 +587,9 @@ public final class AdminEvents {
           if (other.getReady() != false) {
             setReady(other.getReady());
           }
-<<<<<<< HEAD
           if (other.getDisconnected() != false) {
             setDisconnected(other.getDisconnected());
           }
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
           onChanged();
           return this;
         }
@@ -769,7 +736,6 @@ public final class AdminEvents {
           onChanged();
           return this;
         }
-<<<<<<< HEAD
 
         private boolean disconnected_ ;
         /**
@@ -796,8 +762,6 @@ public final class AdminEvents {
           onChanged();
           return this;
         }
-=======
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
           return this;
@@ -2239,7 +2203,6 @@ public final class AdminEvents {
   static {
     java.lang.String[] descriptorData = {
       "\n\022admin_events.proto\022\024bigsciencequiz.adm" +
-<<<<<<< HEAD
       "in\032\016question.proto\"\261\001\n\030AdminDevicesChang" +
       "edEvent\022F\n\007devices\030\001 \003(\01325.bigsciencequi" +
       "z.admin.AdminDevicesChangedEvent.Device\032" +
@@ -2249,16 +2212,6 @@ public final class AdminEvents {
       "ions\030\001 \003(\0132\030.bigsciencequiz.QuestionB\'\n%" +
       "club.eslcc.bigsciencequiz.proto.adminb\006p" +
       "roto3"
-=======
-      "in\032\016question.proto\"\233\001\n\030AdminDevicesChang" +
-      "edEvent\022F\n\007devices\030\001 \003(\01325.bigsciencequi" +
-      "z.admin.AdminDevicesChangedEvent.Device\032" +
-      "7\n\006Device\022\020\n\010deviceId\030\001 \001(\t\022\014\n\004team\030\002 \001(" +
-      "\005\022\r\n\005ready\030\003 \001(\010\"L\n\032AdminQuestionsChange" +
-      "dEvent\022.\n\014newQuestions\030\001 \003(\0132\030.bigscienc" +
-      "equiz.QuestionB\'\n%club.eslcc.bigscienceq" +
-      "uiz.proto.adminb\006proto3"
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2284,11 +2237,7 @@ public final class AdminEvents {
     internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_Device_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_admin_AdminDevicesChangedEvent_Device_descriptor,
-<<<<<<< HEAD
         new java.lang.String[] { "DeviceId", "Team", "Ready", "Disconnected", });
-=======
-        new java.lang.String[] { "DeviceId", "Team", "Ready", });
->>>>>>> 96412f380e49bc09ba40b96954f792216a1bb2e4
     internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_bigsciencequiz_admin_AdminQuestionsChangedEvent_fieldAccessorTable = new
