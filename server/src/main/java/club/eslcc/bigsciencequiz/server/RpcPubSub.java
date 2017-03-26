@@ -14,7 +14,6 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stob;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.stoi;
 import static club.eslcc.bigsciencequiz.server.SocketHandler.logLock;
@@ -76,15 +75,18 @@ public class RpcPubSub extends JedisPubSub {
     }
 
     private void handleGameStateChange() {
+        final Gamestate.GameState state = RedisHelpers.getGameState();
+
+        if (state.getState() == Gamestate.GameState.State.QUESTION_LIVEANSWERS) {
+            handleLiveAnswers();
+        }
+
         final boolean[] logged = {false}; // Java 8 is weird.
         SocketHandler.users.keySet().stream().filter(Session::isOpen).forEach(session -> {
             Events.GameEvent.Builder builder = Events.GameEvent.newBuilder();
             Events.GameStateChangeEvent.Builder gsceB = Events.GameStateChangeEvent.newBuilder();
 
-            //TODO figure out whether this broke anything
-            //gsceB.setNewState(RedisHelpers.getGameState(SocketHandler.users.get(session)));
-            gsceB.setNewState(RedisHelpers.getGameState());
-
+            gsceB.setNewState(state);
             builder.setGameStateChangeEvent(gsceB);
             Events.GameEvent event = builder.build();
             byte[] data = EventHelpers.addEventFlag(event.toByteArray());
@@ -97,11 +99,11 @@ public class RpcPubSub extends JedisPubSub {
                 }
                 logged[0] = true;
             }
+
+            if (state.getState() == Gamestate.GameState.State.QUESTION_ANSWERS_REVEALED) {
+                handleRevealAnswers(session);
+            }
         });
-        Gamestate.GameState state = RedisHelpers.getGameState();
-        if (state.getState() == Gamestate.GameState.State.QUESTION_LIVEANSWERS) {
-            handleLiveanswers();
-        }
     }
 
     private void handleAdminDevices() {
@@ -157,7 +159,7 @@ public class RpcPubSub extends JedisPubSub {
         }
     }
 
-    private void handleLiveanswers() {
+    private void handleLiveAnswers() {
         try (Jedis jedis = Redis.pool.getResource()) {
             List<String> answers = jedis.hvals("answers");
             Map<Integer, Integer> answerCounts = new HashMap<>(answers.size());
@@ -176,6 +178,51 @@ public class RpcPubSub extends JedisPubSub {
         }
     }
 
+    private void handleRevealAnswers(Session session) {
+        Events.GameEvent.Builder builder = Events.GameEvent.newBuilder();
+        Events.RevealAnswersEvent.Builder raeb = Events.RevealAnswersEvent.newBuilder();
+
+        QuestionOuterClass.Question question = null;
+        int userAnswer = -1;
+        int correctAnswer = -1;
+
+        try (Jedis jedis = Redis.pool.getResource()) {
+            byte[] currentQuestion = jedis.hget(stob("state"), stob("currentQuestion"));
+
+            question = QuestionOuterClass.Question.parseFrom(currentQuestion);
+
+            String userId = SocketHandler.users.get(session);
+
+            if (userId != null && (!userId.equals("ADMIN")) && (!userId.equals("BIGSCREEN"))) {
+                String teamId = jedis.hget("devices", userId);
+                String answer = jedis.hget("answers", teamId);
+                userAnswer = Integer.parseInt(answer);
+            }
+
+            Optional<QuestionOuterClass.Question.Answer> streamAnswer =
+                    question.getAnswersList().stream().filter(QuestionOuterClass.Question.Answer::getCorrect).findFirst();
+            if (streamAnswer.isPresent())
+                correctAnswer = streamAnswer.get().getId();
+
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+
+        if (question != null)
+            raeb.setCurrentQuestion(question);
+
+        if (userAnswer != -1)
+            raeb.setUserAnswer(userAnswer);
+
+        if (correctAnswer != -1)
+            raeb.setCorrectAnswer(correctAnswer);
+
+        builder.setRevealAnswersEvent(raeb);
+        Events.GameEvent event = builder.build();
+        byte[] data = EventHelpers.addEventFlag(event.toByteArray());
+        session.getRemote().sendBytesByFuture(ByteBuffer.wrap(data));
+    }
+
     @Override
     public void onMessage(String channel, String message) {
         switch (channel) {
@@ -188,13 +235,13 @@ public class RpcPubSub extends JedisPubSub {
                         handleGameStateChange();
                         break;
                     case "live_answers":
-                        handleLiveanswers();
+                        handleLiveAnswers();
                 }
                 break;
             case "bigscreen_events":
                 switch(message) {
                     case "show_liveanswers":
-                        handleLiveanswers();
+                        handleLiveAnswers();
                         break;
                 }
             case "admin_events":

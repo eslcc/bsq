@@ -5,17 +5,24 @@ option java_package = "club.eslcc.bigsciencequiz.proto";
 
 import "admin_events.proto";
 import "gamestate.proto";
-
-message GameStateChangeEvent {
-    GameState newState = 1;
-}
+import "question.proto";
 
 message ErrorEvent {
     string description = 1;
 }
 
+message GameStateChangeEvent {
+    GameState newState = 1;
+}
+
 message LiveAnswersEvent {
     map<int32, int32> answers = 1;
+}
+
+message RevealAnswersEvent {
+    Question currentQuestion = 1;
+    int32 userAnswer = 2;
+    int32 correctAnswer = 3;
 }
 
 message ReconnectEvent {
@@ -28,12 +35,13 @@ message RemoteShutdownEvent {
 
 message GameEvent {
     oneof event {
-        GameStateChangeEvent gameStateChangeEvent = 1;
-        ErrorEvent errorEvent = 2;
-        bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 3;
-        bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 4;
-        LiveAnswersEvent liveAnswersEvent = 5;
-        ReconnectEvent reconnectEvent = 6;
-        RemoteShutdownEvent remoteShutdownEvent = 7;
+        ErrorEvent errorEvent = 1;
+        GameStateChangeEvent gameStateChangeEvent = 2;
+        LiveAnswersEvent liveAnswersEvent = 3;
+        RevealAnswersEvent revealAnswersEvent = 4;
+        bigsciencequiz.admin.AdminDevicesChangedEvent adminDevicesChangedEvent = 5;
+        bigsciencequiz.admin.AdminQuestionsChangedEvent adminQuestionsChangedEvent = 6;
+        ReconnectEvent reconnectEvent = 7;
+        RemoteShutdownEvent remoteShutdownEvent = 8;
     }
 }

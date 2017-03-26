@@ -44,8 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import club.eslcc.bigsciencequiz.proto.Appstate;
 import club.eslcc.bigsciencequiz.proto.Events;
-import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.proto.Rpc;
 
@@ -55,9 +55,6 @@ public class AppOverlayView extends RelativeLayout
     private ViewFlipper mViewFlipper;
     private WebSocket mWebSocket;
     private boolean mConnected;
-    private Rpc.IdentifyUserResponse mIdentifyUserResponse;
-    private boolean mTeamReady;
-    private Gamestate.GameState mLastGameState;
     private int mReconnectAttempts;
 
     private void runOnUiThread(Runnable runnable)
@@ -90,15 +87,14 @@ public class AppOverlayView extends RelativeLayout
                 mConnected = false;
                 mWebSocket.disconnect();
             }
-            
+
             mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
-            throw(new RuntimeException("haha"));
         }
     };
 
-    private void showError(final CharSequence error)
+    private void showError(final String error)
     {
-        Sentry.captureMessage(error.toString());
+        Sentry.captureMessage(error);
 
         changeToLayout(R.id.error_layout, new Runnable()
         {
@@ -371,11 +367,11 @@ public class AppOverlayView extends RelativeLayout
         mWebSocket.sendBinary(data);
     }
 
-    private void sendGameStateRequest()
+    private void sendAppStateRequest()
     {
         Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-        Rpc.GetGameStateRequest.Builder requestBuilder = Rpc.GetGameStateRequest.newBuilder();
-        builder.setGetGameStateRequest(requestBuilder);
+        Rpc.GetAppStateRequest.Builder requestBuilder = Rpc.GetAppStateRequest.newBuilder();
+        builder.setGetAppStateRequest(requestBuilder);
         byte[] data = builder.build().toByteArray();
         mWebSocket.sendBinary(data);
     }
@@ -384,8 +380,6 @@ public class AppOverlayView extends RelativeLayout
     {
         mViewFlipper = (ViewFlipper) findViewById(R.id.current_view);
         mConnected = false;
-        mIdentifyUserResponse = null;
-        mTeamReady = false;
         mReconnectAttempts = 0;
 
         ConnectivityManager connectivityManager
@@ -453,6 +447,8 @@ public class AppOverlayView extends RelativeLayout
             {
                 super.onConnected(websocket, headers);
 
+                mReconnectAttempts = 0;
+
                 if (!mConnected)
                 {
                     mConnected = true;
@@ -460,7 +456,7 @@ public class AppOverlayView extends RelativeLayout
                 }
 
                 else
-                    sendGameStateRequest();
+                    sendAppStateRequest();
             }
 
             @Override
@@ -530,20 +526,18 @@ public class AppOverlayView extends RelativeLayout
         switch (event.getEventCase())
         {
             case GAMESTATECHANGEEVENT:
-                mLastGameState = event.getGameStateChangeEvent().getNewState();
-
-                switch (mLastGameState.getState())
+                switch (event.getGameStateChangeEvent().getNewState().getState())
                 {
                     case QUESTION_LIVEANSWERS:
-                    case QUESTION_CLOSED:
-                        break;
-
                     case QUESTION_ANSWERS_REVEALED:
-                        handleAnswersRevealed(mLastGameState);
                         break;
 
                     case QUESTION_ANSWERING:
-                        handleQuestionEvent(mLastGameState.getCurrentQuestion());
+                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion(), false);
+                        break;
+
+                    case QUESTION_CLOSED:
+                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion(), true);
                         break;
 
                     case READY:
@@ -556,6 +550,11 @@ public class AppOverlayView extends RelativeLayout
                         showError("Unknown NewGameState of type " + event.getGameStateChangeEvent().getNewState().getState());
                         break;
                 }
+                break;
+
+            case REVEALANSWERSEVENT:
+                Events.RevealAnswersEvent rae = event.getRevealAnswersEvent();
+                handleAnswersRevealed(rae.getCurrentQuestion(), rae.getUserAnswer(), rae.getCorrectAnswer());
                 break;
 
             case REMOTESHUTDOWNEVENT:
@@ -586,7 +585,6 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             case TEAMREADYRESPONSE:
-                mTeamReady = true;
                 changeToLayout(R.id.waiting_layout, null);
                 break;
 
@@ -595,7 +593,10 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             case GETGAMESTATERESPONSE:
-                handleGameStateResponse(response.getGetGameStateResponse().getGameState());
+                break;
+
+            case GETAPPSTATERESPONSE:
+                handleAppStateResponse(response.getGetAppStateResponse());
                 break;
 
             default:
@@ -609,11 +610,12 @@ public class AppOverlayView extends RelativeLayout
     private void handleIdentifyUserResponse(final Rpc.IdentifyUserResponse response)
     {
         if (!response.hasTeam())
+        {
             showError(response.getFailureReason().toString());
+        }
 
         else
         {
-            mIdentifyUserResponse = response;
             Sentry.init(mContext, response.getSentryDsn(), true);
 
             changeToLayout(R.id.team_select_layout, new Runnable()
@@ -650,12 +652,15 @@ public class AppOverlayView extends RelativeLayout
                                 sendTeamReadyRequest(name);
                         }
                     });
+
+                    // TODO REMOVE
+                    //throw(new RuntimeException("haha"));
                 }
             });
         }
     }
 
-    private void handleQuestionEvent(final QuestionOuterClass.Question question)
+    private void handleQuestionEvent(final QuestionOuterClass.Question question, final boolean locked)
     {
         changeToLayout(R.id.question_layout, new Runnable()
         {
@@ -677,43 +682,49 @@ public class AppOverlayView extends RelativeLayout
 
                 answers.setAdapter(adapter);
 
-                answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                if (locked)
+                    adapter.disable();
+
+                else
                 {
-                    private int lastSelectionView = -1;
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
                     {
-                        if (lastSelectionView == -1)
-                        {
-                            confirmAnswerHint.setText(R.string.press_to_confirm_answer);
-                            confirmAnswerHint.setVisibility(VISIBLE);
-                            view.findViewById(R.id.answer_button).setSelected(true);
-                            lastSelectionView = position;
-                        }
+                        private int lastSelectionView = -1;
 
-                        else if (lastSelectionView != position)
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                         {
-                            parent.getChildAt(lastSelectionView).findViewById(R.id.answer_button).setSelected(false);
-                            view.findViewById(R.id.answer_button).setSelected(true);
-                            lastSelectionView = position;
-                        }
+                            if (lastSelectionView == -1)
+                            {
+                                confirmAnswerHint.setText(R.string.press_to_confirm_answer);
+                                confirmAnswerHint.setVisibility(VISIBLE);
+                                view.findViewById(R.id.answer_button).setSelected(true);
+                                lastSelectionView = position;
+                            }
 
-                        else
-                        {
-                            confirmAnswerHint.setText(R.string.confirmed_answer);
-                            adapter.disable();
-                            sendAnswerQuestionRequest(adapter.getAnswerId(position));
+                            else if (lastSelectionView != position)
+                            {
+                                parent.getChildAt(lastSelectionView).findViewById(R.id.answer_button).setSelected(false);
+                                view.findViewById(R.id.answer_button).setSelected(true);
+                                lastSelectionView = position;
+                            }
+
+                            else
+                            {
+                                confirmAnswerHint.setText(R.string.confirmed_answer);
+                                adapter.disable();
+                                sendAnswerQuestionRequest(adapter.getAnswerId(position));
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
 
     private void handleAnswerQuestionResponse(Rpc.AnswerQuestionResponse response)
     {
-        if (response.getFailureReason() != Rpc.AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS)
+        if (response.getFailureReason() != Rpc.AnswerQuestionResponse.FailureReason.NONE)
         {
             final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
 
@@ -725,7 +736,6 @@ public class AppOverlayView extends RelativeLayout
 
                 case ALREADY_ANSWERED:
                     confirmAnswerHint.setText(R.string.already_answered);
-                    handleAnswersRevealed(mLastGameState);
                     break;
 
                 default:
@@ -735,66 +745,57 @@ public class AppOverlayView extends RelativeLayout
         }
     }
 
-    private void handleAnswersRevealed(final Gamestate.GameState gameState)
+    private void handleAnswersRevealed(final QuestionOuterClass.Question question, final int userAnswer, final int correctAnswer)
     {
         runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                View currentAnswer = null;
-                View correctAnswer = null;
-                boolean currentAnswerIsCorrect = false;
-
-                int currentAnswerId = gameState();
-                int correctAnswerId = 0;
-
-                List<QuestionOuterClass.Question.Answer> answersList =
-                        gameState.getCurrentQuestion().getAnswersList();
-
                 final ListView answersListView = (ListView) findViewById(R.id.question_answers);
                 final TextView confirmAnswerHint = (TextView) findViewById(R.id.confirm_answer_hint);
+                View currentAnswerView = null;
+                View correctAnswerView = null;
+
+                boolean currentAnswerIsCorrect = false;
+
+                if (userAnswer == correctAnswer)
+                    currentAnswerIsCorrect = true;
+
+                List<QuestionOuterClass.Question.Answer> answersList = question.getAnswersList();
 
                 for (int i = 0; i < answersList.size(); ++i)
                 {
-                    if (answersList.get(i).getCorrect())
-                    {
-                        correctAnswerId = answersList.get(i).getId();
+                    if (userAnswer == answersList.get(i).getId())
+                        currentAnswerView = answersListView.getChildAt(i);
 
-                        if (currentAnswerId == correctAnswerId)
-                            currentAnswerIsCorrect = true;
-
-                        else
-                            correctAnswer = answersListView.getChildAt(i);
-                    }
-
-                    if (currentAnswerId == answersList.get(i).getId())
-                        currentAnswer = answersListView.getChildAt(i);
+                    if (correctAnswer == answersList.get(i).getId())
+                        correctAnswerView = answersListView.getChildAt(i);
                 }
 
-                if (correctAnswerId == 0 || correctAnswer == null)
+                if (correctAnswer == 0 || correctAnswerView == null)
                     showError("Question had no correct answer?");
 
                 else
                 {
-                    if (currentAnswerId == 0 || currentAnswer == null)
+                    if (userAnswer == 0 || currentAnswerView == null)
                     {
                         ((AnswerAdapter) answersListView.getAdapter()).disable();
-                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateWrong();
+                        ((AnswerButton) correctAnswerView.findViewById(R.id.answer_button)).setStateWrong();
                         confirmAnswerHint.setText(R.string.not_answered);
                         confirmAnswerHint.setVisibility(VISIBLE);
                     }
 
                     else if (currentAnswerIsCorrect)
                     {
-                        ((AnswerButton) currentAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        ((AnswerButton) currentAnswerView.findViewById(R.id.answer_button)).setStateRight();
                         confirmAnswerHint.setText(R.string.correct_answer_hint);
                     }
 
                     else
                     {
-                        ((AnswerButton) currentAnswer.findViewById(R.id.answer_button)).setStateWrong();
-                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        ((AnswerButton) currentAnswerView.findViewById(R.id.answer_button)).setStateWrong();
+                        ((AnswerButton) correctAnswerView.findViewById(R.id.answer_button)).setStateRight();
                         confirmAnswerHint.setText(R.string.wrong_answer_hint);
                     }
                 }
@@ -802,45 +803,49 @@ public class AppOverlayView extends RelativeLayout
         });
     }
 
-    private void handleGameStateResponse(final Gamestate.GameState gameState)
+    private void handleAppStateResponse(final Rpc.GetAppStateResponse response)
     {
-        switch (gameState.getState())
-        {
-            case NOTREADY:
-            case INTRO:
-                break;
+        Appstate.AppState appState = response.getAppState();
 
-            case READY:
-            case STARTING:
-                break;
+        if (!appState.hasGameState())
+            showError("Got no game state from server");
 
-            case QUESTION_ANSWERING:
-            case QUESTION_LIVEANSWERS:
-                break;
-
-            case QUESTION_CLOSED:
-                break;
-
-            case QUESTION_ANSWERS_REVEALED:
-                break;
-
-            case LEADERBOARD:
-                break;
-
-            default:
-                showError();
-        }
-
-        if (mIdentifyUserResponse == null)
+        else if (!appState.hasTeam())
             sendIdentifyUserRequest();
 
-        else if (!mTeamReady)
-            handleIdentifyUserResponse(mIdentifyUserResponse);
-
-        else if (gameState.hasCurrentQuestion())
-            handleQuestionEvent(gameState.getCurrentQuestion());
-
         else
-            changeToLayout(R.id.waiting_layout, null);
+        {
+            switch (appState.getGameState().getState())
+            {
+                case NOTREADY:
+                case INTRO:
+                case READY:
+                case STARTING:
+                    changeToLayout(R.id.waiting_layout, null);
+                    break;
+
+                case QUESTION_ANSWERING:
+                case QUESTION_LIVEANSWERS:
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), false);
+                    break;
+
+                case QUESTION_CLOSED:
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), true);
+                    break;
+
+                case QUESTION_ANSWERS_REVEALED:
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), true);
+                    handleAnswersRevealed(appState.getGameState().getCurrentQuestion(),
+                            appState.getUserAnswer(),
+                            appState.getCorrectAnswer());
+                    break;
+
+                case LEADERBOARD:
+                    break;
+
+                default:
+                    showError("Unknown game state" + appState.getGameState().getState().toString());
+            }
+        }
     }
 }

@@ -35,6 +35,7 @@ public class SocketHandler {
     static {
         handlers.put(GETGAMESTATEREQUEST, new GetGameStateHandler());
         handlers.put(IDENTIFYUSERREQUEST, new IdentifyUserHandler());
+        handlers.put(GETAPPSTATEREQUEST, new GetAppStateHandler());
         handlers.put(ADMINSETACTIVEQUESTIONREQUEST, new AdminHandlers.ActivateQuestionHandler());
         handlers.put(ADMINGETQUESTIONSREQUEST, new AdminHandlers.GetQuestionsHandler());
         handlers.put(TEAMREADYREQUEST, new TeamReadyHandler());

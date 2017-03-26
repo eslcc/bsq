@@ -64,15 +64,15 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/team_name_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/team_name_layout"
         android:layout_toEndOf="@+id/team_name_layout"
         android:layout_toRightOf="@+id/team_name_layout"
         android:clickable="true"
         app:fabSize="normal"
-        app:layout_aspectRatio="100%"
-        app:layout_widthPercent="50%"
-        app:layout_marginRightPercent="2.5%"
         app:layout_marginEndPercent="2.5%"
+        app:layout_marginRightPercent="2.5%"
         app:srcCompat="@android:drawable/ic_media_play"/>
 
 </android.support.percent.PercentRelativeLayout>

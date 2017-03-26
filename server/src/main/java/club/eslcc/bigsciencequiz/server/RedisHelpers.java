@@ -22,13 +22,31 @@ public class RedisHelpers {
         try (Jedis jedis = Redis.pool.getResource()) {
             String name = jedis.hget("team_names", teamId);
             List<String> members = jedis.lrange("team_members_" + teamId, 0, -1);
-            int score = jedis.zscore("answers", teamId).intValue();
+            int score = -1;
+
+            try
+            {
+                score = jedis.zscore("answers", teamId).intValue();
+            } catch (NullPointerException e) {
+                System.out.println("Team " + teamId + " has no score!");
+            }
 
             Team.Builder teamBuilder = Team.newBuilder();
-            teamBuilder.setNumber(teamId);
-            teamBuilder.setTeamName(name);
-            teamBuilder.addAllMemberNames(members);
-            teamBuilder.setScore(score);
+            if (teamId != null) {
+                teamBuilder.setNumber(teamId);
+            }
+
+            if (name != null) {
+                teamBuilder.setTeamName(name);
+            }
+
+            if (members != null) {
+                teamBuilder.addAllMemberNames(members);
+            }
+
+            if (score != -1) {
+                teamBuilder.setScore(score);
+            }
 
             return teamBuilder.build();
         }
