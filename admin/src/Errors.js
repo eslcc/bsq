@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ErrorEvent} from './common-js/ProtoLoader';
+//import {ErrorEvent} from './common-js/ProtoLoader';
 import {socket as AdminSocket} from './AdminInterface';
 
 export default class Errors extends Component {

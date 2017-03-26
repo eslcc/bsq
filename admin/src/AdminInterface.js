@@ -40,6 +40,7 @@ export default class AdminInterface extends React.Component {
         this.setState({
             state: message.newState,
         });
+        console.log(message);
     }
 
     _onGetGameState(message) {

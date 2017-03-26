@@ -47,6 +47,9 @@ const PROTOS = [
     "/proto/models/rpc.proto",
     "/proto/models/admin_rpc.proto",
     "/proto/models/bigscreen_rpc.proto",
+    "/proto/models/events.proto",
+    "/proto/models/admin_events.proto",
+    "/proto/models/bigscreen_events.proto",
 ];
 
 const promises = PROTOS.map(

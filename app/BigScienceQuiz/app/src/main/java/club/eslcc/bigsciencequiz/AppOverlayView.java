@@ -456,6 +456,7 @@ public class AppOverlayView extends RelativeLayout
             public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
             {
                 super.onConnectError(websocket, exception);
+                mConnected = false;
                 Sentry.captureException(exception, exception.getLocalizedMessage());
                 attemptReconnecting();
             }
@@ -474,6 +475,7 @@ public class AppOverlayView extends RelativeLayout
 
                 if (mConnected)
                 {
+                    mConnected = false;
                     Sentry.captureMessage("Client disconnected when it shouldn't have, reconnecting");
                     attemptReconnecting();
                 }
@@ -798,6 +800,7 @@ public class AppOverlayView extends RelativeLayout
 
     private void handleAppStateResponse(final Rpc.GetAppStateResponse response)
     {
+
         Appstate.AppState appState = response.getAppState();
 
         if (!appState.hasGameState())

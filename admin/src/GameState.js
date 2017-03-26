@@ -3,7 +3,6 @@ import {socket as AdminSocket} from './AdminInterface';
 import {getKeyByValue} from './common-js/helpers';
 import {
     RpcRequest,
-    GetGameStateRequest,
     AdminResetStateRequest,
     AdminSetGameStateRequest,
     GameState
