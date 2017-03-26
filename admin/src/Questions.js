@@ -58,6 +58,7 @@ export default class Questions extends React.Component {
                 {this.state.questions.sort((a, b) => a.id - b.id).map(question => (
                     <div key={question.id}>
                         {question.alreadyPlayed ? <s>{this.renderQuestion(question)}</s> : this.renderQuestion(question)}
+                        <br />
                     </div>
                 ))}
                 {this.renderLiveanswers()}

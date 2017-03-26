@@ -13,7 +13,7 @@ import static spark.Spark.*;
  * Created by marks on 10/03/2017.
  */
 public class Server {
-    public static final boolean PROD = System.getenv("PROD") != null;
+    public static final boolean PROD = System.getenv("PROD").equals("true");
     public static final String questionFile = System.getenv("questions");
 
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
