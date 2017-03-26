@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/admin/admin.iml" filepath="$PROJECT_DIR$/admin/admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/bigscreen/bigscreen.iml" filepath="$PROJECT_DIR$/bigscreen/bigscreen.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-js/common-js.iml" filepath="$PROJECT_DIR$/common-js/common-js.iml" />
       <module fileurl="file://$PROJECT_DIR$/microtests/microtests.iml" filepath="$PROJECT_DIR$/microtests/microtests.iml" />
       <module fileurl="file://$PROJECT_DIR$/proto/proto.iml" filepath="$PROJECT_DIR$/proto/proto.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />

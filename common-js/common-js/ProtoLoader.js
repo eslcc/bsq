@@ -21,6 +21,8 @@ const TYPES = {
     AutocompleteMemberNameResponse: 'bigsciencequiz.AutocompleteMemberNameResponse',
     GetGameStateRequest: 'bigsciencequiz.GetGameStateRequest',
     GetGameStateResponse: 'bigsciencequiz.GetGameStateResponse',
+    GetAppStateRequest: 'bigsciencequiz.GetAppStateRequest',
+    GetAppStateResponse: 'bigsciencequiz.GetAppStateResponse',
     AdminGetQuestionsRequest: 'bigsciencequiz.admin.AdminGetQuestionsRequest',
     AdminSetActiveQuestionRequest: 'bigsciencequiz.admin.AdminSetActiveQuestionRequest',
     AdminResetStateRequest: 'bigsciencequiz.admin.AdminResetStateRequest',
@@ -29,6 +31,7 @@ const TYPES = {
     AdminSetGameStateResponse: 'bigsciencequiz.admin.AdminSetGameStateResponse',
     GameState: 'bigsciencequiz.GameState',
     GameEvent: 'bigsciencequiz.GameEvent',
+    RevealAnswersEvent: 'bigsciencequiz.RevealAnswersEvent',
     ReconnectEvent: 'bigsciencequiz.ReconnectEvent',
     RemoteShutdownEvent: 'bigsciencequiz.RemoteShutdownEvent',
     GameStateChangeEvent: 'bigsciencequiz.GameStateChangeEvent',
@@ -44,6 +47,9 @@ const PROTOS = [
     "/proto/models/rpc.proto",
     "/proto/models/admin_rpc.proto",
     "/proto/models/bigscreen_rpc.proto",
+    "/proto/models/events.proto",
+    "/proto/models/admin_events.proto",
+    "/proto/models/bigscreen_events.proto",
 ];
 
 const promises = PROTOS.map(
