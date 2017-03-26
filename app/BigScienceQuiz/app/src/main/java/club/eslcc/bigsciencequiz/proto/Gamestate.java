@@ -39,11 +39,6 @@ public final class Gamestate {
      * <code>.bigsciencequiz.Question currentQuestion = 2;</code>
      */
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.QuestionOrBuilder getCurrentQuestionOrBuilder();
-
-    /**
-     * <code>int32 myCurrentQuestionAnswer = 3;</code>
-     */
-    int getMyCurrentQuestionAnswer();
   }
   /**
    * Protobuf type {@code bigsciencequiz.GameState}
@@ -58,7 +53,6 @@ public final class Gamestate {
     }
     private GameState() {
       state_ = 0;
-      myCurrentQuestionAnswer_ = 0;
     }
 
     @java.lang.Override
@@ -103,11 +97,6 @@ public final class Gamestate {
                 currentQuestion_ = subBuilder.buildPartial();
               }
 
-              break;
-            }
-            case 24: {
-
-              myCurrentQuestionAnswer_ = input.readInt32();
               break;
             }
           }
@@ -331,15 +320,6 @@ public final class Gamestate {
       return getCurrentQuestion();
     }
 
-    public static final int MYCURRENTQUESTIONANSWER_FIELD_NUMBER = 3;
-    private int myCurrentQuestionAnswer_;
-    /**
-     * <code>int32 myCurrentQuestionAnswer = 3;</code>
-     */
-    public int getMyCurrentQuestionAnswer() {
-      return myCurrentQuestionAnswer_;
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -358,9 +338,6 @@ public final class Gamestate {
       if (currentQuestion_ != null) {
         output.writeMessage(2, getCurrentQuestion());
       }
-      if (myCurrentQuestionAnswer_ != 0) {
-        output.writeInt32(3, myCurrentQuestionAnswer_);
-      }
     }
 
     public int getSerializedSize() {
@@ -375,10 +352,6 @@ public final class Gamestate {
       if (currentQuestion_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getCurrentQuestion());
-      }
-      if (myCurrentQuestionAnswer_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, myCurrentQuestionAnswer_);
       }
       memoizedSize = size;
       return size;
@@ -402,8 +375,6 @@ public final class Gamestate {
         result = result && getCurrentQuestion()
             .equals(other.getCurrentQuestion());
       }
-      result = result && (getMyCurrentQuestionAnswer()
-          == other.getMyCurrentQuestionAnswer());
       return result;
     }
 
@@ -420,8 +391,6 @@ public final class Gamestate {
         hash = (37 * hash) + CURRENTQUESTION_FIELD_NUMBER;
         hash = (53 * hash) + getCurrentQuestion().hashCode();
       }
-      hash = (37 * hash) + MYCURRENTQUESTIONANSWER_FIELD_NUMBER;
-      hash = (53 * hash) + getMyCurrentQuestionAnswer();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -548,8 +517,6 @@ public final class Gamestate {
           currentQuestion_ = null;
           currentQuestionBuilder_ = null;
         }
-        myCurrentQuestionAnswer_ = 0;
-
         return this;
       }
 
@@ -578,7 +545,6 @@ public final class Gamestate {
         } else {
           result.currentQuestion_ = currentQuestionBuilder_.build();
         }
-        result.myCurrentQuestionAnswer_ = myCurrentQuestionAnswer_;
         onBuilt();
         return result;
       }
@@ -625,9 +591,6 @@ public final class Gamestate {
         }
         if (other.hasCurrentQuestion()) {
           mergeCurrentQuestion(other.getCurrentQuestion());
-        }
-        if (other.getMyCurrentQuestionAnswer() != 0) {
-          setMyCurrentQuestionAnswer(other.getMyCurrentQuestionAnswer());
         }
         onChanged();
         return this;
@@ -815,32 +778,6 @@ public final class Gamestate {
         }
         return currentQuestionBuilder_;
       }
-
-      private int myCurrentQuestionAnswer_ ;
-      /**
-       * <code>int32 myCurrentQuestionAnswer = 3;</code>
-       */
-      public int getMyCurrentQuestionAnswer() {
-        return myCurrentQuestionAnswer_;
-      }
-      /**
-       * <code>int32 myCurrentQuestionAnswer = 3;</code>
-       */
-      public Builder setMyCurrentQuestionAnswer(int value) {
-        
-        myCurrentQuestionAnswer_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 myCurrentQuestionAnswer = 3;</code>
-       */
-      public Builder clearMyCurrentQuestionAnswer() {
-        
-        myCurrentQuestionAnswer_ = 0;
-        onChanged();
-        return this;
-      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -905,16 +842,15 @@ public final class Gamestate {
   static {
     java.lang.String[] descriptorData = {
       "\n\017gamestate.proto\022\016bigsciencequiz\032\016quest" +
-      "ion.proto\"\302\002\n\tGameState\022.\n\005state\030\001 \001(\0162\037" +
+      "ion.proto\"\241\002\n\tGameState\022.\n\005state\030\001 \001(\0162\037" +
       ".bigsciencequiz.GameState.State\0221\n\017curre" +
       "ntQuestion\030\002 \001(\0132\030.bigsciencequiz.Questi" +
-      "on\022\037\n\027myCurrentQuestionAnswer\030\003 \001(\005\"\260\001\n\005" +
-      "State\022\014\n\010NOTREADY\020\000\022\t\n\005INTRO\020\001\022\t\n\005READY\020" +
-      "\002\022\014\n\010STARTING\020\003\022\026\n\022QUESTION_ANSWERING\020\004\022" +
-      "\030\n\024QUESTION_LIVEANSWERS\020\005\022\023\n\017QUESTION_CL" +
-      "OSED\020\006\022\035\n\031QUESTION_ANSWERS_REVEALED\020\007\022\017\n" +
-      "\013LEADERBOARD\020\010B!\n\037club.eslcc.bigscienceq",
-      "uiz.protob\006proto3"
+      "on\"\260\001\n\005State\022\014\n\010NOTREADY\020\000\022\t\n\005INTRO\020\001\022\t\n" +
+      "\005READY\020\002\022\014\n\010STARTING\020\003\022\026\n\022QUESTION_ANSWE" +
+      "RING\020\004\022\030\n\024QUESTION_LIVEANSWERS\020\005\022\023\n\017QUES" +
+      "TION_CLOSED\020\006\022\035\n\031QUESTION_ANSWERS_REVEAL" +
+      "ED\020\007\022\017\n\013LEADERBOARD\020\010B!\n\037club.eslcc.bigs" +
+      "ciencequiz.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -934,7 +870,7 @@ public final class Gamestate {
     internal_static_bigsciencequiz_GameState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bigsciencequiz_GameState_descriptor,
-        new java.lang.String[] { "State", "CurrentQuestion", "MyCurrentQuestionAnswer", });
+        new java.lang.String[] { "State", "CurrentQuestion", });
     club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
   }
 

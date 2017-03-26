@@ -4369,16 +4369,15 @@ public final class Events {
   static {
     java.lang.String[] descriptorData = {
       "\n\014events.proto\022\016bigsciencequiz\032\022admin_ev" +
-      "ents.proto\032\026bigscreen_events.proto\032\016ques" +
-      "tion.proto\032\017gamestate.proto\"C\n\024GameState" +
+      "ents.proto\032\017gamestate.proto\"C\n\024GameState" +
       "ChangeEvent\022+\n\010newState\030\001 \001(\0132\031.bigscien" +
       "cequiz.GameState\"!\n\nErrorEvent\022\023\n\013descri" +
       "ption\030\001 \001(\t\"\202\001\n\020LiveAnswersEvent\022>\n\007answ" +
       "ers\030\001 \003(\0132-.bigsciencequiz.LiveAnswersEv" +
       "ent.AnswersEntry\032.\n\014AnswersEntry\022\013\n\003key\030" +
       "\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"\020\n\016ReconnectEve" +
-      "nt\"\025\n\023RemoteShutdownEvent\"\364\003\n\tGameEvent\022",
-      "D\n\024gameStateChangeEvent\030\001 \001(\0132$.bigscien" +
+      "nt\"\025\n\023RemoteShutdownEvent\"\364\003\n\tGameEvent\022" +
+      "D\n\024gameStateChangeEvent\030\001 \001(\0132$.bigscien",
       "cequiz.GameStateChangeEventH\000\0220\n\nerrorEv" +
       "ent\030\002 \001(\0132\032.bigsciencequiz.ErrorEventH\000\022" +
       "R\n\030adminDevicesChangedEvent\030\003 \001(\0132..bigs" +
@@ -4387,8 +4386,8 @@ public final class Events {
       "0.bigsciencequiz.admin.AdminQuestionsCha" +
       "ngedEventH\000\022<\n\020liveAnswersEvent\030\005 \001(\0132 ." +
       "bigsciencequiz.LiveAnswersEventH\000\0228\n\016rec" +
-      "onnectEvent\030\006 \001(\0132\036.bigsciencequiz.Recon",
-      "nectEventH\000\022B\n\023remoteShutdownEvent\030\007 \001(\013" +
+      "onnectEvent\030\006 \001(\0132\036.bigsciencequiz.Recon" +
+      "nectEventH\000\022B\n\023remoteShutdownEvent\030\007 \001(\013",
       "2#.bigsciencequiz.RemoteShutdownEventH\000B" +
       "\007\n\005eventB!\n\037club.eslcc.bigsciencequiz.pr" +
       "otob\006proto3"
@@ -4405,8 +4404,6 @@ public final class Events {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor(),
-          club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor(),
-          club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor(),
           club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor(),
         }, assigner);
     internal_static_bigsciencequiz_GameStateChangeEvent_descriptor =
@@ -4452,8 +4449,6 @@ public final class Events {
         internal_static_bigsciencequiz_GameEvent_descriptor,
         new java.lang.String[] { "GameStateChangeEvent", "ErrorEvent", "AdminDevicesChangedEvent", "AdminQuestionsChangedEvent", "LiveAnswersEvent", "ReconnectEvent", "RemoteShutdownEvent", "Event", });
     club.eslcc.bigsciencequiz.proto.admin.AdminEvents.getDescriptor();
-    club.eslcc.bigsciencequiz.proto.bigscreen.BigscreenEvents.getDescriptor();
-    club.eslcc.bigsciencequiz.proto.QuestionOuterClass.getDescriptor();
     club.eslcc.bigsciencequiz.proto.Gamestate.getDescriptor();
   }
 

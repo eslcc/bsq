@@ -24,7 +24,7 @@ public class TeamReadyHandler implements IRpcHandler {
             List<String> names = jedis.hvals("team_names");
 
             if (names.contains(rq.getTeamName())) {
-                responseBuilder.setFailureReason(TeamReadyResponse.RegisterFailedReason.TEAM_NAME_TAKEN);
+                responseBuilder.setFailureReason(TeamReadyResponse.FailureReason.TEAM_NAME_TAKEN);
                 builder.setTeamReadyResponse(responseBuilder);
                 return builder.build();
             }
@@ -35,7 +35,7 @@ public class TeamReadyHandler implements IRpcHandler {
             long result = jedis.hsetnx("team_names", teamNumber, rq.getTeamName());
 
             if (result == 0L) {
-                responseBuilder.setFailureReason(TeamReadyResponse.RegisterFailedReason.ALREADY_REGISTERED);
+                responseBuilder.setFailureReason(TeamReadyResponse.FailureReason.ALREADY_REGISTERED);
             } else {
                 jedis.sadd("ready_devices", currentUserId);
                 jedis.publish("admin_events", "ready_device_change");

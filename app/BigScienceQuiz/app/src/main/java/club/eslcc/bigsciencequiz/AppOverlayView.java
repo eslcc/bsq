@@ -52,9 +52,11 @@ import club.eslcc.bigsciencequiz.proto.Rpc;
 public class AppOverlayView extends RelativeLayout
 {
     private Context mContext;
+    private ViewFlipper mViewFlipper;
     private WebSocket mWebSocket;
     private boolean mConnected;
-    private ViewFlipper mViewFlipper;
+    private Rpc.IdentifyUserResponse mIdentifyUserResponse;
+    private boolean mTeamReady;
     private Gamestate.GameState mLastGameState;
     private int mReconnectAttempts;
 
@@ -88,8 +90,9 @@ public class AppOverlayView extends RelativeLayout
                 mConnected = false;
                 mWebSocket.disconnect();
             }
-
+            
             mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
+            throw(new RuntimeException("haha"));
         }
     };
 
@@ -293,7 +296,7 @@ public class AppOverlayView extends RelativeLayout
     {
         mReconnectAttempts++;
 
-        if (mReconnectAttempts < 5)
+        if (mReconnectAttempts != 5)
             runOnUiThread(new Runnable()
             {
                 @Override
@@ -303,7 +306,7 @@ public class AppOverlayView extends RelativeLayout
                 }
             });
 
-        else if (mReconnectAttempts == 5)
+        else
             runOnUiThread(new Runnable()
             {
                 @Override
@@ -379,9 +382,11 @@ public class AppOverlayView extends RelativeLayout
 
     public void setup()
     {
-        mConnected = false;
-        mReconnectAttempts = 0;
         mViewFlipper = (ViewFlipper) findViewById(R.id.current_view);
+        mConnected = false;
+        mIdentifyUserResponse = null;
+        mTeamReady = false;
+        mReconnectAttempts = 0;
 
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -581,6 +586,7 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             case TEAMREADYRESPONSE:
+                mTeamReady = true;
                 changeToLayout(R.id.waiting_layout, null);
                 break;
 
@@ -589,7 +595,7 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             case GETGAMESTATERESPONSE:
-                handleGameStateResponse(response.getGetGameStateResponse().getState());
+                handleGameStateResponse(response.getGetGameStateResponse().getGameState());
                 break;
 
             default:
@@ -607,6 +613,7 @@ public class AppOverlayView extends RelativeLayout
 
         else
         {
+            mIdentifyUserResponse = response;
             Sentry.init(mContext, response.getSentryDsn(), true);
 
             changeToLayout(R.id.team_select_layout, new Runnable()
@@ -739,7 +746,7 @@ public class AppOverlayView extends RelativeLayout
                 View correctAnswer = null;
                 boolean currentAnswerIsCorrect = false;
 
-                int currentAnswerId = gameState.getMyCurrentQuestionAnswer();
+                int currentAnswerId = gameState();
                 int correctAnswerId = 0;
 
                 List<QuestionOuterClass.Question.Answer> answersList =
@@ -773,7 +780,7 @@ public class AppOverlayView extends RelativeLayout
                     if (currentAnswerId == 0 || currentAnswer == null)
                     {
                         ((AnswerAdapter) answersListView.getAdapter()).disable();
-                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateRight();
+                        ((AnswerButton) correctAnswer.findViewById(R.id.answer_button)).setStateWrong();
                         confirmAnswerHint.setText(R.string.not_answered);
                         confirmAnswerHint.setVisibility(VISIBLE);
                     }
@@ -797,7 +804,43 @@ public class AppOverlayView extends RelativeLayout
 
     private void handleGameStateResponse(final Gamestate.GameState gameState)
     {
-        if (gameState.hasCurrentQuestion())
+        switch (gameState.getState())
+        {
+            case NOTREADY:
+            case INTRO:
+                break;
+
+            case READY:
+            case STARTING:
+                break;
+
+            case QUESTION_ANSWERING:
+            case QUESTION_LIVEANSWERS:
+                break;
+
+            case QUESTION_CLOSED:
+                break;
+
+            case QUESTION_ANSWERS_REVEALED:
+                break;
+
+            case LEADERBOARD:
+                break;
+
+            default:
+                showError();
+        }
+
+        if (mIdentifyUserResponse == null)
+            sendIdentifyUserRequest();
+
+        else if (!mTeamReady)
+            handleIdentifyUserResponse(mIdentifyUserResponse);
+
+        else if (gameState.hasCurrentQuestion())
             handleQuestionEvent(gameState.getCurrentQuestion());
+
+        else
+            changeToLayout(R.id.waiting_layout, null);
     }
 }

@@ -13,8 +13,9 @@ import static spark.Spark.*;
  * Created by marks on 10/03/2017.
  */
 public class Server {
-    public static final boolean PROD = System.getenv("PROD").equals("true");
-    public static final String questionFile = System.getenv("questions");
+    public static final boolean PRODUCTION = System.getenv("PRODUCTION").equals("true");
+    public static final String QUESTIONS = System.getenv("QUESTIONS");
+    public static final String SENTRY_DSN = System.getenv("SENTRY_DSN");
 
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     private static List<IStartupCallback> callbacks = Arrays.asList(
@@ -56,11 +57,6 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        String serverSentryDsn = System.getenv("SENTRY_DSN");
-        if (serverSentryDsn != null) {
-
-        }
-
         runCallbacks();
         staticFiles.location("static/");
         staticFiles.header("Access-Control-Allow-Origin", "*");

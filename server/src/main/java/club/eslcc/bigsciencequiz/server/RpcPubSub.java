@@ -80,7 +80,11 @@ public class RpcPubSub extends JedisPubSub {
         SocketHandler.users.keySet().stream().filter(Session::isOpen).forEach(session -> {
             Events.GameEvent.Builder builder = Events.GameEvent.newBuilder();
             Events.GameStateChangeEvent.Builder gsceB = Events.GameStateChangeEvent.newBuilder();
-            gsceB.setNewState(RedisHelpers.getGameState(SocketHandler.users.get(session)));
+
+            //TODO figure out whether this broke anything
+            //gsceB.setNewState(RedisHelpers.getGameState(SocketHandler.users.get(session)));
+            gsceB.setNewState(RedisHelpers.getGameState());
+
             builder.setGameStateChangeEvent(gsceB);
             Events.GameEvent event = builder.build();
             byte[] data = EventHelpers.addEventFlag(event.toByteArray());
@@ -94,7 +98,7 @@ public class RpcPubSub extends JedisPubSub {
                 logged[0] = true;
             }
         });
-        Gamestate.GameState state = RedisHelpers.getGameState(null);
+        Gamestate.GameState state = RedisHelpers.getGameState();
         if (state.getState() == Gamestate.GameState.State.QUESTION_LIVEANSWERS) {
             handleLiveanswers();
         }

@@ -19,5 +19,4 @@ message GameState {
     }
     State state = 1;
     Question currentQuestion = 2;
-    int32 myCurrentQuestionAnswer = 3;
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/space_margin"
+        app:layout_marginTopPercent="10%"
         android:indeterminate="true"/>
 
     <TextView
@@ -19,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/small_space_margin"
+        app:layout_marginTopPercent="30%"
         android:gravity="center"
         android:text="Please wait for the quiz to start"
         android:textSize="48sp"/>
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>

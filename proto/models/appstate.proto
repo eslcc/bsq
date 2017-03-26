@@ -1,0 +1,14 @@
+syntax = "proto3";
+package bigsciencequiz;
+
+import "gamestate.proto";
+import "user.proto";
+
+option java_package = "club.eslcc.bigsciencequiz.proto";
+
+message AppState {
+    GameState gameState = 1;
+    Team team = 2;
+    int32 userAnswer = 3;
+    int32 correctAnswer = 4;
+}

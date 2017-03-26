@@ -27,5 +27,4 @@ dependencies {
     compile 'com.neovisionaries:nv-websocket-client:1.31'
     compile 'com.joshdholtz.sentry:sentry-android:1.6.0'
     compile project(':protobuf-java-3.2.0')
-    compile project(':protobuf-java-util-3.2.0')
 }

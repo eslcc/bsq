@@ -31,7 +31,7 @@ public class InitializeStateCallback implements IStartupCallback {
         if (jedis.exists("state")) {
             log.log(Level.INFO, "[InitializeStateCallback] Skipping state initialization because state exists");
 
-            if (!Server.PROD) {
+            if (!Server.PRODUCTION) {
                 del("devices");
                 del("team_names");
                 del("questions");

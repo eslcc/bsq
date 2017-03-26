@@ -62,7 +62,7 @@ public class AdminHandlers {
             try (Jedis jedis = Redis.pool.getResource()) {
                 try {
                     AdminSetActiveQuestionRequest request = wrapped.getAdminSetActiveQuestionRequest();
-                    GameState state = RedisHelpers.getGameState(null);
+                    GameState state = RedisHelpers.getGameState();
                     GameState.Builder newBuilder = GameState.newBuilder(state);
                     Question newQuestion = Question.parseFrom(jedis.hget(
                             stob("questions"), itob(request.getQuestionId())
@@ -102,7 +102,7 @@ public class AdminHandlers {
                 jedis.hset("state", "state", wrapped.getNewState().toString());
                 jedis.publish("game_events", "game_state_change");
 
-                GameState state = RedisHelpers.getGameState(null);
+                GameState state = RedisHelpers.getGameState();
                 switch (wrapped.getNewState()) {
                     case QUESTION_ANSWERS_REVEALED:
                         if (state.getCurrentQuestion().getScored()) {

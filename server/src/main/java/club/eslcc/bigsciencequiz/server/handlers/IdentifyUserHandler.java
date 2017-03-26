@@ -3,10 +3,7 @@ package club.eslcc.bigsciencequiz.server.handlers;
 import static club.eslcc.bigsciencequiz.proto.Rpc.*;
 
 import club.eslcc.bigsciencequiz.proto.User;
-import club.eslcc.bigsciencequiz.server.IRpcHandler;
-import club.eslcc.bigsciencequiz.server.Redis;
-import club.eslcc.bigsciencequiz.server.RedisHelpers;
-import club.eslcc.bigsciencequiz.server.SocketHandler;
+import club.eslcc.bigsciencequiz.server.*;
 import org.eclipse.jetty.websocket.api.Session;
 import redis.clients.jedis.Jedis;
 
@@ -43,19 +40,12 @@ public class IdentifyUserHandler implements IRpcHandler {
                 }
             }
 
-            List<String> members = jedis.lrange("team_members_" + teamId, 0, -1);
-
             jedis.hset("devices", idR.getDeviceId(), teamId);
             SocketHandler.users.put(session, idR.getDeviceId());
 
-            User.Team.Builder teamBuilder = User.Team.newBuilder();
-            teamBuilder.setNumber(teamId);
-            teamBuilder.addAllMemberNames(members);
+            responseBuilder.setTeam(RedisHelpers.getTeam(teamId));
 
-            responseBuilder.setTeam(teamBuilder);
-            responseBuilder.setState(RedisHelpers.getGameState(idR.getDeviceId()));
-
-            String sentryDsn = System.getenv("SENTRY_CLIENT_DSN");
+            String sentryDsn = Server.SENTRY_DSN;
             System.out.println("SDSN: " + sentryDsn);
             if (sentryDsn != null) {
                 responseBuilder.setSentryDsn(sentryDsn);

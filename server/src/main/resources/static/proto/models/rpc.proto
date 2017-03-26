@@ -1,10 +1,9 @@
 syntax = "proto3";
 package bigsciencequiz;
 
-import "question.proto";
 import "gamestate.proto";
+import "appstate.proto";
 import "user.proto";
-import "events.proto";
 import "admin_rpc.proto";
 import "bigscreen_rpc.proto";
 
@@ -18,13 +17,13 @@ message IdentifyUserRequest {
 
 message IdentifyUserResponse {
     enum FailureReason {
-        DO_NOT_EVER_USE_ME = 0;
-        NO_FREE_TEAMS = 1;
+        NONE = 0;
+        DO_NOT_EVER_USE_ME = 1;
+        NO_FREE_TEAMS = 2;
     }
     FailureReason failureReason = 1;
     Team team = 2;
-    GameState state = 3;
-    string sentryDsn = 4;
+    string sentryDsn = 3;
 }
 
 message TeamReadyRequest {
@@ -32,22 +31,27 @@ message TeamReadyRequest {
 }
 
 message TeamReadyResponse {
-    enum RegisterFailedReason {
-        ALREADY_REGISTERED = 0;
-        TEAM_NAME_TAKEN = 1;
+    enum FailureReason {
+        NONE = 0;
+        ALREADY_REGISTERED = 1;
+        TEAM_NAME_TAKEN = 2;
     }
-    oneof response {
-        Team team = 1;
-        RegisterFailedReason failureReason = 2;
-    }
+    FailureReason failureReason = 1;
+    Team team = 2;
 }
 
 message GetGameStateRequest {
-
 }
 
 message GetGameStateResponse {
-    GameState state = 1;
+    GameState gameState = 1;
+}
+
+message GetAppStateRequest {
+}
+
+message GetAppStateResponse {
+    AppState appState = 1;
 }
 
 message AutocompleteMemberNameRequest {
@@ -63,14 +67,14 @@ message AnswerQuestionRequest {
 }
 
 message AnswerQuestionResponse {
-    enum AnswerQuestionFailedReason {
-        SUCCESS = 0;
+    enum FailureReason {
+        NONE = 0;
         NOT_IDENTIFIED = 1;
         OUT_OF_RANGE = 2;
         INVALID_STATE = 3;
         ALREADY_ANSWERED = 4;
     }
-    AnswerQuestionFailedReason failureReason = 1;
+    FailureReason failureReason = 1;
 }
 
 message UnknownRequestResponse {
@@ -90,8 +94,9 @@ message RpcRequest {
         IdentifyUserRequest identifyUserRequest = 1;
         TeamReadyRequest teamReadyRequest = 2;
         GetGameStateRequest getGameStateRequest = 3;
-        AutocompleteMemberNameRequest autocompleteMemberNameRequest = 4;
-        AnswerQuestionRequest answerQuestionRequest = 5;
+        GetAppStateRequest getAppStateRequest = 4;
+        AutocompleteMemberNameRequest autocompleteMemberNameRequest = 5;
+        AnswerQuestionRequest answerQuestionRequest = 6;
         bigsciencequiz.admin.AdminGetQuestionsRequest adminGetQuestionsRequest = 101;
         bigsciencequiz.admin.AdminSetActiveQuestionRequest adminSetActiveQuestionRequest = 102;
         bigsciencequiz.admin.AdminResetStateRequest adminResetStateRequest = 103;
@@ -106,8 +111,9 @@ message RpcResponse {
         IdentifyUserResponse identifyUserResponse = 1;
         TeamReadyResponse teamReadyResponse = 2;
         GetGameStateResponse getGameStateResponse = 3;
-        AutocompleteMemberNameResponse autocompleteMemberNameResponse = 4;
-        AnswerQuestionResponse answerQuestionResponse = 5;
+        GetAppStateResponse getAppStateResponse = 4;
+        AutocompleteMemberNameResponse autocompleteMemberNameResponse = 5;
+        AnswerQuestionResponse answerQuestionResponse = 6;
         bigsciencequiz.admin.AdminGetQuestionsResponse adminGetQuestionsResponse = 101;
         bigsciencequiz.admin.AdminSetActiveQuestionResponse adminSetActiveQuestionResponse = 102;
         bigsciencequiz.admin.AdminResetStateResponse adminResetStateResponse = 103;

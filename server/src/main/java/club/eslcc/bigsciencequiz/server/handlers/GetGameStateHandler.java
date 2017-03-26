@@ -15,7 +15,7 @@ public class GetGameStateHandler implements IRpcHandler {
         RpcResponse.Builder builder = RpcResponse.newBuilder();
         GetGameStateResponse.Builder responseBuilder = GetGameStateResponse.newBuilder();
 
-        responseBuilder.setState(RedisHelpers.getGameState(currentUserId));
+        responseBuilder.setGameState(RedisHelpers.getGameState());
         builder.setGetGameStateResponse(responseBuilder);
 
         return builder.build();

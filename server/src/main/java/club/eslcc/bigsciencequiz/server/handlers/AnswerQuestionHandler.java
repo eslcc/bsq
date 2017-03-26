@@ -3,6 +3,7 @@ package club.eslcc.bigsciencequiz.server.handlers;
 import static club.eslcc.bigsciencequiz.proto.Rpc.*;
 import static club.eslcc.bigsciencequiz.server.RpcHelpers.itos;
 
+import club.eslcc.bigsciencequiz.proto.Appstate;
 import club.eslcc.bigsciencequiz.proto.Gamestate;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.server.IRpcHandler;
@@ -24,25 +25,28 @@ public class AnswerQuestionHandler implements IRpcHandler {
             AnswerQuestionResponse.Builder responseBuilder = AnswerQuestionResponse.newBuilder();
 
             if (currentUserId == null) {
-                responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.NOT_IDENTIFIED);
+                responseBuilder.setFailureReason(AnswerQuestionResponse.FailureReason.NOT_IDENTIFIED);
             } else {
-                Gamestate.GameState state = RedisHelpers.getGameState(currentUserId);
-                if (!(state.getState() == Gamestate.GameState.State.QUESTION_ANSWERING || state.getState() == Gamestate.GameState.State.QUESTION_LIVEANSWERS)) {
-                    responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.INVALID_STATE);
+                Appstate.AppState appState = RedisHelpers.getAppState(currentUserId);
+                Gamestate.GameState gameState = appState.getGameState();
+
+                if (gameState.getState() != Gamestate.GameState.State.QUESTION_ANSWERING
+                 && gameState.getState() != Gamestate.GameState.State.QUESTION_LIVEANSWERS) {
+                    responseBuilder.setFailureReason(AnswerQuestionResponse.FailureReason.INVALID_STATE);
                 } else {
-                    if (state.getMyCurrentQuestionAnswer() != 0) {
-                        responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.ALREADY_ANSWERED);
+                    if (appState.getUserAnswer() != 0) {
+                        responseBuilder.setFailureReason(AnswerQuestionResponse.FailureReason.ALREADY_ANSWERED);
                     } else {
                         int answer = request.getAnswerId();
-                        QuestionOuterClass.Question currentQuestion = state.getCurrentQuestion();
+                        QuestionOuterClass.Question currentQuestion = gameState.getCurrentQuestion();
                         if (answer < currentQuestion.getAnswers(0).getId() || answer > currentQuestion.getAnswers(currentQuestion.getAnswersCount() - 1).getId()) {
-                            responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.OUT_OF_RANGE);
+                            responseBuilder.setFailureReason(AnswerQuestionResponse.FailureReason.OUT_OF_RANGE);
                         } else {
                             String teamId = jedis.hget("devices", currentUserId);
                             jedis.hset("answers", teamId, itos(answer));
                             jedis.zincrby("answer_counts", 1, itos(answer));
                             jedis.publish("game_events", "live_answers");
-                            responseBuilder.setFailureReason(AnswerQuestionResponse.AnswerQuestionFailedReason.SUCCESS);
+                            responseBuilder.setFailureReason(AnswerQuestionResponse.FailureReason.NONE);
                         }
                     }
                 }

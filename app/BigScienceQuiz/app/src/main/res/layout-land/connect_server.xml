@@ -74,7 +74,8 @@
         android:layout_alignLeft="@+id/start_button"
         android:layout_alignRight="@+id/start_button"
         android:layout_alignStart="@+id/start_button"
-        android:layout_below="@+id/bsq_logo"
+        android:layout_below="@id/start_button"
+        app:layout_marginTopPercent="2%"
         android:text="@string/close"/>
 
 </android.support.percent.PercentRelativeLayout>

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/small_space_margin"
+        app:layout_marginTopPercent="5%"
         android:gravity="center"
         android:labelFor="@+id/team_members"
         android:text="@string/team_members_label"
@@ -19,8 +19,8 @@
     <TextView
         android:id="@+id/team_number"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/small_space_margin"
-        android:layout_marginStart="@dimen/small_space_margin"
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginStartPercent="2.5%"
         android:background="@drawable/logo_circle"
         android:ems="10"
         android:gravity="center"
@@ -32,29 +32,27 @@
     <ListView
         android:id="@+id/team_members"
         android:layout_width="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/team_number"
         android:layout_below="@+id/team_members_label"
-        android:layout_marginEnd="@dimen/small_space_margin"
-        android:layout_marginLeft="@dimen/small_space_margin"
-        android:layout_marginRight="@dimen/small_space_margin"
-        android:layout_marginStart="@dimen/small_space_margin"
-        android:layout_marginTop="@dimen/small_space_margin"
         android:layout_toEndOf="@id/team_number"
         android:layout_toRightOf="@id/team_number"
-        app:layout_heightPercent="50%"/>
+        app:layout_heightPercent="50%"
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginStartPercent="2.5%"
+        app:layout_marginRightPercent="2.5%"
+        app:layout_marginEndPercent="2.5%"
+        app:layout_marginTopPercent="5%"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/team_name_layout"
-        app:layout_widthPercent="70%"
         android:layout_height="wrap_content"
         android:layout_below="@+id/team_number"
-        android:layout_marginEnd="@dimen/small_space_margin"
-        android:layout_marginLeft="@dimen/small_space_margin"
-        android:layout_marginRight="@dimen/small_space_margin"
-        android:layout_marginStart="@dimen/small_space_margin"
-        android:layout_marginTop="@dimen/small_space_margin"
-        >
+        app:layout_marginLeftPercent="2.5%"
+        app:layout_marginStartPercent="2.5%"
+        app:layout_marginRightPercent="2.5%"
+        app:layout_marginEndPercent="2.5%"
+        app:layout_marginTopPercent="5%"
+        app:layout_widthPercent="80%">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/team_name"
@@ -66,13 +64,15 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/team_name_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/team_name_layout"
         android:layout_toEndOf="@+id/team_name_layout"
         android:layout_toRightOf="@+id/team_name_layout"
         android:clickable="true"
-        app:fabSize="mini"
+        app:fabSize="normal"
+        app:layout_aspectRatio="100%"
+        app:layout_widthPercent="50%"
+        app:layout_marginRightPercent="2.5%"
+        app:layout_marginEndPercent="2.5%"
         app:srcCompat="@android:drawable/ic_media_play"/>
 
 </android.support.percent.PercentRelativeLayout>

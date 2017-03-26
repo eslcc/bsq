@@ -27,7 +27,7 @@ public class LoadQuestionsCallback implements IStartupCallback {
     @Override
     public void onStartup() {
         try (Jedis jedis = Redis.pool.getResource()) {
-            try (InputStream fis = getClass().getResourceAsStream(Server.questionFile)) {
+            try (InputStream fis = getClass().getResourceAsStream(Server.QUESTIONS)) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = factory.newDocumentBuilder();
                 Document doc = documentBuilder.parse(fis);
