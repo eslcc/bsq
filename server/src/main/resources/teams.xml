@@ -1,95 +1,49 @@
 <teams>
-    <team number="1">
+    <team number="1" class="junior">
         <participant>Dude NUMBER1</participant>
         <participant>Dude NUMBER2</participant>
         <participant>Dude NUMBER3</participant>
         <participant>Dude NUMBER4</participant>
+        <participant>Dude NUMBER5</participant>
+        <participant>Dude NUMBER6</participant>
+        <participant>Dude NUMBER7</participant>
+        <participant>Dude NUMBER8</participant>
     </team>
-    <team number="2">
+    <team number="2" class="junior">
+        <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
+        <participant>Vidminas MIKUČIONIS</participant>
+        <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>
+        <participant>DAVID VON FRANQUEMONT Constantin Henri Nicolas</participant>
+        <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
+        <participant>Vidminas MIKUČIONIS</participant>
+        <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>
+        <participant>DAVID VON FRANQUEMONT Constantin Henri Nicolas</participant>
+    </team>
+    <team number="3" class="senior">
         <participant>Dude NUMBER1</participant>
         <participant>Dude NUMBER2</participant>
         <participant>Dude NUMBER3</participant>
         <participant>Dude NUMBER4</participant>
+        <participant>Dude NUMBER5</participant>
+        <participant>Dude NUMBER6</participant>
+        <participant>Dude NUMBER7</participant>
+        <participant>Dude NUMBER8</participant>
     </team>
-    <team number="3">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
+    <team number="4" class="junior">
+        <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
+        <participant>Vidminas MIKUČIONIS</participant>
+        <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>
+        <participant>DAVID VON FRANQUEMONT Constantin Henri Nicolas</participant>
+        <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
+        <participant>Vidminas MIKUČIONIS</participant>
+        <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>
+        <participant>DAVID VON FRANQUEMONT Constantin Henri Nicolas</participant>
     </team>
-    <team number="4">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="5">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="6">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="7">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="8">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="9">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="10">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="11">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="12">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="13">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="14">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="15">
-        <participant>Dude NUMBER1</participant>
-        <participant>Dude NUMBER2</participant>
-        <participant>Dude NUMBER3</participant>
-        <participant>Dude NUMBER4</participant>
-    </team>
-    <team number="16" class="senior">
+    <team number="5" class="senior">
+        <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
+        <participant>Vidminas MIKUČIONIS</participant>
+        <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>
+        <participant>DAVID VON FRANQUEMONT Constantin Henri Nicolas</participant>
         <participant>шлюха шлюха блятьшлюха шлюха блятьшлюха шлюха блять</participant>
         <participant>Vidminas MIKUČIONIS</participant>
         <participant>DE ANDRADE KARAYIANNI-VASCONCELOS João Charalambos</participant>

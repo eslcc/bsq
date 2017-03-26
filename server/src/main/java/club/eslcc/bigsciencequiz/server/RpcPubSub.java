@@ -221,7 +221,9 @@ public class RpcPubSub extends JedisPubSub {
         byte[] data = EventHelpers.addEventFlag(event.toByteArray());
         Session session = RpcHelpers.getKeyByValue(SocketHandler.users, deviceId);
         try {
-            session.getRemote().sendBytes(ByteBuffer.wrap(data));
+            if (session != null) {
+                session.getRemote().sendBytes(ByteBuffer.wrap(data));
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

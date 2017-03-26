@@ -4,3 +4,6 @@ protoc.exe
 
 
 !node_modules/ # explicitly mark this as not-ignored
+server/src/main/resources/questions-senior\.xml
+
+server/src/main/resources/questions-junior\.xml

@@ -14,6 +14,7 @@ import static spark.Spark.*;
  */
 public class Server {
     public static final boolean PROD = System.getenv("PROD") != null;
+    public static final String questionFile = System.getenv("questions");
 
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     private static List<IStartupCallback> callbacks = Arrays.asList(

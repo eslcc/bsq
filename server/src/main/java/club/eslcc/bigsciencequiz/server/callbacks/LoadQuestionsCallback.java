@@ -3,6 +3,7 @@ package club.eslcc.bigsciencequiz.server.callbacks;
 import club.eslcc.bigsciencequiz.proto.QuestionOuterClass;
 import club.eslcc.bigsciencequiz.server.IStartupCallback;
 import club.eslcc.bigsciencequiz.server.Redis;
+import club.eslcc.bigsciencequiz.server.Server;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import redis.clients.jedis.Jedis;
@@ -26,7 +27,7 @@ public class LoadQuestionsCallback implements IStartupCallback {
     @Override
     public void onStartup() {
         try (Jedis jedis = Redis.pool.getResource()) {
-            try (InputStream fis = getClass().getResourceAsStream("/questions.xml")) {
+            try (InputStream fis = getClass().getResourceAsStream(Server.questionFile)) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = factory.newDocumentBuilder();
                 Document doc = documentBuilder.parse(fis);
