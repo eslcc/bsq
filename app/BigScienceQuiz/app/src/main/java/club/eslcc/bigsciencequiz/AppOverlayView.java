@@ -448,15 +448,8 @@ public class AppOverlayView extends RelativeLayout
                 super.onConnected(websocket, headers);
 
                 mReconnectAttempts = 0;
-
-                if (!mConnected)
-                {
-                    mConnected = true;
-                    sendIdentifyUserRequest();
-                }
-
-                else
-                    sendAppStateRequest();
+                mConnected = true;
+                sendAppStateRequest();
             }
 
             @Override

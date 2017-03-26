@@ -56,6 +56,7 @@ export default class GameStateComponent extends React.Component {
 
     render() {
         const {state} = this.props;
+
         if (typeof state === "undefined" || state === null) {
             return <div>loading state</div>;
         }
