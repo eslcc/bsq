@@ -196,7 +196,9 @@ public class RpcPubSub extends JedisPubSub {
             if (userId != null && (!userId.equals("ADMIN")) && (!userId.equals("BIGSCREEN"))) {
                 String teamId = jedis.hget("devices", userId);
                 String answer = jedis.hget("answers", teamId);
-                userAnswer = Integer.parseInt(answer);
+
+                if (answer != null)
+                    userAnswer = Integer.parseInt(answer);
             }
 
             Optional<QuestionOuterClass.Question.Answer> streamAnswer =

@@ -91,7 +91,9 @@ public class RedisHelpers {
             if (userId != null && (!userId.equals("ADMIN")) && (!userId.equals("BIGSCREEN"))) {
                 teamId = jedis.hget("devices", userId);
                 String answer = jedis.hget("answers", teamId);
-                userAnswer = Integer.parseInt(answer);
+
+                if (answer != null)
+                    userAnswer = Integer.parseInt(answer);
             }
         }
 
@@ -106,13 +108,8 @@ public class RedisHelpers {
             builder.setTeam(getTeam(teamId));
         }
 
-        if (userAnswer != -1) {
-            builder.setUserAnswer(userAnswer);
-        }
-
-        if (correctAnswer != -1) {
-            builder.setCorrectAnswer(correctAnswer);
-        }
+        builder.setUserAnswer(userAnswer);
+        builder.setCorrectAnswer(correctAnswer);
 
         return builder.build();
     }

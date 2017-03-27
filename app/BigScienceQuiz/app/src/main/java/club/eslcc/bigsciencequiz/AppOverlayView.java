@@ -251,48 +251,47 @@ public class AppOverlayView extends RelativeLayout
     private void reconnect()
     {
         if (mConnected)
-        {
             mWebSocket.disconnect();
 
-            final ProgressDialog waitDialog = new ProgressDialog(mContext);
-            waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            waitDialog.setIndeterminate(true);
-            waitDialog.setMessage("Please wait while reconnecting to server");
-            waitDialog.setCancelable(false);
+        final ProgressDialog waitDialog = new ProgressDialog(mContext);
+        waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        waitDialog.setIndeterminate(true);
+        waitDialog.setMessage("Please wait while reconnecting to server");
+        waitDialog.setCancelable(false);
 
-            if (waitDialog.getWindow() != null)
-                waitDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        if (waitDialog.getWindow() != null)
+            waitDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
 
-            waitDialog.show();
-            int min = 3000;
-            int max = 6000;
+        waitDialog.show();
+        int min = 3000;
+        int max = 6000;
 
-            Random r = new Random();
-            int randomDelay = r.nextInt(max - min + 1) + min;
+        Random r = new Random();
+        int randomDelay = r.nextInt(max - min + 1) + min;
 
-            new Handler().postDelayed(new Runnable()
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
             {
-                @Override
-                public void run()
+                try
                 {
-                    try
-                    {
-                        mWebSocket.recreate().connectAsynchronously();
-                    } catch (IOException e)
-                    {
-                        showError(e);
-                    }
-                    waitDialog.dismiss();
+                    mWebSocket.recreate().connectAsynchronously();
+                } catch (IOException e)
+                {
+                    showError(e);
                 }
-            }, randomDelay);
-        }
+                waitDialog.dismiss();
+            }
+        }, randomDelay);
     }
 
     void attemptReconnecting()
     {
         mReconnectAttempts++;
+        System.out.println("Attempting to reconnect, attempts: " + mReconnectAttempts);
 
-        if (mReconnectAttempts != 5)
+        if (mReconnectAttempts < 5)
             runOnUiThread(new Runnable()
             {
                 @Override
@@ -302,7 +301,7 @@ public class AppOverlayView extends RelativeLayout
                 }
             });
 
-        else
+        else if (mReconnectAttempts == 5)
             runOnUiThread(new Runnable()
             {
                 @Override
@@ -528,11 +527,10 @@ public class AppOverlayView extends RelativeLayout
                         break;
 
                     case QUESTION_ANSWERING:
-                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion(), false);
+                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion());
                         break;
 
                     case QUESTION_CLOSED:
-                        handleQuestionEvent(event.getGameStateChangeEvent().getNewState().getCurrentQuestion(), true);
                         break;
 
                     case READY:
@@ -613,49 +611,57 @@ public class AppOverlayView extends RelativeLayout
         {
             Sentry.init(mContext, response.getSentryDsn(), true);
 
-            changeToLayout(R.id.team_select_layout, new Runnable()
+            String teamName = response.getTeam().getTeamName().trim();
+
+            if (!teamName.isEmpty())
+                changeToLayout(R.id.waiting_layout, null);
+
+            else
             {
-                @Override
-                public void run()
+                changeToLayout(R.id.team_select_layout, new Runnable()
                 {
-                    final List<String> names = response.getTeam().getMemberNamesList();
-                    final ArrayList<String> namesArray = new ArrayList<>(names.size());
-                    namesArray.addAll(names);
-
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                            mContext, android.R.layout.simple_list_item_1, namesArray);
-
-                    final TextView teamNumber = (TextView) findViewById(R.id.team_number);
-                    final ListView teamMembers = (ListView) findViewById(R.id.team_members);
-                    final TextInputEditText teamName = (TextInputEditText) findViewById(R.id.team_name);
-                    final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
-
-                    teamNumber.setText(response.getTeam().getNumber());
-                    teamMembers.setAdapter(arrayAdapter);
-
-                    fab.setOnClickListener(new OnClickListener()
+                    @Override
+                    public void run()
                     {
-                        @Override
-                        public void onClick(View v)
+                        final List<String> names = response.getTeam().getMemberNamesList();
+                        final ArrayList<String> namesArray = new ArrayList<>(names.size());
+                        namesArray.addAll(names);
+
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                                mContext, android.R.layout.simple_list_item_1, namesArray);
+
+                        final TextView teamNumber = (TextView) findViewById(R.id.team_number);
+                        final ListView teamMembers = (ListView) findViewById(R.id.team_members);
+                        final TextInputEditText teamName = (TextInputEditText) findViewById(R.id.team_name);
+                        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.team_name_fab);
+
+                        teamNumber.setText(response.getTeam().getNumber());
+                        teamMembers.setAdapter(arrayAdapter);
+
+                        fab.setOnClickListener(new OnClickListener()
                         {
-                            String name = teamName.getText().toString().trim();
+                            @Override
+                            public void onClick(View v)
+                            {
+                                String name = teamName.getText().toString().trim();
 
-                            if (name.isEmpty())
-                                Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
+                                if (name.isEmpty())
+                                    Toast.makeText(mContext, "Please enter a team name", Toast.LENGTH_LONG).show();
 
-                            else
-                                sendTeamReadyRequest(name);
-                        }
-                    });
+                                else
+                                    sendTeamReadyRequest(name);
+                            }
+                        });
 
-                    // TODO REMOVE
-                    //throw(new RuntimeException("haha"));
-                }
-            });
+                        // TODO REMOVE
+                        //throw(new RuntimeException("haha"));
+                    }
+                });
+            }
         }
     }
 
-    private void handleQuestionEvent(final QuestionOuterClass.Question question, final boolean locked)
+    private void handleQuestionEvent(final QuestionOuterClass.Question question)
     {
         changeToLayout(R.id.question_layout, new Runnable()
         {
@@ -677,42 +683,36 @@ public class AppOverlayView extends RelativeLayout
 
                 answers.setAdapter(adapter);
 
-                if (locked)
-                    adapter.disable();
-
-                else
+                answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
                 {
-                    answers.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                    private int lastSelectionView = -1;
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                     {
-                        private int lastSelectionView = -1;
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                        if (lastSelectionView == -1)
                         {
-                            if (lastSelectionView == -1)
-                            {
-                                confirmAnswerHint.setText(R.string.press_to_confirm_answer);
-                                confirmAnswerHint.setVisibility(VISIBLE);
-                                view.findViewById(R.id.answer_button).setSelected(true);
-                                lastSelectionView = position;
-                            }
-
-                            else if (lastSelectionView != position)
-                            {
-                                parent.getChildAt(lastSelectionView).findViewById(R.id.answer_button).setSelected(false);
-                                view.findViewById(R.id.answer_button).setSelected(true);
-                                lastSelectionView = position;
-                            }
-
-                            else
-                            {
-                                confirmAnswerHint.setText(R.string.confirmed_answer);
-                                adapter.disable();
-                                sendAnswerQuestionRequest(adapter.getAnswerId(position));
-                            }
+                            confirmAnswerHint.setText(R.string.press_to_confirm_answer);
+                            confirmAnswerHint.setVisibility(VISIBLE);
+                            view.findViewById(R.id.answer_button).setSelected(true);
+                            lastSelectionView = position;
                         }
-                    });
-                }
+
+                        else if (lastSelectionView != position)
+                        {
+                            parent.getChildAt(lastSelectionView).findViewById(R.id.answer_button).setSelected(false);
+                            view.findViewById(R.id.answer_button).setSelected(true);
+                            lastSelectionView = position;
+                        }
+
+                        else
+                        {
+                            confirmAnswerHint.setText(R.string.confirmed_answer);
+                            adapter.disable();
+                            sendAnswerQuestionRequest(adapter.getAnswerId(position));
+                        }
+                    }
+                });
             }
         });
     }
@@ -738,6 +738,22 @@ public class AppOverlayView extends RelativeLayout
                     break;
             }
         }
+    }
+
+    private void fillInQuestion(final QuestionOuterClass.Question question, final int userAnswer)
+    {
+        final ListView answersListView = (ListView) findViewById(R.id.question_answers);
+        ((AnswerAdapter) answersListView.getAdapter()).disable();
+
+        List<QuestionOuterClass.Question.Answer> answersList = question.getAnswersList();
+
+        for (int i = 0; i < answersList.size(); ++i)
+        {
+            if (userAnswer == answersList.get(i).getId())
+                answersListView.getChildAt(i).findViewById(R.id.answer_button).setSelected(true);
+        }
+
+        sendAnswerQuestionRequest(userAnswer);
     }
 
     private void handleAnswersRevealed(final QuestionOuterClass.Question question, final int userAnswer, final int correctAnswer)
@@ -822,15 +838,16 @@ public class AppOverlayView extends RelativeLayout
 
                 case QUESTION_ANSWERING:
                 case QUESTION_LIVEANSWERS:
-                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), false);
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion());
                     break;
 
                 case QUESTION_CLOSED:
-                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), true);
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion());
+                    fillInQuestion(appState.getGameState().getCurrentQuestion(), appState.getUserAnswer());
                     break;
 
                 case QUESTION_ANSWERS_REVEALED:
-                    handleQuestionEvent(appState.getGameState().getCurrentQuestion(), true);
+                    handleQuestionEvent(appState.getGameState().getCurrentQuestion());
                     handleAnswersRevealed(appState.getGameState().getCurrentQuestion(),
                             appState.getUserAnswer(),
                             appState.getCorrectAnswer());
