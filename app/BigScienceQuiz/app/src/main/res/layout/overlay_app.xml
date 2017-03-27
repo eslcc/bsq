@@ -28,6 +28,10 @@
             layout="@layout/wait_for_start"/>
 
         <include
+            android:id="@+id/please_wait_layout"
+            layout="@layout/please_wait"/>
+
+        <include
             android:id="@+id/question_layout"
             layout="@layout/question"/>
     </ViewFlipper>

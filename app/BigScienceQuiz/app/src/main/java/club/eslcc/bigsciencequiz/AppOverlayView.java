@@ -372,12 +372,19 @@ public class AppOverlayView extends RelativeLayout
 
     private void sendAppStateRequest()
     {
-        Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
-        Rpc.GetAppStateRequest.Builder requestBuilder = Rpc.GetAppStateRequest.newBuilder();
-        builder.setGetAppStateRequest(requestBuilder);
-        byte[] data = builder.build().toByteArray();
-        mWebSocket.sendBinary(data);
-        System.out.println("Sent AppStateRequest");
+        changeToLayout(R.id.please_wait_layout, new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Rpc.RpcRequest.Builder builder = Rpc.RpcRequest.newBuilder();
+                Rpc.GetAppStateRequest.Builder requestBuilder = Rpc.GetAppStateRequest.newBuilder();
+                builder.setGetAppStateRequest(requestBuilder);
+                byte[] data = builder.build().toByteArray();
+                mWebSocket.sendBinary(data);
+                System.out.println("Sent AppStateRequest");
+            }
+        });
     }
 
     public void setup()
@@ -450,19 +457,13 @@ public class AppOverlayView extends RelativeLayout
             public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
             {
                 super.onConnected(websocket, headers);
-                mFirstConnect = false;
-
                 System.out.println("Connected");
-
                 mReconnectAttempts = 0;
 
-                if (mWebSocket.isOpen())
-                    sendAppStateRequest();
+                if (mFirstConnect)
+                    mFirstConnect = false;
 
-                else
-                {
-                    System.out.println("Didn't send AppStateRequest, Socket state: " + mWebSocket.getState().toString());
-                }
+                sendAppStateRequest();
             }
 
             @Override
@@ -539,6 +540,11 @@ public class AppOverlayView extends RelativeLayout
             case GAMESTATECHANGEEVENT:
                 switch (event.getGameStateChangeEvent().getNewState().getState())
                 {
+                    case NOTREADY:
+                    case INTRO:
+                    case STARTING:
+                        break;
+
                     case QUESTION_LIVEANSWERS:
                     case QUESTION_ANSWERS_REVEALED:
                         break;
@@ -552,6 +558,10 @@ public class AppOverlayView extends RelativeLayout
 
                     case READY:
                         changeToLayout(R.id.waiting_layout, null);
+                        break;
+
+                    case LEADERBOARD:
+                        changeToLayout(R.id.please_wait_layout, null);
                         break;
 
                     default:
