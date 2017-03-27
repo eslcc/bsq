@@ -38,14 +38,13 @@ export default class AdminInterface extends React.Component {
 
     _onStateChange(message) {
         this.setState({
-            state: message.newState,
+            gameState: message.newState,
         });
-        console.log(message);
     }
 
     _onGetGameState(message) {
         this.setState({
-            state: message.gameState,
+            gameState: message.gameState,
         });
     }
 
@@ -63,15 +62,15 @@ export default class AdminInterface extends React.Component {
                     <span style={ {color: 'red'} }>DANGER ZONE</span>
                     <br />
                     <h2>Ready clients: </h2>
-                    <ReadyClients dangerZone={this.state.dangerZone} state={this.state.state} />
+                    <ReadyClients dangerZone={this.state.dangerZone} state={this.state.gameState} />
                     <br />
                     <h2>State: </h2>
-                    <GameState dangerZone={this.state.dangerZone} state={this.state.state} />
+                    <GameState dangerZone={this.state.dangerZone} state={this.state.gameState} />
                     <br />
                     <h2>Questions: </h2>
-                    <Questions state={this.state.state} />
+                    <Questions state={this.state.gameState} />
                     <h2>Errors: </h2>
-                    <Errors state={this.state.state} />
+                    <Errors state={this.state.gameState} />
                 </div>
             );
         } else {

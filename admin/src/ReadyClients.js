@@ -39,14 +39,6 @@ export default class ReadyClients extends Component {
         AdminSocket.sendMessage(message);
     }
 
-    renderTablet(tablet) {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
-
     render() {
         const readyClients = this.state.tablets.reduce((prev, curr) => prev + (curr.ready ? 1 : 0), 0);
         const totalClients = this.state.tablets.length;
@@ -73,7 +65,16 @@ export default class ReadyClients extends Component {
                     <ul className="devices">
                         {this.state.tablets.map(tablet => (
                             <li key={tablet.deviceId} className={tablet.ready && 'ready'}>
-
+                                <b>Device: </b> {tablet.deviceId};
+                                &nbsp;
+                                <b>Team: </b> {tablet.team || 'NONE'};
+                                &nbsp;
+                                <b>Ready: </b> {!!tablet.ready ? tablet.ready.toString() : 'no'}
+                                &nbsp;
+                                <button onClick={() => this.shutdown(tablet.deviceId)}
+                                        disabled={!this.props.dangerZone}
+                                >Close App
+                                </button>
                             </li>
                         ))}
                     </ul>
