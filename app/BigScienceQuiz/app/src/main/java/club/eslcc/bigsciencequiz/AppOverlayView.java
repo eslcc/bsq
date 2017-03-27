@@ -54,8 +54,8 @@ public class AppOverlayView extends RelativeLayout
     private Context mContext;
     private ViewFlipper mViewFlipper;
     private WebSocket mWebSocket;
-    private boolean mConnected;
     private int mReconnectAttempts;
+    private boolean mFirstConnect;
 
     private void runOnUiThread(Runnable runnable)
     {
@@ -82,9 +82,9 @@ public class AppOverlayView extends RelativeLayout
         @Override
         public void onClick(View v)
         {
-            if (mConnected)
+            if (mWebSocket.isOpen())
             {
-                mConnected = false;
+                mWebSocket.sendClose();
                 mWebSocket.disconnect();
             }
 
@@ -216,7 +216,7 @@ public class AppOverlayView extends RelativeLayout
             public void onClick(DialogInterface dialog, int which)
             {
                 mReconnectAttempts = 0;
-                reconnect();
+                attemptReconnecting();
             }
         });
 
@@ -250,8 +250,11 @@ public class AppOverlayView extends RelativeLayout
 
     private void reconnect()
     {
-        if (mConnected)
+        if (mWebSocket.isOpen())
+        {
+            mWebSocket.sendClose();
             mWebSocket.disconnect();
+        }
 
         final ProgressDialog waitDialog = new ProgressDialog(mContext);
         waitDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -267,7 +270,7 @@ public class AppOverlayView extends RelativeLayout
         int max = 6000;
 
         Random r = new Random();
-        int randomDelay = r.nextInt(max - min + 1) + min;
+        final int randomDelay = r.nextInt(max - min + 1) + min;
 
         new Handler().postDelayed(new Runnable()
         {
@@ -276,7 +279,8 @@ public class AppOverlayView extends RelativeLayout
             {
                 try
                 {
-                    mWebSocket.recreate().connectAsynchronously();
+                    mWebSocket.recreate(randomDelay).connectAsynchronously();
+                    System.out.println("Actually reconnecting");
                 } catch (IOException e)
                 {
                     showError(e);
@@ -373,13 +377,14 @@ public class AppOverlayView extends RelativeLayout
         builder.setGetAppStateRequest(requestBuilder);
         byte[] data = builder.build().toByteArray();
         mWebSocket.sendBinary(data);
+        System.out.println("Sent AppStateRequest");
     }
 
     public void setup()
     {
         mViewFlipper = (ViewFlipper) findViewById(R.id.current_view);
-        mConnected = false;
         mReconnectAttempts = 0;
+        mFirstConnect = true;
 
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -445,19 +450,35 @@ public class AppOverlayView extends RelativeLayout
             public void onConnected(WebSocket websocket, Map<String, List<String>> headers) throws Exception
             {
                 super.onConnected(websocket, headers);
+                mFirstConnect = false;
+
+                System.out.println("Connected");
 
                 mReconnectAttempts = 0;
-                mConnected = true;
-                sendAppStateRequest();
+
+                if (mWebSocket.isOpen())
+                    sendAppStateRequest();
+
+                else
+                {
+                    System.out.println("Didn't send AppStateRequest, Socket state: " + mWebSocket.getState().toString());
+                }
             }
 
             @Override
             public void onConnectError(WebSocket websocket, WebSocketException exception) throws Exception
             {
                 super.onConnectError(websocket, exception);
-                mConnected = false;
-                Sentry.captureException(exception, exception.getLocalizedMessage());
-                attemptReconnecting();
+
+                if (!mFirstConnect)
+                {
+                    Sentry.captureException(exception, exception.getLocalizedMessage());
+                    attemptReconnecting();
+                    System.out.println("Socket state: " + mWebSocket.getState().toString());
+                }
+
+                else
+                    Toast.makeText(mContext, "Failed to connect, double check IP:PORT?", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -472,12 +493,8 @@ public class AppOverlayView extends RelativeLayout
             {
                 super.onDisconnected(websocket, serverCloseFrame, clientCloseFrame, closedByServer);
 
-                if (mConnected)
-                {
-                    mConnected = false;
-                    Sentry.captureMessage("Client disconnected when it shouldn't have, reconnecting");
-                    attemptReconnecting();
-                }
+                Sentry.captureMessage("Client disconnected when it shouldn't have, reconnecting");
+                attemptReconnecting();
             }
         });
 
@@ -551,8 +568,11 @@ public class AppOverlayView extends RelativeLayout
                 break;
 
             case REMOTESHUTDOWNEVENT:
-                if (mConnected)
+                if (mWebSocket.isOpen())
+                {
+                    mWebSocket.sendClose();
                     mWebSocket.disconnect();
+                }
 
                 mContext.sendBroadcast(new Intent(mContext.getString(R.string.exit_intent)));
                 break;
@@ -604,6 +624,7 @@ public class AppOverlayView extends RelativeLayout
     {
         if (!response.hasTeam())
         {
+            System.out.println("oh no, " + response.getFailureReason().toString());
             showError(response.getFailureReason().toString());
         }
 
@@ -816,7 +837,7 @@ public class AppOverlayView extends RelativeLayout
 
     private void handleAppStateResponse(final Rpc.GetAppStateResponse response)
     {
-
+        System.out.println("Got AppStateResponse");
         Appstate.AppState appState = response.getAppState();
 
         if (!appState.hasGameState())
