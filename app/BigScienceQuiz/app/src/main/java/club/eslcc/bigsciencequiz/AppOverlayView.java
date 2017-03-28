@@ -38,6 +38,7 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import com.neovisionaries.ws.client.WebSocketFrame;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -277,14 +278,16 @@ public class AppOverlayView extends RelativeLayout
             @Override
             public void run()
             {
-                try
-                {
-                    mWebSocket.recreate(randomDelay).connectAsynchronously();
+                //try
+                //{
+                    URI address = mWebSocket.getURI();
+                    connectToServer(address);
+                    //mWebSocket.recreate(randomDelay).connectAsynchronously();
                     System.out.println("Actually reconnecting");
-                } catch (IOException e)
-                {
-                    showError(e);
-                }
+                //} catch (IOException e)
+                //{
+                //    showError(e);
+                //}
                 waitDialog.dismiss();
             }
         }, randomDelay);
@@ -416,7 +419,7 @@ public class AppOverlayView extends RelativeLayout
                         @Override
                         public void onClick(View v)
                         {
-                            connectToServer(serverIP.getText().toString());
+                            connectToServer(URI.create("ws://" + serverIP.getText().toString() + "/socket"));
                         }
                     });
 
@@ -426,14 +429,14 @@ public class AppOverlayView extends RelativeLayout
         }
     }
 
-    private void connectToServer(String address)
+    private void connectToServer(URI address)
     {
         WebSocketFactory factory = new WebSocketFactory();
         factory.setConnectionTimeout(5000);
 
         try
         {
-            mWebSocket = factory.createSocket("ws://" + address + "/socket");
+            mWebSocket = factory.createSocket(address);
         } catch (IllegalArgumentException e)
         {
             Toast.makeText(mContext, "Bad server IP", Toast.LENGTH_LONG).show();
@@ -458,6 +461,7 @@ public class AppOverlayView extends RelativeLayout
             {
                 super.onConnected(websocket, headers);
                 System.out.println("Connected");
+                System.out.println("Socket state is " + mWebSocket.getState());
                 mReconnectAttempts = 0;
 
                 if (mFirstConnect)
